@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Elevations Profile</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="//jsdev.arcgis.com/3.8/js/dojo/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="//jsdev.arcgis.com/3.8/js/esri/css/esri.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script>
+      var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
+      var dojoConfig = {
+        parseOnLoad: true,
+        packages: [
+          {
+            name: "application",
+            location: package_path + '/js'
+          },
+          {
+            name: "config",
+            location: package_path + '/config'
+          },
+          {
+            name: "templateConfig",
+            location: package_path
+          }
+        ]
+      };
+    </script>
+    <script src="//jsdev.arcgis.com/3.8/"></script>
+    <script>
+      require([
+        "application/main",
+        "application/template",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/domReady!"
+      ], function (Main, Template) {
+        var supportsLocalization = true;
+        var myTemplate = new Template(supportsLocalization);
+        myTemplate.on("ready", function (config) {
+          var application = new Main(config);
+        });
+      });
+    </script>
+  </head>
+  <body class="claro">
+    <div id="mainContainer" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="gutters:false">
+      <div id="topContainer" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+        <span id="titleNode"></span>
+        <br/>
+        <span id="snippetNode"></span>
+      </div>
+      <div id="mapPane" dir="ltr" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+      <div id="infoContainer" class="appInsetBoxShadow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'leading',gutters:false">
+        <div id="descriptionPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
+          <div id="descriptionNode"></div>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+          <div id="legendNode"></div>
+        </div>
+      </div>
+      <div id="profileChartPane" class="appInsetBoxShadow" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom',splitter:true,minSize:200">
+        <div id="profileChartNode"></div>
+      </div>
+    </div>
+  </body>
+</html>

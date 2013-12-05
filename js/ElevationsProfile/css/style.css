@@ -1,0 +1,110 @@
+.elevationsProfile, .elevationsProfileChartNode {
+  height     : 100%;
+  width      : 100%;
+  min-height : 200px;
+  margin     : 0 auto 0 auto;
+  overflow   : hidden;
+}
+
+.elevationsProfileToolbar {
+  position   : absolute;
+  float      : right;
+
+  text-align : right;
+  width      : 100%;
+  padding    : 0 !important;
+  background : none !important;
+  border     : none !important;
+}
+
+.esriRTL .elevationsProfileToolbar {
+  float      : left;
+  text-align : left;
+}
+
+.elevationsProfileToolbar .dijitButtonText {
+  color       : #eee;
+  font-size   : smaller;
+  font-weight : bolder;
+}
+
+.elevationsProfileToolbar .dijitButtonNode {
+  margin        : 0;
+  padding       : 2px;
+  background    : none !important;
+  border        : solid 1px transparent !important;
+  border-radius : 3px !important;
+}
+
+.elevationsProfileToolbar .dijitHover {
+  border : solid 1px #666 !important;
+}
+
+.elevationsProfileToolbar .dijitActive {
+  border : solid 1px #333 !important;
+}
+
+.elevationsProfileToolbar .dijitArrowButtonInner {
+  background-image : url(../images/buttonArrows.png) !important;
+}
+
+.elevationsProfileMeasurePane {
+  position         : absolute;
+  float            : right;
+  top              : 32px;
+  right            : 6px;
+  width            : 250px;
+  padding          : 10px;
+  background-color : #eee;
+  color            : #333;
+  border-radius    : 4px;
+  border           : solid 1px silver !important;
+  font-size        : smaller;
+}
+
+.elevationsProfileLabel {
+  color       : #eee;
+  font-weight : bolder;
+  font-size   : 0.7em;
+  line-height : 1.0em;
+}
+
+.elevationsProfileGainLossLabel {
+  width       : 30%;
+  position    : absolute;
+  bottom      : 10px;
+  left        : 10px;
+  text-align  : left;
+  white-space : nowrap;
+  display     : inline-block;
+  position    : absolute;
+}
+
+.esriRTL .elevationsProfileGainLossLabel {
+  right      : 10px;
+  text-align : right;
+}
+
+.elevationsProfileSourceLabel {
+  width         : 30%;
+  position      : absolute;
+  bottom        : 10px;
+  right         : 10px;
+  text-align    : right;
+  overflow      : hidden;
+  white-space   : nowrap;
+  word-break    : keep-all;
+  word-wrap     : normal;
+  text-overflow : ellipsis;
+}
+
+.esriRTL .elevationsProfileSourceLabel {
+  left       : 10px;
+  text-align : left;
+}
+
+.elevationsProfilePopupRequirementLabel {
+  color        : #ccc;
+  padding-left : 6px;
+  font-size    : smaller;
+}

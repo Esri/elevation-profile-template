@@ -1,0 +1,47 @@
+{
+  "configurationSettings": [
+    {
+      "category": "<b>Map</b>",
+      "fields": [
+        {
+          "type": "string",
+          "fieldName": "webmap",
+          "label": "Web Map Id",
+          "tooltip": "The id of the web map"
+        },
+        {
+          "type": "string",
+          "fieldName": "bingmapskey",
+          "label": "Bings Map Key",
+          "tooltip": "The Bings Map key"
+        },
+        {
+          "type": "options",
+          "fieldName": "scalebarUnits",
+          "label": "Scalebar Units",
+          "tooltip": "Scalebar Units",
+          "options": [
+            {
+              "label": "METRIC (Kilometers / Meters)",
+              "value": "metric"
+            },
+            {
+              "label": "ENGLISH (Miles / Feet)",
+              "value": "english"
+            },
+            {
+              "label": "METRIC and ENGLISH",
+              "value": "dual"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "values": {
+    "webmap": "95b99082737c4b08ac3b691d271b0b14",
+    "bingmapskey": null,
+    "scalebarUnits": "dual"
+  }
+}
+

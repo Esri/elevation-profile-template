@@ -1,0 +1,177 @@
+html, body, #mainContainer {
+  padding          : 0;
+  margin           : 0;
+  height           : 100%;
+  width            : 100%;
+  font-family      : verdana, helvetica, sans-serif;
+  color            : #eee;
+  background-color : #777;
+}
+
+:focus {
+  outline : none;
+}
+
+a {
+  color : inherit;
+}
+
+/* UI container nodes */
+
+#topContainer {
+  height : 60px;
+}
+
+#topContainer .dijitContentPane {
+  border           : none !important;
+  overflow         : hidden;
+  padding          : 10px;
+  background-color : inherit;
+}
+
+#titleNode {
+  font-size : x-large;
+}
+
+#infoContainer {
+  width              : 275px;
+  background-color   : inherit !important;
+  -moz-box-shadow    : inset -1px -1px 4px #444;
+  -webkit-box-shadow : inset -1px -1px 4px #444;
+  box-shadow         : inset -1px -1px 4px #444;
+}
+
+#descriptionPane {
+  height     : auto;
+  max-height : 50%;
+}
+
+#mapPane {
+  padding : 0 !important;
+}
+
+#profileChartPane {
+  height             : 275px;
+  padding            : 0;
+  background-color   : inherit !important;
+  -moz-box-shadow    : inset -1px -1px 4px #444;
+  -webkit-box-shadow : inset -1px -1px 4px #444;
+  box-shadow         : inset -1px -1px 4px #444;
+}
+
+#topContainer {
+  border-bottom : solid 2px #444;
+}
+
+/* dijit splitters */
+
+.dijitSplitterH {
+  background-color : #444 !important;
+}
+
+.dijitSplitterHHover, .dijitSplitterHActive {
+  background-color : #444 !important;
+}
+
+.dijitSplitterHHover .dijitSplitterThumb {
+  background-color : #eee !important;
+}
+
+.dijitSplitterHHover {
+  background-image : -moz-linear-gradient(left center, #444 0px, rgba(255, 255, 255, 0) 50%, #444 100%) !important;
+  background-image : -webkit-linear-gradient(left center, #444 0px, rgba(255, 255, 255, 0) 50%, #444 100%) !important;
+  background-image : -o-linear-gradient(left center, #444 0px, rgba(255, 255, 255, 0) 50%, #444 100%) !important;
+  background-image : linear-gradient(left center, #444 0px, rgba(255, 255, 255, 0) 50%, #444 100%) !important;
+}
+
+/* Esri dijits */
+
+.esriPopup .titlePane, .dj_ie7 .esriPopup .titlePane .title {
+  color            : #eee;
+  background-color : #777;
+  font-weight      : bolder;
+}
+
+.esriAttribution {
+  padding       : 3px;
+  border-radius : 3px;
+}
+
+.esriLegendService {
+  font-size : small;
+  overflow  : hidden;
+}
+
+.esriLegendServiceLabel {
+  margin-left : 10px;
+}
+
+.esriLegendLayerLabel {
+  margin-left : 15px;
+  font-style  : italic;
+  display     : none;
+}
+
+.esriLegendLayer {
+  margin-left : 25px;
+}
+
+/* Esri SignIn Dialog */
+
+.esriSignInDialog {
+  color         : #eee !important;
+  border        : solid 1px #666 !important;
+  border-radius : 6px;
+}
+
+.esriSignInDialog .dijitDialogTitleBar {
+  border        : none !important;
+  background    : #555 none !important;
+  border        : none !important;
+  border-radius : 4px 4px 0 0;
+}
+
+.esriSignInDialog .dijitDialogTitle {
+  color       : #eee;
+  font-weight : bolder !important;
+}
+
+.esriSignInDialog .dijitDialogPaneContent {
+  border           : none !important;
+  background-color : #555 !important;
+  border-radius    : 0 0 4px 4px;
+}
+
+.esriSignInDialog .dijitDialogPaneContentArea {
+  background-color : #555 !important;
+  border           : none !important;
+}
+
+.esriSignInDialog .dijitDialogPaneActionBar {
+  background-color : #555 !important;
+  border           : none !important;
+  border-radius    : 0 0 4px 4px;
+}
+
+.esriSignInDialog .dijitButtonNode {
+  background   : #333 !important;
+  border-color : #555 !important;
+}
+
+.esriSignInDialog .dijitButtonNode:hover {
+  box-shadow : 0 0 5px #222;
+}
+
+.esriSignInDialog .dijitButtonText {
+  color : #ccc !important;
+}
+
+.esriSignInDialog .dijitButtonText:hover {
+  color : #eee !important;
+}
+
+.esriSignInDialog a {
+  color : #eee !important;
+}
+
+

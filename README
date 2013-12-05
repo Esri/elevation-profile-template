@@ -1,0 +1,5 @@
+A configurable template that displays a web map from ArcGIS.com and allows you to generate an elevation profile for a measured line.
+This template is part of the ArcGIS.com template gallery. These templates can be accessed from the ArcGIS.com map viewer Share window or from the Web Application Templates group.
+When accessed from the map viewer the templates can be published as a hosted application or you can download the template ZIP file to install on your web server.
+
+This template uses the Elevation Analysis services available on ArcGIS Online.  To learn more about these services please visit https://developers.arcgis.com/en/rest/elevation/
