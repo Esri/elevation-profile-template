@@ -1,7 +1,7 @@
 define([], function () {
   var defaults = {
     "appid": "",
-    "webmap": "95b99082737c4b08ac3b691d271b0b14",
+    "webmap": "8dd583ea3de64e40b92ea5a261d0c6c8",
     "oauthappid": null,
     "proxyurl": "",
     "bingmapskey": null,

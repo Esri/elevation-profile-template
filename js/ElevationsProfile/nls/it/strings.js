@@ -11,18 +11,18 @@
   },
   buttons: {
     measureLabel: "Misura",
-    helpLabel: "Help"
+    helpLabel: "Guida"
   },
   chart: {
     title: "Profilo di elevazione",
-    demResolution: "DEM Resolution",
+    demResolution:"Risoluzione DEM",
     elevationTitleTemplate: "Elevazione in {0}",
     distanceTitleTemplate: "Distanza in {0}",
     gainLossTemplate: "Min: {min}   Max: {max}   Inizio: {start}   Fine: {end}   Variazione: {gainloss}"
   },
   errors: {
-    MissingConstructorParameters: 'Parametro constructor mancante.',
-    InvalidConfiguration: 'Configurazione non valida.',
-    UnableToProcessResults: "Unable to process analysis results."
+    MissingConstructorParameters: "Parametro constructor mancante.",
+    InvalidConfiguration: "Configurazione non valida.",
+    UnableToProcessResults: "Impossibile elaborare i risultati dell\'analisi."
   }
 });

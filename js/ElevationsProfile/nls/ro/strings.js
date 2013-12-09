@@ -11,18 +11,18 @@
   },
   buttons: {
     measureLabel: "Măsurare",
-    helpLabel: "Help"
+    helpLabel: "Ajutor"
   },
   chart: {
     title: "Profil elevaţie",
-    demResolution: "DEM Resolution",
+    demResolution:"DEM Resolution",
     elevationTitleTemplate: "Elevaţie în {0}",
     distanceTitleTemplate: "Distanţă în {0}",
     gainLossTemplate: "Min.:{min}   Max.:{max}   Pornire:{start}   Sfârşit:{end}   Modificare:{gainloss}"
   },
   errors: {
-    MissingConstructorParameters: 'Lipsesc parametrii constructorului.',
-    InvalidConfiguration: 'Configuraţie nevalidă.',
+    MissingConstructorParameters: "Lipsesc parametrii constructorului.",
+    InvalidConfiguration: "Configuraţie nevalidă.",
     UnableToProcessResults: "Unable to process analysis results."
   }
 });

@@ -3,26 +3,26 @@
     elevationProfileTitle: "Aukščių profilis",
     showMe: "parodyti",
     selectLine: "<b>Pažymėti</b> elementą žemėlapyje.",
-    popupRequirement: "PASTABA: elementas turi būti sluoksnyje, turinčiame iškylančius langus.",
+    popupRequirement: "PASTABA: elementas turi būti sluoksnyje, turinčiame iškylantys langus.",
     digitizeDistanceMeasureTool: "Naudokite <b>Matavimo</b> įrankius.",
-    selectFeatureHelpUrl: "http://help.arcgis.com/lt/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",
-    measureToolHelpUrl: "http://help.arcgis.com/lt/arcgisonline/help/index.html#//010q00000096000000",
+    selectFeatureHelpUrl: "http://help.arcgis.com/en/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",
+    measureToolHelpUrl: "http://help.arcgis.com/en/arcgisonline/help/index.html#//010q00000096000000",
     hoverOver: "Aukščiams ir jų vietai žemėlapyje parodyti, užveskite virš arba palieskite aukščių profilio diagramą."
   },
   buttons: {
     measureLabel: "Matuoti",
-    helpLabel: "Help"
+    helpLabel: "Pagalba"
   },
   chart: {
     title: "Aukščių profilis",
-    demResolution: "DEM Resolution",
+    demResolution:"DEM raiška",
     elevationTitleTemplate: "Aukštis {0}",
     distanceTitleTemplate: "Atstumas {0}",
     gainLossTemplate: "Min:{min}   Maks:{max}   Pradžia:{start}   Pabaiga:{end}   Pokytis:{gainloss}"
   },
   errors: {
-    MissingConstructorParameters: 'Konstruktoriui trūksta parametrų.',
-    InvalidConfiguration: 'Neteisinga konfigūracija',
-    UnableToProcessResults: "Unable to process analysis results."
+    MissingConstructorParameters: "Konstruktoriui trūksta parametrų.",
+    InvalidConfiguration: "Neteisinga konfigūracija",
+    UnableToProcessResults: "Neįmanoma apdoroti analizės rezultatų."
   }
 });

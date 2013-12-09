@@ -11,18 +11,18 @@
   },
   buttons: {
     measureLabel: "Messen",
-    helpLabel: "Help"
+    helpLabel: "Hilfe"
   },
   chart: {
     title: "Höhenprofil",
-    demResolution: "DEM Resolution",
+    demResolution:"DEM-Auflösung",
     elevationTitleTemplate: "Höhe in {0}",
     distanceTitleTemplate: "Entfernung in {0}",
     gainLossTemplate: "Min.:{min}   Max.:{max}   Start:{start}   Ende:{end}   Veränderung:{gainloss}"
   },
   errors: {
-    MissingConstructorParameters: 'Fehlender Konstruktorparameter.',
-    InvalidConfiguration: 'Ungültige Konfiguration.',
-    UnableToProcessResults: "Unable to process analysis results."
+    MissingConstructorParameters: "Fehlender Konstruktorparameter.",
+    InvalidConfiguration: "Ungültige Konfiguration.",
+    UnableToProcessResults: "Analyseergebnisse können nicht verarbeitet werden."
   }
 });

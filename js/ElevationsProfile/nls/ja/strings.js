@@ -11,18 +11,18 @@
   },
   buttons: {
     measureLabel: "計測",
-    helpLabel: "Help"
+    helpLabel: "ヘルプ"
   },
   chart: {
     title: "標高グラフ",
-    demResolution: "DEM Resolution",
+    demResolution:"DEM 解像度",
     elevationTitleTemplate: "標高 ({0})",
     distanceTitleTemplate: "距離 ({0})",
     gainLossTemplate: "最小: {min}   最大: {max}   始点: {start}   終点: {end}   標高差: {gainloss}"
   },
   errors: {
-    MissingConstructorParameters: 'コンストラクタ パラメータが見つかりません。',
-    InvalidConfiguration: '構成が無効です。',
-    UnableToProcessResults: "Unable to process analysis results."
+    MissingConstructorParameters: "コンストラクタ パラメータが見つかりません。",
+    InvalidConfiguration: "構成が無効です。",
+    UnableToProcessResults: "解析結果を処理できません。"
   }
 });

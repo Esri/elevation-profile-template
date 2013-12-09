@@ -11,18 +11,18 @@
   },
   buttons: {
     measureLabel: "측정",
-    helpLabel: "Help"
+    helpLabel: "도움말"
   },
   chart: {
     title: "언덕 프로필",
-    demResolution: "DEM Resolution",
+    demResolution:"DEM 해상도",
     elevationTitleTemplate: "언덕({0})",
     distanceTitleTemplate: "거리({0})",
     gainLossTemplate: "분:{min}   최대:{max}   시작:{start}   종료:{end}   변경:{gainloss}"
   },
   errors: {
-    MissingConstructorParameters: '생성자 매개변수가 누락되었습니다.',
-    InvalidConfiguration: '유효하지 않은 구성입니다.',
-    UnableToProcessResults: "Unable to process analysis results."
+    MissingConstructorParameters: "생성자 매개변수가 누락되었습니다.",
+    InvalidConfiguration: "유효하지 않은 구성입니다.",
+    UnableToProcessResults: "분석 결과를 처리할 수 없습니다."
   }
 });
