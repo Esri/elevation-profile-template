@@ -15,7 +15,7 @@
   },
   chart: {
     title: "Profil elevaţie",
-    demResolution:"DEM Resolution",
+    demResolution:"Rezoluţie DEM",
     elevationTitleTemplate: "Elevaţie în {0}",
     distanceTitleTemplate: "Distanţă în {0}",
     gainLossTemplate: "Min.:{min}   Max.:{max}   Pornire:{start}   Sfârşit:{end}   Modificare:{gainloss}"
@@ -23,6 +23,6 @@
   errors: {
     MissingConstructorParameters: "Lipsesc parametrii constructorului.",
     InvalidConfiguration: "Configuraţie nevalidă.",
-    UnableToProcessResults: "Unable to process analysis results."
+    UnableToProcessResults: "Nu se pot procesa rezultatele analizei."
   }
 });

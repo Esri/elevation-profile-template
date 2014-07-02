@@ -16,8 +16,8 @@
   chart: {
     title: "פרופיל גבהים",
     demResolution:"רזולוצית DEM",
-    elevationTitleTemplate: "גובה ב {0}",
-    distanceTitleTemplate: "מרחק ב {0}",
+    elevationTitleTemplate: "גובה ב{0}",
+    distanceTitleTemplate: "מרחק ב{0}",
     gainLossTemplate: "מינימום:{min}   מקסימום:{max}   התחלה:{start}   סוף:{end}   שינוי:{gainloss}"
   },
   errors: {

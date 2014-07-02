@@ -7,7 +7,7 @@
     digitizeDistanceMeasureTool: "Используйте инструменты группы <b>Измерение</b>.",
     selectFeatureHelpUrl: "http://help.arcgis.com/ru/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",
     measureToolHelpUrl: "http://help.arcgis.com/ru/arcgisonline/help/index.html#//010q00000096000000",
-    hoverOver: "Наведите курсор мыши или щелкните диаграмму профиля высот для отображения высот и местоположений на карте."
+    hoverOver: "Наведите курсор мыши или щелкните график профиля рельефа для отображения высот и местоположений на карте."
   },
   buttons: {
     measureLabel: "Измерить",

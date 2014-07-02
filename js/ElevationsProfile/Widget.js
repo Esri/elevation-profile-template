@@ -21,6 +21,7 @@ define([
   "dojo/dom-geometry",
   "dojo/dom-style",
   "dojo/dom-class",
+  "dojo/query",
   "dojo/_base/Color",
   "dojo/colors",
   "dojo/fx/easing",
@@ -48,7 +49,7 @@ define([
   "dojo/i18n!./nls/strings",
   "dojo/text!./Widget.html",
   "xstyle!./css/style.css"
-], function (Evented, _WidgetBase, _OnDijitClickMixin, _TemplatedMixin, _WidgetsInTemplateMixin, on, aspect, declare, lang, Deferred, array, number, registry, Dialog, Toolbar, ContentPane, Button, ToggleButton, put, domGeometry, domStyle, domClass, Color, colors, easing, Chart, Default, Grid, Areas, MouseIndicator, TouchIndicator, ThreeD, esriConfig, esriSniff, esriRequest, Measurement, Geoprocessor, Polyline, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, FeatureSet, LinearUnit, geodesicUtils, webMercatorUtils, Units, i18NStrings, dijitTemplate) {
+], function (Evented, _WidgetBase, _OnDijitClickMixin, _TemplatedMixin, _WidgetsInTemplateMixin, on, aspect, declare, lang, Deferred, array, number, registry, Dialog, Toolbar, ContentPane, Button, ToggleButton, put, domGeometry, domStyle, domClass,query, Color, colors, easing, Chart, Default, Grid, Areas, MouseIndicator, TouchIndicator, ThreeD, esriConfig, esriSniff, esriRequest, Measurement, Geoprocessor, Polyline, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, FeatureSet, LinearUnit, geodesicUtils, webMercatorUtils, Units, i18NStrings, dijitTemplate) {
 
   /**
    *  ElevationsProfile
@@ -65,11 +66,13 @@ define([
      * @param srcRefNode
      */
     constructor: function (options, srcRefNode) {
-      //console.log("ElevationsProfile.constructor: ", options);
+
 
       this.loaded = false;
       this.domNode = srcRefNode || put('div#profileChartNode');
       this.strings = i18NStrings;
+
+ 
 
       // TODO: REMOVE TEST URL //
       if (!options.profileTaskUrl) {
@@ -147,6 +150,7 @@ define([
           on(this._closePaneBtn, 'click', lang.hitch(this, this._toggleMeasurePane)),
           aspect.after(registry.getEnclosingWidget(this.domNode), 'resize', lang.hitch(this, this._resizeChart), true)
       );
+
     },
 
     /**
@@ -321,7 +325,9 @@ define([
      */
     _showHelp: function (hide) {
       if (this._helpDlg) {
+        this._helpDlg.set("title",i18NStrings.display.elevationProfileTitle);
         this._helpDlg.show();
+
         if (hide) {
           setTimeout(lang.hitch(this, function () {
             this._helpDlg.hide();
@@ -388,28 +394,40 @@ define([
                 // SET DEM RESOLUTION DETAILS //
                 this._sourceNode.innerHTML = lang.replace("{0}: {1}", [this.strings.chart.demResolution, profileFeature.attributes.DEMResolution]);
 
-                // GET PROFILE GEOMETRY //
-                var profileGeometry = profileFeature.geometry;
-                if (profileGeometry.paths.length > 0) {
-                  var profilePoints = profileGeometry.paths[0];
+       // GET PROFILE GEOMETRY //
+              var profileGeometry = profileFeature.geometry;
+              var allElevations = [];
+              var allDistances = [];
+   
+              if(profileGeometry.paths.length > 0) {
+                array.forEach(profileGeometry.paths, lang.hitch(this, function (profilePoints, pathIndex) {
+   
                   // ELEVATIONS //
                   var elevations = array.map(profilePoints, lang.hitch(this, function (coords, pointIndex) {
                     return {
                       x: ((coords.length > 3) ? coords[3] : (pointIndex * samplingDistance)),
-                      y: ((coords.length > 2) ? coords[2] : 0.0)
+                      y: ((coords.length > 2) ? coords[2] : 0.0),
+                      pathIdx: pathIndex,
+                      pointIdx: pointIndex
                     };
                   }));
                   // DISTANCES //
                   var distances = array.map(elevations, function (elevation) {
                     return elevation.x;
                   });
-                  // RESOLVE TASK //
-                  deferred.resolve({
-                    geometry: profileGeometry,
-                    elevations: elevations,
-                    distances: distances,
-                    samplingDistance: samplingDistance
-                  });
+   
+                  // AGGREGATE ELEVATIONS AND DISTANCES //
+                  allElevations = allElevations.concat(elevations);
+                  allDistances = allDistances.concat(distances);
+                }));
+   
+                // RESOLVE TASK //
+                deferred.resolve({
+                  geometry: profileGeometry,
+                  elevations: allElevations,
+                  distances: allDistances,
+                  samplingDistance: samplingDistance
+                });
                 } else {
                   deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
                 }
@@ -584,7 +602,7 @@ define([
 
         // UPDATE CHART //
         this.profileChart.getAxis("y").opt.min = yMin;
-        this.profileChart.getAxis("y").opt.max = yMax;
+        this.profileChart.getAxis("y").opt.max = yMax; 
         this.profileChart.getAxis("y").opt.majorTickStep = yTickStep;
         this.profileChart.getAxis("x").opt.majorTickStep = (this.samplingDistance.distance * 20);
         this.profileChart.getAxis("y").opt.title = lang.replace(this.strings.chart.elevationTitleTemplate, [this._getDisplayUnits(true)]);
@@ -760,9 +778,10 @@ define([
         }
 
         // SET GEOMETRY OF LOCATION GRAPHIC //
-        var pointIndex = (this.distances) ? array.indexOf(this.distances,chartObjectX) : -1;
-        if ((pointIndex >= 0) && (pointIndex < this.elevationData.length)) {
-          this.chartLocationGraphic.setGeometry(this.profilePolyline.getPoint(0, pointIndex));
+        var distanceIndex = (this.distances) ? array.indexOf(this.distances, chartObjectX) : -1;
+        if(distanceIndex >= 0) {
+          var elevData = this.elevationData[distanceIndex];
+          this.chartLocationGraphic.setGeometry(this.profilePolyline.getPoint(elevData.pathIdx, elevData.pointIdx));
         } else {
           this.chartLocationGraphic.setGeometry(null);
         }
