@@ -49,7 +49,7 @@ define([
   "dojo/i18n!./nls/strings",
   "dojo/text!./Widget.html",
   "xstyle!./css/style.css"
-], function (Evented, _WidgetBase, _OnDijitClickMixin, _TemplatedMixin, _WidgetsInTemplateMixin, on, aspect, declare, lang, Deferred, array, number, registry, Dialog, Toolbar, ContentPane, Button, ToggleButton, put, domGeometry, domStyle, domClass,query, Color, colors, easing, Chart, Default, Grid, Areas, MouseIndicator, TouchIndicator, ThreeD, esriConfig, esriSniff, esriRequest, Measurement, Geoprocessor, Polyline, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, FeatureSet, LinearUnit, geodesicUtils, webMercatorUtils, Units, i18NStrings, dijitTemplate) {
+], function (Evented, _WidgetBase, _OnDijitClickMixin, _TemplatedMixin, _WidgetsInTemplateMixin, on, aspect, declare, lang, Deferred, array, number, registry, Dialog, Toolbar, ContentPane, Button, ToggleButton, put, domGeometry, domStyle, domClass, query, Color, colors, easing, Chart, Default, Grid, Areas, MouseIndicator, TouchIndicator, ThreeD, esriConfig, esriSniff, esriRequest, Measurement, Geoprocessor, Polyline, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, FeatureSet, LinearUnit, geodesicUtils, webMercatorUtils, Units, i18NStrings, dijitTemplate) {
 
   /**
    *  ElevationsProfile
@@ -67,17 +67,9 @@ define([
      */
     constructor: function (options, srcRefNode) {
 
-
       this.loaded = false;
       this.domNode = srcRefNode || put('div#profileChartNode');
       this.strings = i18NStrings;
-
- 
-
-      // TODO: REMOVE TEST URL //
-      if (!options.profileTaskUrl) {
-        options.profileTaskUrl = "http://ec2-54-205-240-130.compute-1.amazonaws.com:6080/arcgis/rest/services/Tools/Profile/GPServer";
-      }
 
       // ESRI MAP //
       this.map = null;
@@ -89,7 +81,7 @@ define([
       /**
        * MAKE SURE WE HAVE REQUIRED PARAMETERS
        */
-      if ((!options.map) || (!options.profileTaskUrl) || (!options.scalebarUnits)) {
+      if((!options.map) || (!options.profileTaskUrl) || (!options.scalebarUnits)) {
         console.error(this.strings.errors.MissingConstructorParameters);
 
       } else {
@@ -158,11 +150,11 @@ define([
      */
     startup: function () {
       this.inherited(arguments);
-      if ((!this.map) || (!this.profileTaskUrl) || (!this.scalebarUnits)) {
+      if((!this.map) || (!this.profileTaskUrl) || (!this.scalebarUnits)) {
         this.emit('error', new Error(this.strings.errors.MissingConstructorParameters));
         this.destroy();
       } else {
-        if (this.map.loaded) {
+        if(this.map.loaded) {
           this._initUI();
         } else {
           this.map.on("load", this._initUI);
@@ -205,30 +197,30 @@ define([
     _initProfileService: function () {
       var deferred = new Deferred();
 
-      if (this.profileServiceUrl) {
+      if(this.profileServiceUrl) {
         // MAKE SURE PROFILE SERVICE IS AVAILABLE //
         esriRequest({
           url: this.profileServiceUrl,
           content: {f: 'json'},
           callbackParamName: "callback"
         }).then(lang.hitch(this, function (taskInfo) {
-              //console.log("GP Service Details: ", taskInfo);
+          //console.log("GP Service Details: ", taskInfo);
 
-              // TASK DETAILS //
-              this.taskInfo = taskInfo;
+          // TASK DETAILS //
+          this.taskInfo = taskInfo;
 
-              // CREATE GP PROFILE SERVICE //
-              this.profileService = new Geoprocessor(this.profileServiceUrl);
-              this.profileService.setOutSpatialReference(this.map.spatialReference);
+          // CREATE GP PROFILE SERVICE //
+          this.profileService = new Geoprocessor(this.profileServiceUrl);
+          this.profileService.setOutSpatialReference(this.map.spatialReference);
 
-              // SAMPLING DISTANCE //
-              this.samplingDistance = new LinearUnit();
-              this.samplingDistance.units = Units.METERS;
+          // SAMPLING DISTANCE //
+          this.samplingDistance = new LinearUnit();
+          this.samplingDistance.units = Units.METERS;
 
-              deferred.resolve();
-            }), lang.hitch(this, function (error) {
-              deferred.reject(error);
-            }));
+          deferred.resolve();
+        }), lang.hitch(this, function (error) {
+          deferred.reject(error);
+        }));
       } else {
         deferred.reject(new Error(this.strings.errors.InvalidConfiguration));
       }
@@ -310,7 +302,7 @@ define([
      * @private
      */
     _onMeasureEnd: function (evt) {
-      if (evt.toolName === "distance") {
+      if(evt.toolName === "distance") {
         this.displayProfileChart(evt.geometry);
         // UPDATE THE CHART WHEN USER CHANGES UNITS //
         aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._upateProfileChart), true);
@@ -324,11 +316,11 @@ define([
      * @private
      */
     _showHelp: function (hide) {
-      if (this._helpDlg) {
-        this._helpDlg.set("title",i18NStrings.display.elevationProfileTitle);
+      if(this._helpDlg) {
+        this._helpDlg.set("title", i18NStrings.display.elevationProfileTitle);
         this._helpDlg.show();
 
-        if (hide) {
+        if(hide) {
           setTimeout(lang.hitch(this, function () {
             this._helpDlg.hide();
           }), 4000);
@@ -344,7 +336,7 @@ define([
     _mapFeatureSelectionChange: function () {
       var selectedFeature = this.map.infoWindow.getSelectedFeature();
       var isPolyline = (selectedFeature && (selectedFeature.geometry.type === 'polyline'));
-      if (isPolyline) {
+      if(isPolyline) {
         this.displayProfileChart(selectedFeature.geometry);
       } else {
         this.clearProfileChart();
@@ -385,59 +377,59 @@ define([
         "returnM": true
       }).then(lang.hitch(this, function (results) {
 
-            // GET RESULT //
-            if (results.length > 0) {
-              var profileOutput = results[0].value;
-              // GET PROFILE FEATURE //
-              if (profileOutput.features.length > 0) {
-                var profileFeature = profileOutput.features[0];
-                // SET DEM RESOLUTION DETAILS //
-                this._sourceNode.innerHTML = lang.replace("{0}: {1}", [this.strings.chart.demResolution, profileFeature.attributes.DEMResolution]);
+        // GET RESULT //
+        if(results.length > 0) {
+          var profileOutput = results[0].value;
+          // GET PROFILE FEATURE //
+          if(profileOutput.features.length > 0) {
+            var profileFeature = profileOutput.features[0];
+            // SET DEM RESOLUTION DETAILS //
+            this._sourceNode.innerHTML = lang.replace("{0}: {1}", [this.strings.chart.demResolution, profileFeature.attributes.DEMResolution]);
 
-       // GET PROFILE GEOMETRY //
-              var profileGeometry = profileFeature.geometry;
-              var allElevations = [];
-              var allDistances = [];
-   
-              if(profileGeometry.paths.length > 0) {
-                array.forEach(profileGeometry.paths, lang.hitch(this, function (profilePoints, pathIndex) {
-   
-                  // ELEVATIONS //
-                  var elevations = array.map(profilePoints, lang.hitch(this, function (coords, pointIndex) {
-                    return {
-                      x: ((coords.length > 3) ? coords[3] : (pointIndex * samplingDistance)),
-                      y: ((coords.length > 2) ? coords[2] : 0.0),
-                      pathIdx: pathIndex,
-                      pointIdx: pointIndex
-                    };
-                  }));
-                  // DISTANCES //
-                  var distances = array.map(elevations, function (elevation) {
-                    return elevation.x;
-                  });
-   
-                  // AGGREGATE ELEVATIONS AND DISTANCES //
-                  allElevations = allElevations.concat(elevations);
-                  allDistances = allDistances.concat(distances);
+            // GET PROFILE GEOMETRY //
+            var profileGeometry = profileFeature.geometry;
+            var allElevations = [];
+            var allDistances = [];
+
+            if(profileGeometry.paths.length > 0) {
+              array.forEach(profileGeometry.paths, lang.hitch(this, function (profilePoints, pathIndex) {
+
+                // ELEVATIONS //
+                var elevations = array.map(profilePoints, lang.hitch(this, function (coords, pointIndex) {
+                  return {
+                    x: ((coords.length > 3) ? coords[3] : (pointIndex * samplingDistance)),
+                    y: ((coords.length > 2) ? coords[2] : 0.0),
+                    pathIdx: pathIndex,
+                    pointIdx: pointIndex
+                  };
                 }));
-   
-                // RESOLVE TASK //
-                deferred.resolve({
-                  geometry: profileGeometry,
-                  elevations: allElevations,
-                  distances: allDistances,
-                  samplingDistance: samplingDistance
+                // DISTANCES //
+                var distances = array.map(elevations, function (elevation) {
+                  return elevation.x;
                 });
-                } else {
-                  deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
-                }
-              } else {
-                deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
-              }
+
+                // AGGREGATE ELEVATIONS AND DISTANCES //
+                allElevations = allElevations.concat(elevations);
+                allDistances = allDistances.concat(distances);
+              }));
+
+              // RESOLVE TASK //
+              deferred.resolve({
+                geometry: profileGeometry,
+                elevations: allElevations,
+                distances: allDistances,
+                samplingDistance: samplingDistance
+              });
             } else {
               deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
             }
-          }), deferred.reject);
+          } else {
+            deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
+          }
+        } else {
+          deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
+        }
+      }), deferred.reject);
 
       return deferred.promise;
     },
@@ -510,7 +502,7 @@ define([
       var yTickStep = 20.0;
 
       // DID WE GET NEW ELEVATION INFORMATION //
-      if (!elevationInfo) {
+      if(!elevationInfo) {
 
         // CLEAR GRAPHIC FROM MAP //
         this._displayChartLocation(-1);
@@ -526,10 +518,14 @@ define([
         this._gainLossNode.innerHTML = "";
         this._sourceNode.innerHTML = "";
 
-        // REMOVE ELEVATION INDICATOR //
-        if (this.elevationIndicator) {
+        // REMOVE ELEVATION INDICATORS //
+        if(this.elevationIndicator) {
           this.elevationIndicator.destroy();
           this.elevationIndicator = null;
+        }
+        if(this.elevationIndicator) {
+          this.elevationIndicator2.destroy();
+          this.elevationIndicator2 = null;
         }
 
       } else {
@@ -566,11 +562,10 @@ define([
           end: elevEndStr,
           gainloss: gainlossStr
         };
-        var gainLossMessage = lang.replace(this.strings.chart.gainLossTemplate, gainLossDetails);
-        this._gainLossNode.innerHTML = gainLossMessage;
+        this._gainLossNode.innerHTML = lang.replace(this.strings.chart.gainLossTemplate, gainLossDetails);
 
-        // MOUSE/TOUCH INDICATOR //
-        if (this.elevationIndicator == null) {
+        // MOUSE/TOUCH ELEVATION INDICATOR //
+        if(this.elevationIndicator == null) {
           var indicatorProperties = {
             series: elevationDataSeriesName,
             mouseOver: true,
@@ -585,9 +580,33 @@ define([
               return this._getElevationLabel('', obj.y) + " " + this._getDisplayUnits(true);
             })
           };
-          if (esriSniff("has-touch")) {
+          // MOUSE/TOUCH ELEVATION CHANGE INDICATOR //
+          var indicatorProperties2 = {
+            series: waterDataSeriesName,
+            mouseOver: true,
+            font: "normal normal bold 8pt Tahoma",
+            fontColor: this.chartRenderingOptions.indicatorFontColor,
+            fill: this.chartRenderingOptions.indicatorFillColor,
+            fillFunc: lang.hitch(this, function (obj) {
+              var elevIndex = this.distances.indexOf(obj.x);
+              var elev = this.elevationData[elevIndex].y;
+              return (elev >= elevFirst) ? "green" : "red";
+            }),
+            offset: { y: 25, x: 30 },
+            labelFunc: lang.hitch(this, function (obj) {
+              var elevIndex = this.distances.indexOf(obj.x);
+              var elev = this.elevationData[elevIndex].y;
+              var elevUnitsLabel = this._getDisplayUnits(true);
+              var elevChangeLabel = this._getElevationLabel('', elev - elevFirst);
+              var plusMinus = ((elev - elevFirst) > 0) ? "+" : "";
+              return lang.replace("{0}{1}", [plusMinus, elevChangeLabel, elevUnitsLabel]);
+            })
+          };
+          if(esriSniff("has-touch")) {
+            this.elevationIndicator2 = new TouchIndicator(this.profileChart, "default", indicatorProperties2);
             this.elevationIndicator = new TouchIndicator(this.profileChart, "default", indicatorProperties);
           } else {
+            this.elevationIndicator2 = new MouseIndicator(this.profileChart, "default", indicatorProperties2);
             this.elevationIndicator = new MouseIndicator(this.profileChart, "default", indicatorProperties);
           }
           this.profileChart.fullRender();
@@ -598,11 +617,11 @@ define([
       var waterData = this._resetArray(this.elevationData, 0.0);
 
       // ARE WE UPDATING OR CREATING THE CHART //
-      if (this.profileChart != null) {
+      if(this.profileChart != null) {
 
         // UPDATE CHART //
         this.profileChart.getAxis("y").opt.min = yMin;
-        this.profileChart.getAxis("y").opt.max = yMax; 
+        this.profileChart.getAxis("y").opt.max = yMax;
         this.profileChart.getAxis("y").opt.majorTickStep = yTickStep;
         this.profileChart.getAxis("x").opt.majorTickStep = (this.samplingDistance.distance * 20);
         this.profileChart.getAxis("y").opt.title = lang.replace(this.strings.chart.elevationTitleTemplate, [this._getDisplayUnits(true)]);
@@ -610,7 +629,7 @@ define([
         this.profileChart.dirty = true;
         this.profileChart.updateSeries(waterDataSeriesName, waterData);
         this.profileChart.updateSeries(elevationDataSeriesName, this.elevationData);
-         // RENDER CHART //
+        // RENDER CHART //
         this.profileChart.render();
         deferred.resolve();
 
@@ -618,7 +637,7 @@ define([
 
         // MAKE SURE CHART NODE HAS VALID HEIGHT OR CHARTING WILL FAIL //
         var nodeCoords = domGeometry.position(this._chartNode, true);
-        if (nodeCoords.h < 1) {
+        if(nodeCoords.h < 1) {
           deferred.reject(new Error(this.strings.errors.InvalidConfiguration));
         }
 
@@ -755,7 +774,7 @@ define([
      * @private
      */
     _resizeChart: function () {
-      if (this.profileChart) {
+      if(this.profileChart) {
         this.profileChart.resize();
       }
     },
@@ -766,9 +785,9 @@ define([
      * @param {Number} chartObjectX
      */
     _displayChartLocation: function (chartObjectX) {
-      if (this.map && this.elevationData && this.profilePolyline) {
+      if(this.map && this.elevationData && this.profilePolyline) {
 
-        if (!this.chartLocationGraphic) {
+        if(!this.chartLocationGraphic) {
           // CREATE LOCATION GRAPHIC //
           var red = new Color(Color.named.red);
           var outline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, red, 3);
@@ -830,7 +849,7 @@ define([
      * @param {String} displayUnits
      */
     _getDisplayValue: function (valueMeters, displayUnits) {
-      if (displayUnits === this.measureTool.units.esriMeters) {
+      if(displayUnits === this.measureTool.units.esriMeters) {
         return valueMeters;
       } else {
         var distanceMiles = (valueMeters / this.measureTool.unitDictionary[this.measureTool.units.esriMeters]);
@@ -845,7 +864,7 @@ define([
      */
     _getDisplayUnits: function (isElevation) {
       var displayUnits = this.measureTool.unit.label;
-      if (isElevation) {
+      if(isElevation) {
         switch (displayUnits) {
           case this.measureTool.units.esriMiles:
             displayUnits = this.measureTool.units.esriFeet;
