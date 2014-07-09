@@ -523,7 +523,7 @@ define([
           this.elevationIndicator.destroy();
           this.elevationIndicator = null;
         }
-        if(this.elevationIndicator) {
+        if(this.elevationIndicator2) {
           this.elevationIndicator2.destroy();
           this.elevationIndicator2 = null;
         }
