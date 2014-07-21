@@ -392,25 +392,19 @@ define([
             var allDistances = [];
 
             if(profileGeometry.paths.length > 0) {
+              // POLYLINE PATHS //
               array.forEach(profileGeometry.paths, lang.hitch(this, function (profilePoints, pathIndex) {
-
-                // ELEVATIONS //
-                var elevations = array.map(profilePoints, lang.hitch(this, function (coords, pointIndex) {
-                  return {
+                // ELEVATION INFOS //
+                array.forEach(profilePoints, lang.hitch(this, function (coords, pointIndex) {
+                  var elevationInfo = {
                     x: ((coords.length > 3) ? coords[3] : (pointIndex * samplingDistance)),
                     y: ((coords.length > 2) ? coords[2] : 0.0),
                     pathIdx: pathIndex,
                     pointIdx: pointIndex
                   };
+                  allElevations.push(elevationInfo);
+                  allDistances.push(elevationInfo.x);
                 }));
-                // DISTANCES //
-                var distances = array.map(elevations, function (elevation) {
-                  return elevation.x;
-                });
-
-                // AGGREGATE ELEVATIONS AND DISTANCES //
-                allElevations = allElevations.concat(elevations);
-                allDistances = allDistances.concat(distances);
               }));
 
               // RESOLVE TASK //
@@ -564,53 +558,61 @@ define([
         };
         this._gainLossNode.innerHTML = lang.replace(this.strings.chart.gainLossTemplate, gainLossDetails);
 
-        // MOUSE/TOUCH ELEVATION INDICATOR //
-        if(this.elevationIndicator == null) {
-          var indicatorProperties = {
-            series: elevationDataSeriesName,
-            mouseOver: true,
-            font: "normal normal bold 9pt Tahoma",
-            fontColor: this.chartRenderingOptions.indicatorFontColor,
-            fill: this.chartRenderingOptions.indicatorFillColor,
-            markerFill: 'none',
-            markerStroke: { color: 'red', width: 3.0 },
-            markerSymbol: "m -6 -6, l 12 12, m 0 -12, l -12 12", // RED X //
-            labelFunc: lang.hitch(this, function (obj) {
-              this._displayChartLocation(obj.x);
-              return this._getElevationLabel('', obj.y) + " " + this._getDisplayUnits(true);
-            })
-          };
-          // MOUSE/TOUCH ELEVATION CHANGE INDICATOR //
-          var indicatorProperties2 = {
-            series: waterDataSeriesName,
-            mouseOver: true,
-            font: "normal normal bold 8pt Tahoma",
-            fontColor: this.chartRenderingOptions.indicatorFontColor,
-            fill: this.chartRenderingOptions.indicatorFillColor,
-            fillFunc: lang.hitch(this, function (obj) {
-              var elevIndex = this.distances.indexOf(obj.x);
-              var elev = this.elevationData[elevIndex].y;
-              return (elev >= elevFirst) ? "green" : "red";
-            }),
-            offset: { y: 25, x: 30 },
-            labelFunc: lang.hitch(this, function (obj) {
-              var elevIndex = this.distances.indexOf(obj.x);
-              var elev = this.elevationData[elevIndex].y;
-              var elevUnitsLabel = this._getDisplayUnits(true);
-              var elevChangeLabel = this._getElevationLabel('', elev - elevFirst);
-              var plusMinus = ((elev - elevFirst) > 0) ? "+" : "";
-              return lang.replace("{0}{1}", [plusMinus, elevChangeLabel, elevUnitsLabel]);
-            })
-          };
-          if(esriSniff("has-touch")) {
-            this.elevationIndicator2 = new TouchIndicator(this.profileChart, "default", indicatorProperties2);
-            this.elevationIndicator = new TouchIndicator(this.profileChart, "default", indicatorProperties);
-          } else {
-            this.elevationIndicator2 = new MouseIndicator(this.profileChart, "default", indicatorProperties2);
-            this.elevationIndicator = new MouseIndicator(this.profileChart, "default", indicatorProperties);
-          }
-          this.profileChart.fullRender();
+        // REMOVE ELEVATION INDICATORS //
+        if(this.elevationIndicator) {
+          this.elevationIndicator.destroy();
+          this.elevationIndicator = null;
         }
+        if(this.elevationIndicator2) {
+          this.elevationIndicator2.destroy();
+          this.elevationIndicator2 = null;
+        }
+
+        // MOUSE/TOUCH ELEVATION INDICATOR //
+        var indicatorProperties = {
+          series: elevationDataSeriesName,
+          mouseOver: true,
+          font: "normal normal bold 9pt Tahoma",
+          fontColor: this.chartRenderingOptions.indicatorFontColor,
+          fill: this.chartRenderingOptions.indicatorFillColor,
+          markerFill: 'none',
+          markerStroke: { color: 'red', width: 3.0 },
+          markerSymbol: "m -6 -6, l 12 12, m 0 -12, l -12 12", // RED X //
+          labelFunc: lang.hitch(this, function (obj) {
+            this._displayChartLocation(obj.x);
+            return this._getElevationLabel('', obj.y) + " " + this._getDisplayUnits(true);
+          })
+        };
+        // MOUSE/TOUCH ELEVATION CHANGE INDICATOR //
+        var indicatorProperties2 = {
+          series: waterDataSeriesName,
+          mouseOver: true,
+          font: "normal normal bold 8pt Tahoma",
+          fontColor: this.chartRenderingOptions.indicatorFontColor,
+          fill: this.chartRenderingOptions.indicatorFillColor,
+          fillFunc: lang.hitch(this, function (obj) {
+            var elevIndex = this.distances.indexOf(obj.x);
+            var elev = this.elevationData[elevIndex].y;
+            return (elev >= elevFirst) ? "green" : "red";
+          }),
+          offset: { y: 25, x: 30 },
+          labelFunc: lang.hitch(this, function (obj) {
+            var elevIndex = this.distances.indexOf(obj.x);
+            var elev = this.elevationData[elevIndex].y;
+            var elevUnitsLabel = this._getDisplayUnits(true);
+            var elevChangeLabel = this._getElevationLabel('', elev - elevFirst);
+            var plusMinus = ((elev - elevFirst) > 0) ? "+" : "";
+            return lang.replace("{0}{1}", [plusMinus, elevChangeLabel, elevUnitsLabel]);
+          })
+        };
+        if(esriSniff("has-touch")) {
+          this.elevationIndicator2 = new TouchIndicator(this.profileChart, "default", indicatorProperties2);
+          this.elevationIndicator = new TouchIndicator(this.profileChart, "default", indicatorProperties);
+        } else {
+          this.elevationIndicator2 = new MouseIndicator(this.profileChart, "default", indicatorProperties2);
+          this.elevationIndicator = new MouseIndicator(this.profileChart, "default", indicatorProperties);
+        }
+        this.profileChart.fullRender();
       }
 
       // FILLED ZERO ARRAY //
