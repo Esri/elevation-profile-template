@@ -365,6 +365,14 @@ define([
       var inputProfileGraphic = new Graphic(polyline, null, { OID: 1 });
       var inputLineFeatures = new FeatureSet();
       inputLineFeatures.features = [inputProfileGraphic];
+      // MAKE SURE OID FIELD IS AVAILABLE TO GP SERVICE //
+      inputLineFeatures.fields = [
+        {
+          name: 'OID',
+          type: 'esriFieldTypeObjectID',
+          alias: 'OID'
+        }
+      ];
 
       // MAKE GP REQUEST //
       this.profileService.execute({
