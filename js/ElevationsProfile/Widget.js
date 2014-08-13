@@ -121,7 +121,7 @@ define([
         this._initProfileService = lang.hitch(this, this._initProfileService);
         this.displayProfileChart = lang.hitch(this, this.displayProfileChart);
         this.clearProfileChart = lang.hitch(this, this.clearProfileChart);
-        this._upateProfileChart = lang.hitch(this, this._upateProfileChart);
+        this._updateProfileChart = lang.hitch(this, this._updateProfileChart);
         this._createProfileChart = lang.hitch(this, this._createProfileChart);
         this._getDisplayValue = lang.hitch(this, this._getDisplayValue);
       }
@@ -172,7 +172,7 @@ define([
         this._showHelp(true);
         this._initInfoWindow();
         this._initMeasureTool();
-        this._upateProfileChart();
+        this._updateProfileChart();
 
         // DIJIT SUCCESSFULLY LOADED //
         this.loaded = true;
@@ -276,8 +276,7 @@ define([
       this.measureTool.distance.on('click', lang.hitch(this, this._onMeasureClick));
 
       // UPDATE THE CHART WHEN USER CHANGES UNITS //
-      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._upateProfileChart), true);
-
+      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._updateProfileChart), true);
     },
 
     /**
@@ -302,7 +301,7 @@ define([
       if(evt.toolName === "distance") {
         this.displayProfileChart(evt.geometry);
         // UPDATE THE CHART WHEN USER CHANGES UNITS //
-        aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._upateProfileChart), true);
+        aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._updateProfileChart), true);
       }
     },
 
@@ -316,7 +315,6 @@ define([
       if(this._helpDlg) {
         this._helpDlg.set("title", i18NStrings.display.elevationProfileTitle);
         this._helpDlg.show();
-
         if(hide) {
           setTimeout(lang.hitch(this, function () {
             this._helpDlg.hide();
@@ -326,9 +324,8 @@ define([
     },
 
     /**
-     * MAP INFOWINDOW FEATURE SELECTTION CHANGE
-     *
-     * CALLED WHEN THE SELECTED FEATURE OF THE POPUP WINDOW CHANGES
+     * MAP INFOWINDOW FEATURE SELECTION CHANGE
+     *  - CALLED WHEN THE SELECTED FEATURE OF THE POPUP WINDOW CHANGES
      */
     _mapFeatureSelectionChange: function () {
       var selectedFeature = this.map.infoWindow.getSelectedFeature();
@@ -365,9 +362,9 @@ define([
       // MAKE SURE OID FIELD IS AVAILABLE TO GP SERVICE //
       inputLineFeatures.fields = [
         {
-          name: "OID",
-          type: "esriFieldTypeObjectID",
-          alias: "OID"
+          "name": "OID",
+          "type": "esriFieldTypeObjectID",
+          "alias": "OID"
         }
       ];
 
@@ -444,7 +441,7 @@ define([
       this.map.setMapCursor('wait');
       this._getProfile(geometry).then(lang.hitch(this, function (elevationInfo) {
         this.elevationInfo = elevationInfo;
-        this._upateProfileChart();
+        this._updateProfileChart();
         this.emit("display-profile", elevationInfo);
       }), lang.hitch(this, function (error) {
         this.map.setMapCursor('default');
@@ -460,10 +457,10 @@ define([
      */
     clearProfileChart: function () {
       this.elevationInfo = null;
-      this._upateProfileChart();
+      this._updateProfileChart();
       this.emit("clear-profile", {});
       // UPDATE THE CHART WHEN USER CHANGES UNITS //
-      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._upateProfileChart), true);
+      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._updateProfileChart), true);
     },
 
     /**
@@ -471,7 +468,7 @@ define([
      *
      * @private
      */
-    _upateProfileChart: function () {
+    _updateProfileChart: function () {
       this.map.setMapCursor('wait');
       this._createProfileChart(this.elevationInfo).then(lang.hitch(this, function () {
         this.map.setMapCursor('default');
@@ -510,7 +507,8 @@ define([
 
         // GEOMETRY AND ELEVATIONS //
         this.profilePolyline = null;
-        this.elevationData = this._getFilledArray(this.samplingPointCount, this.samplingDistance.distance, true);
+        var samplingDisplayDistance = this._convertDistancesArray([this.samplingDistance.distance])[0];
+        this.elevationData = this._getFilledArray(this.samplingPointCount, samplingDisplayDistance, true);
 
         // CLEAR GAIN/LOSS AND SOURCE DETAILS //
         this._gainLossNode.innerHTML = "";
@@ -532,7 +530,7 @@ define([
         this.profilePolyline = elevationInfo.geometry;
         this.elevationData = this._convertElevationsInfoArray(elevationInfo.elevations);
         this.distances = this._convertDistancesArray(elevationInfo.distances);
-        this.samplingDistance.distance = this._convertDistancesArray([elevationInfo.samplingDistance])[0];
+        this.samplingDistance.distance = this._convertDistancesArray([elevationInfo.samplingDistance.distance])[0];
 
         // CALC MIN/MAX/STEP //
         var yMinSource = this._getArrayMin(this.elevationData);
@@ -653,10 +651,8 @@ define([
         // OVERRIDE DEFAULTS //
         this.profileChart.fill = 'transparent';
         this.profileChart.theme.axis.stroke.width = 2;
-        this.profileChart.theme.axis.majorTick = {
-          color: Color.named.white.concat(0.5),
-          width: 1.0
-        };
+        this.profileChart.theme.axis.majorTick.color = Color.named.white.concat(0.5);
+        this.profileChart.theme.axis.majorTick.width = 1.0;
         this.profileChart.theme.plotarea.fill = {
           type: "linear",
           space: "plot",
@@ -840,6 +836,7 @@ define([
     },
 
     /**
+     * CONVERT ELEVATION INFO (X=DISTANCE,Y=ELEVATION) FROM METERS TO DISPLAY UNITS
      *
      * @param elevationArray
      * @returns {Array}
@@ -857,6 +854,7 @@ define([
     },
 
     /**
+     * CONVERT DISTANCES FROM METERS TO DISPLAY UNITS
      *
      * @param distancesArray
      * @returns {Array}
@@ -870,7 +868,8 @@ define([
     },
 
     /**
-     * CREATE ARRAY OF CERTAIN SIZE WITH CERTAIN VALUE AND ALLOW MULTIPLIER
+     * CREATE ARRAY WITH INPUT VALUE AND ALLOW MULTIPLIER
+     *
      * @param size
      * @param value
      * @param asMultiplier
@@ -937,6 +936,9 @@ define([
      * DESTROY DIJIT
      */
     destroy: function () {
+      if(this.profileChart) {
+        this.profileChart.destroy();
+      }
       this.inherited(arguments);
     }
 
