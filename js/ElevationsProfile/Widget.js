@@ -49,7 +49,7 @@ define([
   "dojo/i18n!./nls/strings",
   "dojo/text!./Widget.html",
   "xstyle!./css/style.css"
-], function (Evented, _WidgetBase, _OnDijitClickMixin, _TemplatedMixin, _WidgetsInTemplateMixin, on, aspect, declare, lang, Deferred, array, number, registry, Dialog, Toolbar, ContentPane, Button, ToggleButton, put, domGeometry, domStyle, domClass,query, Color, colors, easing, Chart, Default, Grid, Areas, MouseIndicator, TouchIndicator, ThreeD, esriConfig, esriSniff, esriRequest, Measurement, Geoprocessor, Polyline, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, FeatureSet, LinearUnit, geodesicUtils, webMercatorUtils, Units, i18NStrings, dijitTemplate) {
+], function (Evented, _WidgetBase, _OnDijitClickMixin, _TemplatedMixin, _WidgetsInTemplateMixin, on, aspect, declare, lang, Deferred, array, number, registry, Dialog, Toolbar, ContentPane, Button, ToggleButton, put, domGeometry, domStyle, domClass, query, Color, colors, easing, Chart, Default, Grid, Areas, MouseIndicator, TouchIndicator, ThreeD, esriConfig, esriSniff, esriRequest, Measurement, Geoprocessor, Polyline, SimpleLineSymbol, SimpleMarkerSymbol, Graphic, FeatureSet, LinearUnit, geodesicUtils, webMercatorUtils, Units, i18NStrings, dijitTemplate) {
 
   /**
    *  ElevationsProfile
@@ -67,17 +67,9 @@ define([
      */
     constructor: function (options, srcRefNode) {
 
-
       this.loaded = false;
       this.domNode = srcRefNode || put('div#profileChartNode');
       this.strings = i18NStrings;
-
- 
-
-      // TODO: REMOVE TEST URL //
-      if (!options.profileTaskUrl) {
-        options.profileTaskUrl = "http://ec2-54-205-240-130.compute-1.amazonaws.com:6080/arcgis/rest/services/Tools/Profile/GPServer";
-      }
 
       // ESRI MAP //
       this.map = null;
@@ -89,7 +81,7 @@ define([
       /**
        * MAKE SURE WE HAVE REQUIRED PARAMETERS
        */
-      if ((!options.map) || (!options.profileTaskUrl) || (!options.scalebarUnits)) {
+      if((!options.map) || (!options.profileTaskUrl) || (!options.scalebarUnits)) {
         console.error(this.strings.errors.MissingConstructorParameters);
 
       } else {
@@ -129,11 +121,8 @@ define([
         this._initProfileService = lang.hitch(this, this._initProfileService);
         this.displayProfileChart = lang.hitch(this, this.displayProfileChart);
         this.clearProfileChart = lang.hitch(this, this.clearProfileChart);
-        this._upateProfileChart = lang.hitch(this, this._upateProfileChart);
+        this._updateProfileChart = lang.hitch(this, this._updateProfileChart);
         this._createProfileChart = lang.hitch(this, this._createProfileChart);
-        this._getDistanceLabel = lang.hitch(this, this._getDistanceLabel);
-        this._getElevationLabel = lang.hitch(this, this._getElevationLabel);
-        this._getDisplayLabel = lang.hitch(this, this._getDisplayLabel);
         this._getDisplayValue = lang.hitch(this, this._getDisplayValue);
       }
 
@@ -158,11 +147,11 @@ define([
      */
     startup: function () {
       this.inherited(arguments);
-      if ((!this.map) || (!this.profileTaskUrl) || (!this.scalebarUnits)) {
+      if((!this.map) || (!this.profileTaskUrl) || (!this.scalebarUnits)) {
         this.emit('error', new Error(this.strings.errors.MissingConstructorParameters));
         this.destroy();
       } else {
-        if (this.map.loaded) {
+        if(this.map.loaded) {
           this._initUI();
         } else {
           this.map.on("load", this._initUI);
@@ -183,7 +172,7 @@ define([
         this._showHelp(true);
         this._initInfoWindow();
         this._initMeasureTool();
-        this._upateProfileChart();
+        this._updateProfileChart();
 
         // DIJIT SUCCESSFULLY LOADED //
         this.loaded = true;
@@ -205,30 +194,30 @@ define([
     _initProfileService: function () {
       var deferred = new Deferred();
 
-      if (this.profileServiceUrl) {
+      if(this.profileServiceUrl) {
         // MAKE SURE PROFILE SERVICE IS AVAILABLE //
         esriRequest({
           url: this.profileServiceUrl,
           content: {f: 'json'},
           callbackParamName: "callback"
         }).then(lang.hitch(this, function (taskInfo) {
-              //console.log("GP Service Details: ", taskInfo);
+          //console.log("GP Service Details: ", taskInfo);
 
-              // TASK DETAILS //
-              this.taskInfo = taskInfo;
+          // TASK DETAILS //
+          this.taskInfo = taskInfo;
 
-              // CREATE GP PROFILE SERVICE //
-              this.profileService = new Geoprocessor(this.profileServiceUrl);
-              this.profileService.setOutSpatialReference(this.map.spatialReference);
+          // CREATE GP PROFILE SERVICE //
+          this.profileService = new Geoprocessor(this.profileServiceUrl);
+          this.profileService.setOutSpatialReference(this.map.spatialReference);
 
-              // SAMPLING DISTANCE //
-              this.samplingDistance = new LinearUnit();
-              this.samplingDistance.units = Units.METERS;
+          // SAMPLING DISTANCE //
+          this.samplingDistance = new LinearUnit();
+          this.samplingDistance.units = Units.METERS;
 
-              deferred.resolve();
-            }), lang.hitch(this, function (error) {
-              deferred.reject(error);
-            }));
+          deferred.resolve();
+        }), lang.hitch(this, function (error) {
+          deferred.reject(error);
+        }));
       } else {
         deferred.reject(new Error(this.strings.errors.InvalidConfiguration));
       }
@@ -287,8 +276,7 @@ define([
       this.measureTool.distance.on('click', lang.hitch(this, this._onMeasureClick));
 
       // UPDATE THE CHART WHEN USER CHANGES UNITS //
-      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._upateProfileChart), true);
-
+      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._updateProfileChart), true);
     },
 
     /**
@@ -310,10 +298,10 @@ define([
      * @private
      */
     _onMeasureEnd: function (evt) {
-      if (evt.toolName === "distance") {
+      if(evt.toolName === "distance") {
         this.displayProfileChart(evt.geometry);
         // UPDATE THE CHART WHEN USER CHANGES UNITS //
-        aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._upateProfileChart), true);
+        aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._updateProfileChart), true);
       }
     },
 
@@ -324,11 +312,10 @@ define([
      * @private
      */
     _showHelp: function (hide) {
-      if (this._helpDlg) {
-        this._helpDlg.set("title",i18NStrings.display.elevationProfileTitle);
+      if(this._helpDlg) {
+        this._helpDlg.set("title", i18NStrings.display.elevationProfileTitle);
         this._helpDlg.show();
-
-        if (hide) {
+        if(hide) {
           setTimeout(lang.hitch(this, function () {
             this._helpDlg.hide();
           }), 4000);
@@ -337,14 +324,13 @@ define([
     },
 
     /**
-     * MAP INFOWINDOW FEATURE SELECTTION CHANGE
-     *
-     * CALLED WHEN THE SELECTED FEATURE OF THE POPUP WINDOW CHANGES
+     * MAP INFOWINDOW FEATURE SELECTION CHANGE
+     *  - CALLED WHEN THE SELECTED FEATURE OF THE POPUP WINDOW CHANGES
      */
     _mapFeatureSelectionChange: function () {
       var selectedFeature = this.map.infoWindow.getSelectedFeature();
       var isPolyline = (selectedFeature && (selectedFeature.geometry.type === 'polyline'));
-      if (isPolyline) {
+      if(isPolyline) {
         this.displayProfileChart(selectedFeature.geometry);
       } else {
         this.clearProfileChart();
@@ -373,6 +359,14 @@ define([
       var inputProfileGraphic = new Graphic(polyline, null, { OID: 1 });
       var inputLineFeatures = new FeatureSet();
       inputLineFeatures.features = [inputProfileGraphic];
+      // MAKE SURE OID FIELD IS AVAILABLE TO GP SERVICE //
+      inputLineFeatures.fields = [
+        {
+          "name": "OID",
+          "type": "esriFieldTypeObjectID",
+          "alias": "OID"
+        }
+      ];
 
       // MAKE GP REQUEST //
       this.profileService.execute({
@@ -385,59 +379,53 @@ define([
         "returnM": true
       }).then(lang.hitch(this, function (results) {
 
-            // GET RESULT //
-            if (results.length > 0) {
-              var profileOutput = results[0].value;
-              // GET PROFILE FEATURE //
-              if (profileOutput.features.length > 0) {
-                var profileFeature = profileOutput.features[0];
-                // SET DEM RESOLUTION DETAILS //
-                this._sourceNode.innerHTML = lang.replace("{0}: {1}", [this.strings.chart.demResolution, profileFeature.attributes.DEMResolution]);
+        // GET RESULT //
+        if(results.length > 0) {
+          var profileOutput = results[0].value;
+          // GET PROFILE FEATURE //
+          if(profileOutput.features.length > 0) {
+            var profileFeature = profileOutput.features[0];
+            // SET DEM RESOLUTION DETAILS //
+            this._sourceNode.innerHTML = lang.replace("{0}: {1}", [this.strings.chart.demResolution, profileFeature.attributes.DEMResolution]);
 
-       // GET PROFILE GEOMETRY //
-              var profileGeometry = profileFeature.geometry;
-              var allElevations = [];
-              var allDistances = [];
-   
-              if(profileGeometry.paths.length > 0) {
-                array.forEach(profileGeometry.paths, lang.hitch(this, function (profilePoints, pathIndex) {
-   
-                  // ELEVATIONS //
-                  var elevations = array.map(profilePoints, lang.hitch(this, function (coords, pointIndex) {
-                    return {
-                      x: ((coords.length > 3) ? coords[3] : (pointIndex * samplingDistance)),
-                      y: ((coords.length > 2) ? coords[2] : 0.0),
-                      pathIdx: pathIndex,
-                      pointIdx: pointIndex
-                    };
-                  }));
-                  // DISTANCES //
-                  var distances = array.map(elevations, function (elevation) {
-                    return elevation.x;
-                  });
-   
-                  // AGGREGATE ELEVATIONS AND DISTANCES //
-                  allElevations = allElevations.concat(elevations);
-                  allDistances = allDistances.concat(distances);
+            // GET PROFILE GEOMETRY //
+            var profileGeometry = profileFeature.geometry;
+            var allElevations = [];
+            var allDistances = [];
+
+            if(profileGeometry.paths.length > 0) {
+              // POLYLINE PATHS //
+              array.forEach(profileGeometry.paths, lang.hitch(this, function (profilePoints, pathIndex) {
+                // ELEVATION INFOS //
+                array.forEach(profilePoints, lang.hitch(this, function (coords, pointIndex) {
+                  var elevationInfo = {
+                    x: ((coords.length > 3) ? coords[3] : (pointIndex * samplingDistance)),
+                    y: ((coords.length > 2) ? coords[2] : 0.0),
+                    pathIdx: pathIndex,
+                    pointIdx: pointIndex
+                  };
+                  allElevations.push(elevationInfo);
+                  allDistances.push(elevationInfo.x);
                 }));
-   
-                // RESOLVE TASK //
-                deferred.resolve({
-                  geometry: profileGeometry,
-                  elevations: allElevations,
-                  distances: allDistances,
-                  samplingDistance: samplingDistance
-                });
-                } else {
-                  deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
-                }
-              } else {
-                deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
-              }
+              }));
+
+              // RESOLVE TASK //
+              deferred.resolve({
+                geometry: profileGeometry,
+                elevations: allElevations,
+                distances: allDistances,
+                samplingDistance: samplingDistance
+              });
             } else {
               deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
             }
-          }), deferred.reject);
+          } else {
+            deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
+          }
+        } else {
+          deferred.reject(new Error(this.strings.errors.UnableToProcessResults));
+        }
+      }), deferred.reject);
 
       return deferred.promise;
     },
@@ -453,7 +441,7 @@ define([
       this.map.setMapCursor('wait');
       this._getProfile(geometry).then(lang.hitch(this, function (elevationInfo) {
         this.elevationInfo = elevationInfo;
-        this._upateProfileChart();
+        this._updateProfileChart();
         this.emit("display-profile", elevationInfo);
       }), lang.hitch(this, function (error) {
         this.map.setMapCursor('default');
@@ -469,10 +457,10 @@ define([
      */
     clearProfileChart: function () {
       this.elevationInfo = null;
-      this._upateProfileChart();
+      this._updateProfileChart();
       this.emit("clear-profile", {});
       // UPDATE THE CHART WHEN USER CHANGES UNITS //
-      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._upateProfileChart), true);
+      aspect.after(this.measureTool.unit.dropDown, 'onItemClick', lang.hitch(this, this._updateProfileChart), true);
     },
 
     /**
@@ -480,7 +468,7 @@ define([
      *
      * @private
      */
-    _upateProfileChart: function () {
+    _updateProfileChart: function () {
       this.map.setMapCursor('wait');
       this._createProfileChart(this.elevationInfo).then(lang.hitch(this, function () {
         this.map.setMapCursor('default');
@@ -507,10 +495,9 @@ define([
       // MIN/MAX/STEP //
       var yMin = -10.0;
       var yMax = 100.0;
-      var yTickStep = 20.0;
 
       // DID WE GET NEW ELEVATION INFORMATION //
-      if (!elevationInfo) {
+      if(!elevationInfo) {
 
         // CLEAR GRAPHIC FROM MAP //
         this._displayChartLocation(-1);
@@ -520,25 +507,30 @@ define([
 
         // GEOMETRY AND ELEVATIONS //
         this.profilePolyline = null;
-        this.elevationData = this._getFilledArray(this.samplingPointCount, this.samplingDistance.distance, true);
+        var samplingDisplayDistance = this._convertDistancesArray([this.samplingDistance.distance])[0];
+        this.elevationData = this._getFilledArray(this.samplingPointCount, samplingDisplayDistance, true);
 
         // CLEAR GAIN/LOSS AND SOURCE DETAILS //
         this._gainLossNode.innerHTML = "";
         this._sourceNode.innerHTML = "";
 
-        // REMOVE ELEVATION INDICATOR //
-        if (this.elevationIndicator) {
+        // REMOVE ELEVATION INDICATORS //
+        if(this.elevationIndicator) {
           this.elevationIndicator.destroy();
           this.elevationIndicator = null;
+        }
+        if(this.elevationIndicator2) {
+          this.elevationIndicator2.destroy();
+          this.elevationIndicator2 = null;
         }
 
       } else {
 
         // GEOMETRY, ELEVATIONS, DISTANCES AND SAMPLING DISTANCE //
         this.profilePolyline = elevationInfo.geometry;
-        this.elevationData = elevationInfo.elevations;
-        this.distances = elevationInfo.distances;
-        this.samplingDistance.distance = elevationInfo.samplingDistance;
+        this.elevationData = this._convertElevationsInfoArray(elevationInfo.elevations);
+        this.distances = this._convertDistancesArray(elevationInfo.distances);
+        this.samplingDistance.distance = this._convertDistancesArray([elevationInfo.samplingDistance.distance])[0];
 
         // CALC MIN/MAX/STEP //
         var yMinSource = this._getArrayMin(this.elevationData);
@@ -546,71 +538,93 @@ define([
         var yRange = (yMaxSource - yMinSource);
         yMin = yMinSource - (yRange * 0.05);
         yMax = yMaxSource + (yRange * 0.05);
-        yTickStep = this._adjustYTickStep((yRange / 5.0));
 
         // GAIN/LOSS DETAILS //
-        var elevDisplayUnits = this._getDisplayUnits(true);
-        var elevMinStr = this._getDisplayLabel(yMinSource, elevDisplayUnits);
-        var elevMaxStr = this._getDisplayLabel(yMaxSource, elevDisplayUnits);
+        var detailsNumberFormat = {places: 0};
         var elevFirst = this.elevationData[0].y;
         var elevLast = this.elevationData[this.elevationData.length - 1].y;
-        var elevStartStr = this._getDisplayLabel(elevFirst, elevDisplayUnits);
-        var elevEndStr = this._getDisplayLabel(elevLast, elevDisplayUnits);
-        var startElev = this._getDisplayValue(elevFirst, elevDisplayUnits);
-        var endElev = this._getDisplayValue(elevLast, elevDisplayUnits);
-        var gainlossStr = number.format((endElev - startElev), {places: 1});
         var gainLossDetails = {
-          min: elevMinStr,
-          max: elevMaxStr,
-          start: elevStartStr,
-          end: elevEndStr,
-          gainloss: gainlossStr
+          min: number.format(yMinSource, detailsNumberFormat),
+          max: number.format(yMaxSource, detailsNumberFormat),
+          start: number.format(elevFirst, detailsNumberFormat),
+          end: number.format(elevLast, detailsNumberFormat),
+          gainloss: number.format((elevLast - elevFirst), detailsNumberFormat)
         };
-        var gainLossMessage = lang.replace(this.strings.chart.gainLossTemplate, gainLossDetails);
-        this._gainLossNode.innerHTML = gainLossMessage;
+        this._gainLossNode.innerHTML = lang.replace(this.strings.chart.gainLossTemplate, gainLossDetails);
 
-        // MOUSE/TOUCH INDICATOR //
-        if (this.elevationIndicator == null) {
-          var indicatorProperties = {
-            series: elevationDataSeriesName,
-            mouseOver: true,
-            font: "normal normal bold 9pt Tahoma",
-            fontColor: this.chartRenderingOptions.indicatorFontColor,
-            fill: this.chartRenderingOptions.indicatorFillColor,
-            markerFill: 'none',
-            markerStroke: { color: 'red', width: 3.0 },
-            markerSymbol: "m -6 -6, l 12 12, m 0 -12, l -12 12", // RED X //
-            labelFunc: lang.hitch(this, function (obj) {
-              this._displayChartLocation(obj.x);
-              return this._getElevationLabel('', obj.y) + " " + this._getDisplayUnits(true);
-            })
-          };
-          if (esriSniff("has-touch")) {
-            this.elevationIndicator = new TouchIndicator(this.profileChart, "default", indicatorProperties);
-          } else {
-            this.elevationIndicator = new MouseIndicator(this.profileChart, "default", indicatorProperties);
-          }
-          this.profileChart.fullRender();
+        // REMOVE ELEVATION INDICATORS //
+        if(this.elevationIndicator) {
+          this.elevationIndicator.destroy();
+          this.elevationIndicator = null;
         }
+        if(this.elevationIndicator2) {
+          this.elevationIndicator2.destroy();
+          this.elevationIndicator2 = null;
+        }
+
+        // MOUSE/TOUCH ELEVATION INDICATOR //
+        var indicatorProperties = {
+          series: elevationDataSeriesName,
+          mouseOver: true,
+          font: "normal normal bold 9pt Tahoma",
+          fontColor: this.chartRenderingOptions.indicatorFontColor,
+          fill: this.chartRenderingOptions.indicatorFillColor,
+          markerFill: 'none',
+          markerStroke: { color: 'red', width: 3.0 },
+          markerSymbol: "m -6 -6, l 12 12, m 0 -12, l -12 12", // RED X //
+          labelFunc: lang.hitch(this, function (obj) {
+            this._displayChartLocation(obj.x);
+            var elevUnitsLabel = this._getDisplayUnits(true);
+            var elevChangeLabel = number.format(obj.y, detailsNumberFormat);
+            return lang.replace("{0} {1}", [elevChangeLabel, elevUnitsLabel]);
+          })
+        };
+        // MOUSE/TOUCH ELEVATION CHANGE INDICATOR //
+        var indicatorProperties2 = {
+          series: waterDataSeriesName,
+          mouseOver: true,
+          font: "normal normal bold 8pt Tahoma",
+          fontColor: this.chartRenderingOptions.indicatorFontColor,
+          fill: this.chartRenderingOptions.indicatorFillColor,
+          fillFunc: lang.hitch(this, function (obj) {
+            var elevIndex = this.distances.indexOf(obj.x);
+            var elev = this.elevationData[elevIndex].y;
+            return (elev >= elevFirst) ? "green" : "red";
+          }),
+          offset: { y: 25, x: 30 },
+          labelFunc: lang.hitch(this, function (obj) {
+            var elevIndex = this.distances.indexOf(obj.x);
+            var elev = this.elevationData[elevIndex].y;
+            var elevChangeLabel = number.format(elev - elevFirst, detailsNumberFormat);
+            var plusMinus = ((elev - elevFirst) > 0) ? "+" : "";
+            return lang.replace("{0}{1}", [plusMinus, elevChangeLabel]);
+          })
+        };
+        if(esriSniff("has-touch")) {
+          this.elevationIndicator2 = new TouchIndicator(this.profileChart, "default", indicatorProperties2);
+          this.elevationIndicator = new TouchIndicator(this.profileChart, "default", indicatorProperties);
+        } else {
+          this.elevationIndicator2 = new MouseIndicator(this.profileChart, "default", indicatorProperties2);
+          this.elevationIndicator = new MouseIndicator(this.profileChart, "default", indicatorProperties);
+        }
+        this.profileChart.fullRender();
       }
 
       // FILLED ZERO ARRAY //
       var waterData = this._resetArray(this.elevationData, 0.0);
 
       // ARE WE UPDATING OR CREATING THE CHART //
-      if (this.profileChart != null) {
+      if(this.profileChart != null) {
 
         // UPDATE CHART //
         this.profileChart.getAxis("y").opt.min = yMin;
-        this.profileChart.getAxis("y").opt.max = yMax; 
-        this.profileChart.getAxis("y").opt.majorTickStep = yTickStep;
-        this.profileChart.getAxis("x").opt.majorTickStep = (this.samplingDistance.distance * 20);
+        this.profileChart.getAxis("y").opt.max = yMax;
         this.profileChart.getAxis("y").opt.title = lang.replace(this.strings.chart.elevationTitleTemplate, [this._getDisplayUnits(true)]);
         this.profileChart.getAxis("x").opt.title = lang.replace(this.strings.chart.distanceTitleTemplate, [this._getDisplayUnits(false)]);
         this.profileChart.dirty = true;
         this.profileChart.updateSeries(waterDataSeriesName, waterData);
         this.profileChart.updateSeries(elevationDataSeriesName, this.elevationData);
-         // RENDER CHART //
+        // RENDER CHART //
         this.profileChart.render();
         deferred.resolve();
 
@@ -618,7 +632,7 @@ define([
 
         // MAKE SURE CHART NODE HAS VALID HEIGHT OR CHARTING WILL FAIL //
         var nodeCoords = domGeometry.position(this._chartNode, true);
-        if (nodeCoords.h < 1) {
+        if(nodeCoords.h < 1) {
           deferred.reject(new Error(this.strings.errors.InvalidConfiguration));
         }
 
@@ -637,10 +651,8 @@ define([
         // OVERRIDE DEFAULTS //
         this.profileChart.fill = 'transparent';
         this.profileChart.theme.axis.stroke.width = 2;
-        this.profileChart.theme.axis.majorTick = {
-          color: Color.named.white.concat(0.5),
-          width: 1.0
-        };
+        this.profileChart.theme.axis.majorTick.color = Color.named.white.concat(0.5);
+        this.profileChart.theme.axis.majorTick.width = 1.0;
         this.profileChart.theme.plotarea.fill = {
           type: "linear",
           space: "plot",
@@ -658,16 +670,14 @@ define([
           fontColor: this.chartRenderingOptions.axisFontColor,
           font: lang.replace("normal normal bold {axisLabelFontSize}pt verdana", this.chartRenderingOptions),
           vertical: true,
-          fixLower: "major",
-          fixUpper: "minor",
           natural: true,
           fixed: true,
           includeZero: false,
+          majorLabels: true,
+          minorLabels: true,
           majorTicks: true,
-          majorTickStep: yTickStep,
+          minorTicks: true,
           majorTick: { color: this.chartRenderingOptions.axisMajorTickColor, length: 6 },
-          labelFunc: this._getElevationLabel,
-          minorTicks: false,
           title: lang.replace(this.strings.chart.elevationTitleTemplate, [this._getDisplayUnits(true)]),
           titleGap: 30,
           titleFont: lang.replace("normal normal bold {axisTitleFontSize}pt verdana", this.chartRenderingOptions),
@@ -679,16 +689,14 @@ define([
         this.profileChart.addAxis("x", {
           fontColor: this.chartRenderingOptions.axisFontColor,
           font: lang.replace("normal normal bold {axisLabelFontSize}pt verdana", this.chartRenderingOptions),
-          fixLower: "none",
-          fixUpper: "none",
-          includeZero: false,
           natural: true,
           fixed: true,
+          includeZero: false,
+          majorLabels: true,
+          minorLabels: true,
           majorTicks: true,
-          majorTickStep: (this.samplingDistance.distance * 20),
+          minorTicks: true,
           majorTick: { color: this.chartRenderingOptions.axisMajorTickColor, length: 6 },
-          labelFunc: this._getDistanceLabel,
-          minorTicks: false,
           title: lang.replace(this.strings.chart.distanceTitleTemplate, [this._getDisplayUnits(false)]),
           titleGap: 5,
           titleFont: lang.replace("normal normal bold {axisTitleFontSize}pt verdana", this.chartRenderingOptions),
@@ -755,7 +763,7 @@ define([
      * @private
      */
     _resizeChart: function () {
-      if (this.profileChart) {
+      if(this.profileChart) {
         this.profileChart.resize();
       }
     },
@@ -766,9 +774,9 @@ define([
      * @param {Number} chartObjectX
      */
     _displayChartLocation: function (chartObjectX) {
-      if (this.map && this.elevationData && this.profilePolyline) {
+      if(this.map && this.elevationData && this.profilePolyline) {
 
-        if (!this.chartLocationGraphic) {
+        if(!this.chartLocationGraphic) {
           // CREATE LOCATION GRAPHIC //
           var red = new Color(Color.named.red);
           var outline = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, red, 3);
@@ -789,40 +797,6 @@ define([
     },
 
     /**
-     * X-AXIS LABEL FUNCTION
-     *
-     * @param {String} label
-     * @param {Number} val
-     */
-    _getDistanceLabel: function (label, val) {
-      var displayUnits = this._getDisplayUnits(false);
-      return this._getDisplayLabel(val, displayUnits);
-    },
-
-    /**
-     * Y-AXIS LABEL FUNCTION
-     *
-     * @param {String} label
-     * @param {Number} val
-     */
-    _getElevationLabel: function (label, val) {
-      var displayUnits = this._getDisplayUnits(true);
-      return this._getDisplayLabel(val, displayUnits);
-    },
-
-    /**
-     * GET DISPLAY LABEL GIVEN A VALUE IN METERS AND THE DISPLAY UNITS
-     * CONVERT FROM METERS TO MILES THEN FROM MILES TO DISPLAY UNITS
-     *
-     * @param {Number} valueMeters
-     * @param {String} displayUnits
-     */
-    _getDisplayLabel: function (valueMeters, displayUnits) {
-      var displayDistance = this._getDisplayValue(valueMeters, displayUnits);
-      return number.format(displayDistance, { 'places': 1 });
-    },
-
-    /**
      * GET DISPLAY VALUE GIVEN A VALUE IN METERS AND THE DISPLAY UNITS
      * CONVERT FROM METERS TO MILES THEN FROM MILES TO DISPLAY UNITS
      *
@@ -830,7 +804,7 @@ define([
      * @param {String} displayUnits
      */
     _getDisplayValue: function (valueMeters, displayUnits) {
-      if (displayUnits === this.measureTool.units.esriMeters) {
+      if(displayUnits === this.measureTool.units.esriMeters) {
         return valueMeters;
       } else {
         var distanceMiles = (valueMeters / this.measureTool.unitDictionary[this.measureTool.units.esriMeters]);
@@ -845,7 +819,7 @@ define([
      */
     _getDisplayUnits: function (isElevation) {
       var displayUnits = this.measureTool.unit.label;
-      if (isElevation) {
+      if(isElevation) {
         switch (displayUnits) {
           case this.measureTool.units.esriMiles:
             displayUnits = this.measureTool.units.esriFeet;
@@ -862,24 +836,40 @@ define([
     },
 
     /**
-     * ADJUST Y TICK STEP
+     * CONVERT ELEVATION INFO (X=DISTANCE,Y=ELEVATION) FROM METERS TO DISPLAY UNITS
      *
-     * @param yTickStep
-     * @returns {*}
+     * @param elevationArray
+     * @returns {Array}
      * @private
      */
-    _adjustYTickStep: function (yTickStep) {
-      var newYTickStep = yTickStep;
-      var limits = [1000, 100, 10, 1];
-      array.some(limits, function (limit) {
-        newYTickStep = ((yTickStep + limit) - ((yTickStep + limit) % limit));
-        return (yTickStep > limit);
-      });
-      return newYTickStep;
+    _convertElevationsInfoArray: function (elevationArray) {
+      var displayUnitsX = this._getDisplayUnits(false);
+      var displayUnitsY = this._getDisplayUnits(true);
+      return array.map(elevationArray, lang.hitch(this, function (item) {
+        return lang.mixin(item, {
+          x: this._getDisplayValue(item.x, displayUnitsX),
+          y: this._getDisplayValue(item.y, displayUnitsY)
+        })
+      }));
     },
 
     /**
-     * CREATE ARRAY OF CERTAIN SIZE WITH CERTAIN VALUE AND ALLOW MULTIPLIER
+     * CONVERT DISTANCES FROM METERS TO DISPLAY UNITS
+     *
+     * @param distancesArray
+     * @returns {Array}
+     * @private
+     */
+    _convertDistancesArray: function (distancesArray) {
+      var displayUnitsX = this._getDisplayUnits(false);
+      return array.map(distancesArray, lang.hitch(this, function (distance) {
+        return this._getDisplayValue(distance, displayUnitsX);
+      }));
+    },
+
+    /**
+     * CREATE ARRAY WITH INPUT VALUE AND ALLOW MULTIPLIER
+     *
      * @param size
      * @param value
      * @param asMultiplier
@@ -914,11 +904,10 @@ define([
       });
     },
 
-
     /**
      * GET MAXIMUM Y VALUE IN ARRAY
      *
-     * @param {array} dataArray
+     * @param {[]} dataArray
      * @return {number}
      * @private
      */
@@ -932,7 +921,7 @@ define([
     /**
      * GET MINIMUM Y VALUE IN ARRAY
      *
-     * @param {array} dataArray
+     * @param {[]} dataArray
      * @return {number}
      * @private
      */
@@ -947,6 +936,9 @@ define([
      * DESTROY DIJIT
      */
     destroy: function () {
+      if(this.profileChart) {
+        this.profileChart.destroy();
+      }
       this.inherited(arguments);
     }
 
