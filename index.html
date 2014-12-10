@@ -4,8 +4,8 @@
     <title>Elevations Profile</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.11/esri/css/esri.css">
-    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.11/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.12/esri/css/esri.css">
+    <link rel="stylesheet" type="text/css" href="//js.arcgis.com/3.12/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="css/main.css">
     <script>
       var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
@@ -27,7 +27,7 @@
         ]
       };
     </script>
-    <script src="//js.arcgis.com/3.11/"></script>
+    <script src="//js.arcgis.com/3.12/"></script>
     <script>
       require([
         "application/main",
@@ -51,7 +51,9 @@
         <br/>
         <span id="snippetNode"></span>
       </div>
-      <div id="mapPane" dir="ltr" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+      <div id="mapPane" dir="ltr" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"> 
+        <div id="geocoder"></div>
+      </div>
       <div id="infoContainer" class="appInsetBoxShadow" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'leading',gutters:false">
         <div id="descriptionPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'">
           <div id="descriptionNode"></div>

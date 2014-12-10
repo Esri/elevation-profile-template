@@ -50,9 +50,8 @@
 
 .elevationsProfileMeasurePane {
   position         : absolute;
-  float            : right;
   top              : 32px;
-  right            : 6px;
+  right            : 10px;
   width            : 250px;
   padding          : 10px;
   background-color : #eee;
@@ -61,7 +60,15 @@
   border           : solid 1px silver !important;
   font-size        : smaller;
 }
-
+.esriRTL .elevationsProfileMeasurePane {
+  right : auto;
+  left  : 10px;
+}
+ 
+.esriRTL .elevationsProfileMeasurePane .dijitDialogCloseIcon {
+  right : auto;
+  left  : 5px;
+}
 .elevationsProfileLabel {
   color       : #eee;
   font-weight : bolder;

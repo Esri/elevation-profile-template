@@ -18,6 +18,11 @@ a {
 
 /* UI container nodes */
 
+.claro .dijitSplitContainer-dijitContentPane, .claro .dijitBorderContainer-dijitContentPane {
+    background-color: inherit;
+}
+
+
 #topContainer {
   height : 60px;
 }
@@ -48,6 +53,16 @@ a {
 
 #mapPane {
   padding : 0 !important;
+}
+
+#geocoder{
+  position: absolute;
+  top:20px;
+  right:10px;
+  z-index: 30;
+}
+.simpleGeocoder .esriGeocoderResult{
+  color: #444;
 }
 
 #profileChartPane {
@@ -174,4 +189,7 @@ a {
   color : #eee !important;
 }
 
-
+.elevationsProfileMeasurePane .dijitDialogCloseIcon {
+  z-index : 99;
+}
+ 

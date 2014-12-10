@@ -15,8 +15,9 @@ define([
   "esri/dijit/Measurement",
   "esri/units",
   "esri/IdentityManager",
+  "application/CreateGeocoder",
   "application/ElevationsProfile/Widget"
-], function (ready, declare, connect, lang, on, dom, domClass, domConstruct, registry, ContentPane, arcgisUtils, Legend, Scalebar, Measurement, Units, IdentityManager, ElevationsProfile) {
+], function (ready, declare, connect, lang, on, dom, domClass, domConstruct, registry, ContentPane, arcgisUtils, Legend, Scalebar, Measurement, Units, IdentityManager, CreateGeocoder, ElevationsProfile) {
 
   return declare([], {
 
@@ -43,10 +44,12 @@ define([
         mapOptions: {
           wrapAround180: true
         },
+        editable: false,
         ignorePopups: false,
         bingMapsKey: this.config.bingmapskey
       }).then(lang.hitch(this, function (response) {
-
+            this.config.response = response;
+      
             // TITLE //
             dom.byId('titleNode').innerHTML = response.itemInfo.item.title || "";
             dom.byId('snippetNode').innerHTML = response.itemInfo.item.snippet || "";
@@ -75,6 +78,20 @@ define([
               layerInfos: arcgisUtils.getLegendLayers(response)
             }, "legendNode");
             legendDijit.startup();
+
+
+             //Create the Geocoder
+             if(this.config.geocoder){
+                var geocoder = new CreateGeocoder({
+                    map: this.map,
+                    config: this.config
+                });
+                if (geocoder.geocoder && geocoder.geocoder.domNode) {
+                    domConstruct.place(geocoder.geocoder.domNode, "geocoder");
+                }
+             }
+
+
 
             // ===========================================================================================//
             // ELEVATIONS PROFILE PARAMETERS //
