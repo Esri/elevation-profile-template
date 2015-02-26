@@ -1,14 +1,10 @@
 <div role="presentation" class="${baseClass}" data-dojo-attach-point="containerNode">
   <div data-dojo-attach-point="_optionsToolbar" class="${baseClass}Toolbar" data-dojo-type="dijit/Toolbar">
-    <div data-dojo-attach-point="_measureBtn" data-dojo-type="dijit/form/ToggleButton" data-dojo-props="iconClass:'dijitArrowButtonInner',label:'${strings.buttons.measureLabel}'"></div>
+    <span data-dojo-attach-point="_measureNode"></span>
     <span data-dojo-type="dijit/ToolbarSeparator"></span>
     <div data-dojo-attach-point="_helpNode" data-dojo-type="dijit/form/Button" data-dojo-props="label:'${strings.buttons.helpLabel}'"></div>
   </div>
   <div data-dojo-attach-point="_chartNode" class="${baseClass}ChartNode"></div>
-  <div data-dojo-attach-point="_measurePane" class="${baseClass}MeasurePane dijitOffScreen">
-    <span data-dojo-attach-point="_closePaneBtn" class="dijitDialogCloseIcon" role="button"></span>
-    <span data-dojo-attach-point="_measureNode"></span>
-  </div>
   <div data-dojo-attach-point="_gainLossParentNode" class="${baseClass}GainLossLabel ${baseClass}Label">
     <span data-dojo-attach-point="_gainLossNode"></span>
   </div>

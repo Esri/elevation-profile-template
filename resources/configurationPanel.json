@@ -1,0 +1,129 @@
+{
+    "configurationSettings": [
+        {
+            "category": "Map Settings",
+            "fields": [
+                {
+                    "type": "webmap",
+                    "label": "Web Map Id"
+                },
+                {
+                    "type": "string",
+                    "fieldName": "bingmapskey",
+                    "label": "Bings Map Key",
+                    "tooltip": "The Bings Map key"
+                },               
+                {
+                    "type": "options",
+                    "fieldName": "scalebarUnits",
+                    "label": "Scalebar Units",
+                    "tooltip": "Scalebar Units",
+                    "options": [
+                        {
+                            "label": "METRIC (Kilometers / Meters)",
+                            "value": "metric"
+                        },
+                        {
+                            "label": "ENGLISH (Miles / Feet)",
+                            "value": "english"
+                        },
+                        {
+                            "label": "METRIC and ENGLISH",
+                            "value": "dual"
+                        }
+                    ]
+                }
+								
+            ]
+        }, {
+         "category": "Search Settings",
+         "fields":[
+            {  
+               "type":"paragraph",
+               "value":"Enable the search capability and optionally select search layers and fields. These layers will appear in the search tool allowing application users to search for particular values in the specified layers and fields."
+            },
+            {  
+               "type":"boolean",
+               "fieldName":"geocoder",
+               "label":"Address Finder"
+            },
+            {  
+               "type":"boolean",
+               "fieldName":"searchExtent",
+               "label":"Prioritize search results in current extent."
+            },{
+               "type":"paragraph",
+               "value": "When Location Search is true the search widget will allow users to search for addresses and locations using one or more locators and also search the layers and fields specified in the Search Layers configuration option. Unchecking the Location Search option will remove the locator search and only configured search layers will be displayed."
+            },{
+               "type": "boolean",
+               "fieldName": "locationSearch",
+               "label": "Location Search"
+            },
+            {  
+               "label":"Select layers and fields",
+               "fieldName":"searchLayers",
+               "type":"multilayerandfieldselector",
+               "tooltip":"Select layer and fields to search",
+               "layerOptions":{  
+                  "supportedTypes":[  
+                     "FeatureLayer"
+                  ],
+                  "geometryTypes":[  
+                     "esriGeometryPoint",
+                     "esriGeometryLine",
+                     "esriGeometryPolyline",
+                     "esriGeometryPolygon"
+                  ]
+               },
+               "fieldOptions":{  
+                  "supportedTypes":[  
+                     "esriFieldTypeString"
+                  ]
+               }
+            }
+         ]
+      },{
+            "category": "<b>Profile Service</b>",
+            "fields": [
+                {
+                    "type": "paragraph",
+                    "value": "This application uses the Elevation Analysis<a  target=\"_blank\" href=\"https://developers.arcgis.com/rest/elevation/api-reference/profilesync.htm\"> Profile Task<\/a> to generate the elevation values along the profile.  It can be configured to consume a custom profile task. Learn more about <a target=\"_blank\" href=\"http://blogs.esri.com/esri/arcgis/2014/08/26/setting-up-your-own-profile-service \">setting up your own Profile Service.<\/a> "
+                }, 
+				{
+                    "type": "string",
+                    "fieldName": "elevationSync",
+                    "label": "Profile Service Url",
+                    "tooltip": "Url to the Custom Elevation Profile Service",
+					"placeHolder": "http://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
+                }
+            ]
+        },{
+            "category": "Options",
+            "fields":[
+                {
+                    "type": "boolean",
+                    "fieldName": "titleInHeader",
+                    "label": "Show title in header"
+                },{
+                    "type": "boolean",
+                    "fieldName": "showHelpOnLoad",
+                    "label": "Show help dialog on app load"
+                },{
+                    "type": "boolean",
+                    "fieldName": "displaypopups",
+                    "label": "Display popups"
+                }
+            ]
+        }
+    ],
+    "values": {
+        "showHelpOnLoad": true,
+        "titleInHeader": true,
+        "displaypopups": true,
+        "geocoder": false,
+        "searchExtent": true,
+        "locationSearch": false,
+        "bingmapskey": null,
+        "scalebarUnits": "dual"				
+    }
+}

@@ -17,7 +17,7 @@
     chart: {
       title: "Profil wysokościowy",
       demResolution: "Rozdzielczość DEM",
-      elevationTitleTemplate: "Wzniesienie w {0}",
+      elevationTitleTemplate: "Wysokość w {0}",
       distanceTitleTemplate: "Odległość w {0}",
       gainLossTemplate: "Min.:{min}   Maks.:{max}   Początek:{start}   Koniec:{end}   Zmiana:{gainloss}"
     },

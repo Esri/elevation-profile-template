@@ -22,7 +22,7 @@
       gainLossTemplate: "Min:{min}   Max:{max}   Začátek:{start}   Konec:{end}   Změna:{gainloss}"
     },
     errors: {
-      MissingConstructorParameters: "Chybí parametry konstruktéru.",
+      MissingConstructorParameters: "Chybí parametry konstruktoru.",
       InvalidConfiguration: "Neplatná konfigurace",
       UnableToProcessResults: "Nelze zpracovat výsledky analýzy."
     }

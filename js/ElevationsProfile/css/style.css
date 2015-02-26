@@ -1,117 +1,116 @@
 .elevationsProfile, .elevationsProfileChartNode {
-  height     : 100%;
-  width      : 100%;
-  min-height : 200px;
-  margin     : 0 auto 0 auto;
-  overflow   : hidden;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
 }
-
+.esriMeasurement .esriMeasurementResultLabel{
+  display:none;
+}
+.esriMeasurement
+.esriMeasurement .esriMeasurementResultValue{
+  display:none !important;
+}
+.esriMeasurement{
+  position: absolute;
+  right:165px;
+}
+.esriRTL .esriMeasurement{
+  position: absolute;
+  left:165px;
+  right:auto;
+}
+.esriMeasurement .esriMeasurementSeparator{
+    display:none;
+}
+.esriMeasurement .esriMeasurementResultValue div {
+    display: none;
+}
+.esriMeasurement #dijit_form_DropDownButton_0{
+    visibility: visible !important;
+}
+.esriMeasurement .esriButtonChecked .dijitButtonNode{
+    border: solid 2px #CD853F !important;
+}
 .elevationsProfileToolbar {
-  position   : absolute;
-  float      : right;
-
-  text-align : right;
-  width      : 100%;
-  padding    : 0 !important;
-  background : none !important;
-  border     : none !important;
+    position: absolute;
+    float: right;
+    text-align: right;
+    width: 100%;
+    height:50px;
+    padding: 0 !important;
+    background: none !important;
+    border: none !important;
 }
 
 .esriRTL .elevationsProfileToolbar {
-  float      : left;
-  text-align : left;
+    float: left;
+    text-align: left;
 }
 
 .elevationsProfileToolbar .dijitButtonText {
-  color       : #eee;
-  font-size   : smaller;
-  font-weight : bolder;
+    color: #eee;
+    font-size: smaller;
+    font-weight: bolder;
 }
 
 .elevationsProfileToolbar .dijitButtonNode {
-  margin        : 0;
-  padding       : 2px;
-  background    : none !important;
-  border        : solid 1px transparent !important;
-  border-radius : 3px !important;
+    margin: 0;
+    padding: 2px;
+    background: none !important;
+    border: solid 1px transparent !important;
+    border-radius: 3px !important;
 }
 
-.elevationsProfileToolbar .dijitHover {
-  border : solid 1px #666 !important;
-}
-
-.elevationsProfileToolbar .dijitActive {
-  border : solid 1px #333 !important;
-}
 
 .elevationsProfileToolbar .dijitArrowButtonInner {
-  background-image : url(../images/buttonArrows.png) !important;
+    background-image: url(../images/buttonArrows.png) !important;
 }
 
-.elevationsProfileMeasurePane {
-  position         : absolute;
-  top              : 32px;
-  right            : 10px;
-  width            : 250px;
-  padding          : 10px;
-  background-color : #eee;
-  color            : #333;
-  border-radius    : 4px;
-  border           : solid 1px silver !important;
-  font-size        : smaller;
-}
-.esriRTL .elevationsProfileMeasurePane {
-  right : auto;
-  left  : 10px;
-}
- 
-.esriRTL .elevationsProfileMeasurePane .dijitDialogCloseIcon {
-  right : auto;
-  left  : 5px;
-}
+
+
 .elevationsProfileLabel {
-  color       : #eee;
-  font-weight : bolder;
-  font-size   : 0.7em;
-  line-height : 1.0em;
+    color: #eee;
+    font-weight: bolder;
+    font-size: 0.7em;
+    line-height: 1.0em;
 }
 
 .elevationsProfileGainLossLabel {
-  width       : 30%;
-  position    : absolute;
-  bottom      : 10px;
-  left        : 10px;
-  text-align  : left;
-  white-space : nowrap;
-  display     : inline-block;
-  position    : absolute;
+    width: 30%;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    text-align: left;
+    white-space: nowrap;
+    display: inline-block;
+    position: absolute;
 }
 
 .esriRTL .elevationsProfileGainLossLabel {
-  right      : 10px;
-  text-align : right;
+    right: 10px;
+    text-align: right;
 }
 
 .elevationsProfileSourceLabel {
-  width         : 30%;
-  position      : absolute;
-  bottom        : 10px;
-  right         : 10px;
-  text-align    : right;
-  overflow      : hidden;
-  white-space   : nowrap;
-  word-break    : keep-all;
-  word-wrap     : normal;
-  text-overflow : ellipsis;
+    width: 30%;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+    word-break: keep-all;
+    word-wrap: normal;
+    text-overflow: ellipsis;
 }
 
 .esriRTL .elevationsProfileSourceLabel {
-  left       : 10px;
-  text-align : left;
+    left: 10px;
+    text-align: left;
 }
 
 .elevationsProfilePopupRequirementLabel {
-  color        : #ccc;
-  padding-left : 6px;
-  font-size    : smaller;
+    color: #ccc;
+    padding-left: 6px;
+    font-size: smaller;
 }
