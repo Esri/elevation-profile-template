@@ -6,6 +6,8 @@ Elevation Profile is a configurable application template used to display the ele
 ![Screen Shot](https://dl.dropboxusercontent.com/u/24627279/screenshots/elevation_profile_th.jpg)
 
 [View it live](http://www.arcgis.com/apps/Elevations/index.html?webmap=8dd583ea3de64e40b92ea5a261d0c6c8)
+#July 2015 Release Updates
+- **Color Theming:**  Added support for changing application and chart colors. 
 
 #Features
 Elevation Profile is a configurable application template used to display the elevation profile for a selected feature or a measured line along with a web map. This template uses the [Profile geoprocessing service](http://www.arcgis.com/home/item.html?id=3300cfc33ca74a9fac69d2e0f4ea46e5) to generate the elevation values along the profile. View the [Profile service developer documentation](https://developers.arcgis.com/en/rest/elevation/api-reference/profilesync.htm) for additional details.
