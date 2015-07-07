@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Thông tin Độ cao",
       showMe: "hiển thị cho tôi",
-      selectLine: "<b>Chọn</b> một đối tượng trong bản đồ.",
+      selectLine: "<b>Chọn</b> một đối tượng đường trong bản đồ.",
       popupRequirement: "LƯU Ý: đối tượng phải ở trong một lớp có các Cửa sổ pop-up được bật.",
       digitizeDistanceMeasureTool: "Sử dụng dụng cụ <b>Đo lường</b>.",
       selectFeatureHelpUrl: "http://help.arcgis.com/vi/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Perfil de elevación",
       showMe: "mostrarme",
-      selectLine: "<b>Selecciona</b> una entidad en el mapa.",
+      selectLine: "<b>Selecciona</b> una entidad de línea en el mapa.",
       popupRequirement: "NOTA: la entidad debe estar en una capa con las ventanas emergentes activadas.",
       digitizeDistanceMeasureTool: "Usa las herramientas de <b>medición</b>.",
       selectFeatureHelpUrl: "http://help.arcgis.com/en/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

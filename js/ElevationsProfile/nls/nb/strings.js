@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Høydeprofil",
       showMe: "vis meg",
-      selectLine: "<b>Velg</b> et geoobjekt i kartet.",
+      selectLine: "<b>Velg</b> et linjegeoobjekt på kartet.",
       popupRequirement: "MERK: Geoobjektet må være i et lag som har oppsprettvinduer aktivert.",
       digitizeDistanceMeasureTool: "Bruk <b>Mål</b>-verktøyene.",
       selectFeatureHelpUrl: "http://help.arcgis.com/no/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

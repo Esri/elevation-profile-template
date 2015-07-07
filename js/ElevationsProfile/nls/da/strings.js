@@ -1,9 +1,9 @@
 ﻿define(
    ({
     display: {
-      elevationProfileTitle: "Hævningsprofil",
+      elevationProfileTitle: "Højdeprofil",
       showMe: "vis mig",
-      selectLine: "<b>Udvælg</b> et objekt på kortet.",
+      selectLine: "<b>Vælg</b> et linjeobjekt i kortet.",
       popupRequirement: "BEMÆRK: Objektet skal være i et lag, hvor popup-vinduer er aktiveret.",
       digitizeDistanceMeasureTool: "Brug værktøjet <b>Opmål</b>.",
       selectFeatureHelpUrl: "http://help.arcgis.com/da/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",
@@ -15,7 +15,7 @@
       helpLabel: "Hjælp"
     },
     chart: {
-      title: "Hævningsprofil",
+      title: "Højdeprofil",
       demResolution: "DEM-opløsning",
       elevationTitleTemplate: "Højde i {0}",
       distanceTitleTemplate: "Afstand i {0}",

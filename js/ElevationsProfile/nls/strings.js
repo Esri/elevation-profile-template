@@ -1,9 +1,9 @@
 ﻿define({
   root: ({
     display: {
-      elevationProfileTitle: "Elevations Profile",
+      elevationProfileTitle: "Elevation Profile",
       showMe: "show me",
-      selectLine: "<b>Select</b> a feature in the map.",
+      selectLine: "<b>Select</b> a line feature in the map.",
       popupRequirement: "NOTE: the feature must be in a layer with Popups enabled.",
       digitizeDistanceMeasureTool: "Use the <b>Measure</b> tools.",
       selectFeatureHelpUrl: "http://help.arcgis.com/en/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",
@@ -15,7 +15,7 @@
       helpLabel: "Help"
     },
     chart: {
-      title: "Elevations Profile",
+      title: "Elevation Profile",
       demResolution: "DEM Resolution",
       elevationTitleTemplate: "Elevation in {0}",
       distanceTitleTemplate: "Distance in {0}",

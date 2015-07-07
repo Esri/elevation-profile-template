@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Profil d\'élévation",
       showMe: "me montrer",
-      selectLine: "<b>Sélectionner</b> une entité sur la carte.",
+      selectLine: "<b>Sélectionnez</b> une entité linéaire sur la carte.",
       popupRequirement: "REMARQUE : l\'entité doit être dans une couche dans laquelle les fenêtres contextuelles sont activées.",
       digitizeDistanceMeasureTool: "Utiliser les outils <b>Mesure</b>.",
       selectFeatureHelpUrl: "http://help.arcgis.com/fr/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

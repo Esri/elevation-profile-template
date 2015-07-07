@@ -1,9 +1,9 @@
 ﻿define(
    ({
     display: {
-      elevationProfileTitle: "الملف التعريفي للارتفاعات",
+      elevationProfileTitle: "الملف التعريفي للارتفاع",
       showMe: "عرض",
-      selectLine: "<b>تحديد</b> معلم في الخريطة.",
+      selectLine: "<b>حدد</b> معالم خطية في الخريطة.",
       popupRequirement: "ملاحظة: يجب وجود المعلم في طبقة مع تعطيل العناصر المنبثقة.",
       digitizeDistanceMeasureTool: "استخدم أدوات <b>قياس</b>",
       selectFeatureHelpUrl: "http://help.arcgis.com/ar/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",
@@ -15,7 +15,7 @@
       helpLabel: "تعليمات"
     },
     chart: {
-      title: "الملف التعريفي للارتفاعات",
+      title: "الملف التعريفي للارتفاع",
       demResolution: "دقة DEM",
       elevationTitleTemplate: "الارتفاع بـ {0}",
       distanceTitleTemplate: "المسافة بـ {0}",

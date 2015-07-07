@@ -1,18 +1,28 @@
 {
     "configurationSettings": [
         {
-            "category": "Map Settings",
+            "category": "App Settings",
             "fields": [
+                {
+                  "type": "appproxies"
+                },
                 {
                     "type": "webmap",
                     "label": "Web Map Id"
+                },{  
+                   "placeHolder":"Defaults to web map title",
+                   "label":"Title:",
+                   "fieldName":"title",
+                   "type":"string",
+                   "tooltip":"Defaults to web map title"
                 },
-                {
-                    "type": "string",
-                    "fieldName": "bingmapskey",
-                    "label": "Bings Map Key",
-                    "tooltip": "The Bings Map key"
-                },               
+                {  
+                   "placeHolder":"Subtitle text",
+                   "label":"Sub title:",
+                   "fieldName":"subtitle",
+                   "type":"string",
+                   "tooltip":"Sub title text"
+                },              
                 {
                     "type": "options",
                     "fieldName": "scalebarUnits",
@@ -38,68 +48,75 @@
         }, {
          "category": "Search Settings",
          "fields":[
-            {  
+            {
                "type":"paragraph",
-               "value":"Enable the search capability and optionally select search layers and fields. These layers will appear in the search tool allowing application users to search for particular values in the specified layers and fields."
+               "value": "Enable search to allow users to find a location or data in the map. Configure the search settings to refine the experience in your app by setting the default search resource, placeholder text, etc."
             },
             {  
                "type":"boolean",
                "fieldName":"geocoder",
-               "label":"Address Finder"
-            },
-            {  
-               "type":"boolean",
-               "fieldName":"searchExtent",
-               "label":"Prioritize search results in current extent."
+               "label":"Enable search tool"
             },{
-               "type":"paragraph",
-               "value": "When Location Search is true the search widget will allow users to search for addresses and locations using one or more locators and also search the layers and fields specified in the Search Layers configuration option. Unchecking the Location Search option will remove the locator search and only configured search layers will be displayed."
-            },{
-               "type": "boolean",
-               "fieldName": "locationSearch",
-               "label": "Location Search"
-            },
-            {  
-               "label":"Select layers and fields",
-               "fieldName":"searchLayers",
-               "type":"multilayerandfieldselector",
-               "tooltip":"Select layer and fields to search",
-               "layerOptions":{  
-                  "supportedTypes":[  
-                     "FeatureLayer"
-                  ],
-                  "geometryTypes":[  
-                     "esriGeometryPoint",
-                     "esriGeometryLine",
-                     "esriGeometryPolyline",
-                     "esriGeometryPolygon"
-                  ]
-               },
-               "fieldOptions":{  
-                  "supportedTypes":[  
-                     "esriFieldTypeString"
-                  ]
-               }
+              "type":"search",
+              "fieldName": "searchConfig",
+              "label": "Configure search tool"
             }
          ]
       },{
-            "category": "<b>Profile Service</b>",
+      "category": "<b>Elevation Profile Settings</b>",
             "fields": [
                 {
                     "type": "paragraph",
                     "value": "This application uses the Elevation Analysis<a  target=\"_blank\" href=\"https://developers.arcgis.com/rest/elevation/api-reference/profilesync.htm\"> Profile Task<\/a> to generate the elevation values along the profile.  It can be configured to consume a custom profile task. Learn more about <a target=\"_blank\" href=\"http://blogs.esri.com/esri/arcgis/2014/08/26/setting-up-your-own-profile-service \">setting up your own Profile Service.<\/a> "
-                }, 
-				{
+                },{
                     "type": "string",
                     "fieldName": "elevationSync",
                     "label": "Profile Service Url",
                     "tooltip": "Url to the Custom Elevation Profile Service",
-					"placeHolder": "http://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
+					          "placeHolder": "http://elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
+                },{  
+                   "label":"Chart title:",
+                   "fieldName":"elevationcharttitle",
+                   "type":"string",
+                   "tooltip":"Enter chart title"
+                },{
+                  "type":"color",
+                  "fieldName": "backgroundColor",
+                  "tooltip": "Pick background color",
+                  "label": "Background Color"
+                },{
+                  "type":"color",
+                  "fieldName": "textColor",
+                  "tooltip": "Pick text color",
+                  "label": "Text Color"
+                },{
+                  "type":"color",
+                  "fieldName": "borderColor",
+                  "tooltip": "Pick border color",
+                  "label": "Border Color"
+                },{
+                  "type":"color",
+                  "fieldName": "chartSkyColor",
+                  "tooltip": "Chart sky color",
+                  "label": "Chart sky color"
+                },{
+                  "type":"color",
+                  "fieldName": "chartElevationColor",
+                  "tooltip": "Chart elevation color",
+                  "label": "Chart elevation color"
+                },{
+                  "type":"color",
+                  "fieldName": "chartAxisFontColor",
+                  "tooltip": "Axis text color",
+                  "label": "Chart axis text color"
                 }
             ]
         },{
             "category": "Options",
-            "fields":[
+            "fields":[{
+                  "type": "paragraph",
+                  "value": "Set show title in header to false to display the title and subtitle text in the side panel instead of the header area. "
+                },
                 {
                     "type": "boolean",
                     "fieldName": "titleInHeader",
@@ -118,12 +135,15 @@
     ],
     "values": {
         "showHelpOnLoad": true,
+        "backgroundColor": "#777",
+        "textColor": "#eee",
+        "borderColor": "#ccc",
+        "chartSkyColor": "4682B4",
+        "chartElevationColor":"CD853F",
+        "chartAxisFontColor": "#ccc",
         "titleInHeader": true,
         "displaypopups": true,
         "geocoder": false,
-        "searchExtent": true,
-        "locationSearch": false,
-        "bingmapskey": null,
         "scalebarUnits": "dual"				
     }
 }

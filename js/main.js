@@ -1,11 +1,28 @@
-define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "dojo/_base/lang", "dojo/on", "dojo/dom", "dojo/dom-class", "dojo/dom-construct", "dijit/registry", "dijit/layout/ContentPane", "esri/arcgis/utils", "esri/dijit/Legend", "esri/layers/FeatureLayer", "esri/dijit/Scalebar", "esri/dijit/Measurement", "esri/units", "esri/IdentityManager", "application/ElevationsProfile/Widget"], function (ready, declare, dojoQuery, domStyle, lang, on, dom, domClass, domConstruct, registry, ContentPane, arcgisUtils, Legend, FeatureLayer, Scalebar, Measurement, Units, IdentityManager, ElevationsProfile) {
+define(["dojo/ready", "dojo/_base/declare", "dojo/query", "dojo/dom-style", "dojo/_base/lang", "dojo/on", "dojo/dom", "dojo/dom-class", "dojo/dom-construct", "dijit/registry", "dijit/layout/ContentPane", "esri/arcgis/utils", "esri/dijit/Legend", "esri/layers/FeatureLayer", "esri/dijit/Scalebar", "esri/dijit/Measurement", "esri/units", "esri/IdentityManager", "application/ElevationsProfile/Widget"], function (ready, declare, dojoQuery, domStyle, lang, on, dom, domClass, domConstruct, registry, ContentPane, arcgisUtils, Legend, FeatureLayer, Scalebar, Measurement, Units, IdentityManager, ElevationsProfile) {
     return declare([], {
         config: {},
         startup: function (config) {
             this.config = config;
+
+            //update the color scheme
+            if (this.config.backgroundColor) {
+                var container = dom.byId("mainContainer");
+                if (container) {
+                    domStyle.set(container, "background-color", this.config.backgroundColor);
+                    domStyle.set(container, "color", this.config.textColor);
+                }
+                var top = dom.byId("topContainer");
+                if (top) {
+                    domStyle.set(top, "border-color", this.config.borderColor);
+                    dojoQuery(".dijitSplitterH").style("background-color", this.config.borderColor);
+                }
+                //update sign-in dialog colors 
+                dojoQuery(".esriSignInDialog .dijitDialogPaneActionBar").style("background-color", this.config.backgroundColor);
+
+            }
+
             //supply either the webmap id or, if available, the item info
             var itemInfo = this.config.itemInfo || this.config.webmap;
-            this._createWebMap(itemInfo);
 
             if (config) {
                 this.config = config;
@@ -39,18 +56,20 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
          * @private
          */
         _createWebMap: function (itemInfo) {
-            // CREATE MAP FROM WEBMAP //
+            itemInfo = this._setExtent(itemInfo);
+            var mapOptions = {};
+            mapOptions = this._setLevel(mapOptions);
+            mapOptions = this._setCenter(mapOptions);
+
             arcgisUtils.createMap(itemInfo, "mapPane", {
-                mapOptions: {
-                    wrapAround180: true
-                },
+                mapOptions: mapOptions,
                 editable: false,
                 ignorePopups: false,
-                usePopupManager:true,
+                layerMixins: this.config.layerMixins || [],
+                usePopupManager: true,
                 bingMapsKey: this.config.bingmapskey
             }).then(lang.hitch(this, function (response) {
                 this.config.response = response;
-
 
                 var descNode = null;
                 if (this.config.titleInHeader) {
@@ -61,22 +80,35 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
                     descNode = dom.byId("descriptionPane");
                     domStyle.set(dom.byId("topContainer"), "display", "none");
                 }
-
-                var titleNode = domConstruct.create("div", {
+                var title = this.config.title || response.itemInfo.item.title || "";
+                document.title = title;
+                domConstruct.create("div", {
                     id: "titleNode",
-                    innerHTML: response.itemInfo.item.title || ""
+                    innerHTML: title
                 }, descNode, "first");
-                var snippetNode = domConstruct.create("div", {
+                var subtitle = this.config.subtitle || response.itemInfo.item.snippet || "";
+                domConstruct.create("div", {
                     id: "snippetNode",
-                    innerHTML: response.itemInfo.item.snippet || ""
+                    innerHTML: subtitle
                 }, descNode);
+
                 registry.byId("mainContainer").layout();
-   
+
+
                 dom.byId("descriptionNode").innerHTML = response.itemInfo.item.description || "";
+
                 registry.byId("infoContainer").layout();
 
 
                 this.map = response.map;
+
+                domClass.add(this.map.infoWindow.domNode, ["light", "custom"]);
+                dojoQuery(".esriPopup.light .titlePane").style("background-color", this.config.backgroundColor);
+                dojoQuery(".esriPopup.light .titleButton").style("color", this.config.textColor);
+                dojoQuery(".esriPopup.light .titlePane .title").style("color", this.config.textColor);
+                on(this.map.infoWindow, "show", lang.hitch(this, function () {
+                    dojoQuery(".esriPopup.light .pointer.top").style("background", this.config.backgroundColor);
+                }));
 
                 //Enable snapping
                 this.map.enableSnapping();
@@ -98,150 +130,52 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
                 });
 
                 var legendLayers = arcgisUtils.getLegendLayers(response);
-                if(legendLayers && legendLayers.length > 0){
-                  var legendDijit = new Legend({
-                      map: this.map,
-                      layerInfos: legendLayers
-                  }, "legendNode");
-                  legendDijit.startup();
-
+                if (legendLayers && legendLayers.length > 0) {
+                    var legendDijit = new Legend({
+                        map: this.map,
+                        layerInfos: legendLayers
+                    }, "legendNode");
+                    legendDijit.startup();
+                } else {
+                    if (this.config.titleInHeader === true && response.itemInfo.item.description === null) {
+                        domStyle.set(dom.byId("infoContainer"), "display", "none");
+                        registry.byId("mainContainer").layout();
+                    }
                 }
 
 
                 //Create the Geocoder
                 if (this.config.geocoder) {
-
                     //Add the location search widget
-                    require(["esri/dijit/Search", "esri/tasks/locator", "dojo/_base/array", "esri/lang"], lang.hitch(this, function (Search, Locator, array, esriLang) {
-                        if (!Search && !Locator) {
+                    require(["esri/dijit/Search", "esri/tasks/locator", "application/SearchSources", "dojo/_base/array", "esri/lang"], lang.hitch(this, function (Search, Locator, SearchSources, array, esriLang) {
+                        if (!Search && !Locator && !SearchSources) {
                             return;
                         }
-                        var options = {
+                        var searchOptions = {
                             map: this.map,
-                            addLayersFromMap: false
+                            useMapExtent: this.config.searchExtent,
+                            itemData: this.config.response.itemInfo.itemData
                         };
-                        var searchLayers = false;
-                        var search = new Search(options, domConstruct.create("div", {
+
+                        if (this.config.searchConfig) {
+                            searchOptions.applicationConfiguredSources = this.config.searchConfig.sources || [];
+                        } else if (this.config.searchLayers) {
+                            var configuredSearchLayers = (this.config.searchLayers instanceof Array) ? this.config.searchLayers : JSON.parse(this.config.searchLayers);
+                            searchOptions.configuredSearchLayers = configuredSearchLayers;
+                            searchOptions.geocoders = this.config.locationSearch ? this.config.helperServices.geocode : [];
+                        }
+                        var searchSources = new SearchSources(searchOptions);
+                        var createdOptions = searchSources.createOptions();
+
+                        if (this.config.searchConfig && this.config.searchConfig.activeSourceIndex) {
+                            createdOptions.activeSourceIndex = this.config.searchConfig.activeSourceIndex;
+                        }
+
+                        var search = new Search(createdOptions, domConstruct.create("div", {
                             id: "search"
                         }, "mapPane"));
-                        var defaultSources = [];
 
-                        //setup geocoders defined in common config 
-                        if (this.config.helperServices.geocode && this.config.locationSearch) {
-                            var geocoders = lang.clone(this.config.helperServices.geocode);
-                            array.forEach(geocoders, lang.hitch(this, function (geocoder) {
-                                if (geocoder.url.indexOf(".arcgis.com/arcgis/rest/services/World/GeocodeServer") > -1) {
-
-                                    geocoder.hasEsri = true;
-                                    geocoder.locator = new Locator(geocoder.url);
-
-                                    geocoder.singleLineFieldName = "SingleLine";
-
-                                    geocoder.name = geocoder.name || "Esri World Geocoder";
-
-                                    if (this.config.searchExtent) {
-                                        geocoder.searchExtent = this.map.extent;
-                                        geocoder.localSearchOptions = {
-                                            minScale: 300000,
-                                            distance: 50000
-                                        };
-                                    }
-                                    defaultSources.push(geocoder);
-                                } else if (esriLang.isDefined(geocoder.singleLineFieldName)) {
-
-                                    //Add geocoders with a singleLineFieldName defined 
-                                    geocoder.locator = new Locator(geocoder.url);
-
-                                    defaultSources.push(geocoder);
-                                }
-                            }));
-                        }
-                        //add configured search layers to the search widget 
-                        var configuredSearchLayers = (this.config.searchLayers instanceof Array) ? this.config.searchLayers : JSON.parse(this.config.searchLayers);
-                        array.forEach(configuredSearchLayers, lang.hitch(this, function (layer) {
-
-                            var mapLayer = this.map.getLayer(layer.id);
-                            if (mapLayer) {
-                                var source = {};
-                                source.featureLayer = mapLayer;
-
-                                if (layer.fields && layer.fields.length && layer.fields.length > 0) {
-                                    source.searchFields = layer.fields;
-                                    source.displayField = layer.fields[0];
-                                    source.outFields = ["*"];
-                                    searchLayers = true;
-                                    defaultSources.push(source);
-                                    if (mapLayer.infoTemplate) {
-                                        source.infoTemplate = mapLayer.infoTemplate;
-                                    }
-                                }
-                            }
-                        }));
-                        //Add search layers defined on the web map item 
-                        if (this.config.response.itemInfo.itemData && this.config.response.itemInfo.itemData.applicationProperties && this.config.response.itemInfo.itemData.applicationProperties.viewing && this.config.response.itemInfo.itemData.applicationProperties.viewing.search) {
-                            var searchOptions = this.config.response.itemInfo.itemData.applicationProperties.viewing.search;
-
-                            array.forEach(searchOptions.layers, lang.hitch(this, function (searchLayer) {
-                                //we do this so we can get the title specified in the item
-                                var operationalLayers = this.config.itemInfo.itemData.operationalLayers;
-                                var layer = null;
-                                array.some(operationalLayers, function (opLayer) {
-                                    if (opLayer.id === searchLayer.id) {
-                                        layer = opLayer;
-                                        return true;
-                                    }
-                                });
-                                if (layer && layer.hasOwnProperty("url")) {
-                                    var source = {};
-                                    var url = layer.url;
-                                    var name = layer.title || layer.name;
-
-                                    if (esriLang.isDefined(searchLayer.subLayer)) {
-                                        url = url + "/" + searchLayer.subLayer;
-                                        array.some(layer.layerObject.layerInfos, function (info) {
-                                            if (info.id == searchLayer.subLayer) {
-                                                name += " - " + layer.layerObject.layerInfos[searchLayer.subLayer].name;
-                                                return true;
-                                            }
-                                        });
-                                    }
-
-                                    source.featureLayer = new FeatureLayer(url);
-
-
-                                    source.name = name;
-
-
-                                    source.exactMatch = searchLayer.field.exactMatch;
-                                    source.displayField = searchLayer.field.name;
-                                    source.searchFields = [searchLayer.field.name];
-                                    source.placeholder = searchOptions.hintText;
-                                    defaultSources.push(source);
-                                    searchLayers = true;
-                                }
-
-                            }));
-                        }
-
-                        search.set("sources", defaultSources);
                         search.startup();
-                        
-                        //set the first non esri layer as active if search layers are defined. 
-                        var activeIndex = 0;
-                        if (searchLayers) {
-                            array.some(defaultSources, function (s, index) {
-                                if (!s.hasEsri) {
-                                    activeIndex = index;
-                                    return true;
-                                }
-                            });
-
-
-                            if (activeIndex > 0) {
-                                search.set("activeSourceIndex", activeIndex);
-                            }
-                        }
-
 
                     }));
                 }
@@ -249,7 +183,7 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
 
                 var elevationObj = {
                     "elevationSync": {
-                      "url": location.protocol + "//elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
+                        "url": location.protocol + "//elevation.arcgis.com/arcgis/rest/services/Tools/ElevationSync/GPServer"
                     }
                 };
 
@@ -258,10 +192,10 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
                     elevationObj.elevationSync.url = this.config.elevationSync;
                     lang.mixin(this.config.helperServices, elevationObj);
                 }
-  
+
                 //No elevation service in self call or configured. This happens in portal which doesn't have 
                 //an elevation service defined. 
-                if(!this.config.helperServices.hasOwnProperty("elevationSync")){ 
+                if (!this.config.helperServices.hasOwnProperty("elevationSync")) {
                     lang.mixin(this.config.helperServices, elevationObj);
                 }
 
@@ -270,7 +204,13 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
                     map: this.map,
                     profileTaskUrl: this.config.helperServices.elevationSync.url,
                     scalebarUnits: this.config.scalebarUnits,
-                    showHelpAtStartup: this.config.showHelpOnLoad
+                    showHelpAtStartup: this.config.showHelpOnLoad,
+                    chartTitle: this.config.elevationcharttitle,
+                    backgroundColor: this.config.backgroundColor,
+                    textColor: this.config.textColor,
+                    chartAxisFontColor: this.config.chartAxisFontColor,
+                    chartSkyColor: this.config.chartSkyColor,
+                    chartElevationColor: this.config.chartElevationColor
                 };
 
 
@@ -280,12 +220,13 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
                 //disable popups when measure tool is used. 
                 elevationsProfile.on("measure-distance-checked", lang.hitch(this, function (evt) {
                     if (evt.checked) {
-                      this.map.setInfoWindowOnClick(false);
+                        this.map.setInfoWindowOnClick(false);
                     } else {
-                      this.map.setInfoWindowOnClick(true);
+                        this.map.setInfoWindowOnClick(true);
                     }
                 }));
                 elevationsProfile.startup();
+                dojoQuery(".elevationsProfileToolbar .dijitButtonText").style("color", this.config.textColor);
 
             }), lang.hitch(this, function (error) {
                 if (this.config && this.config.i18n) {
@@ -294,6 +235,41 @@ define(["dojo/ready", "dojo/_base/declare", "dojo/query",  "dojo/dom-style", "do
                     alert("Unable to create map: " + error.message);
                 }
             }));
+        },
+        _setLevel: function (options) {
+            var level = this.config.level;
+            //specify center and zoom if provided as url params 
+            if (level) {
+                options.zoom = level;
+            }
+            return options;
+        },
+
+        _setCenter: function (options) {
+            var center = this.config.center;
+            if (center) {
+                var points = center.split(",");
+                if (points && points.length === 2) {
+                    options.center = [parseFloat(points[0]), parseFloat(points[1])];
+                }
+            }
+            return options;
+        },
+
+        _setExtent: function (info) {
+            var e = this.config.extent;
+            //If a custom extent is set as a url parameter handle that before creating the map
+            if (e) {
+                var extArray = e.split(",");
+                var extLength = extArray.length;
+                if (extLength === 4) {
+                    info.item.extent = [
+                        [parseFloat(extArray[0]), parseFloat(extArray[1])],
+                        [parseFloat(extArray[2]), parseFloat(extArray[3])]
+                    ];
+                }
+            }
+            return info;
         }
     });
 });

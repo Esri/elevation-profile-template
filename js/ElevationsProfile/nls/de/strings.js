@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Höhenprofil",
       showMe: "anzeigen",
-      selectLine: "<b>Wählen</b> Sie ein Feature auf der Karte.",
+      selectLine: "<b>Wählen</b> Sie ein Linien-Feature in der Karte aus.",
       popupRequirement: "HINWEIS: Das Feature muss in einem Layer enthalten sein, für den Pop-ups aktiviert sind.",
       digitizeDistanceMeasureTool: "Verwenden der <b>Messen</b>-Werkzeuge.",
       selectFeatureHelpUrl: "http://help.arcgis.com/de/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

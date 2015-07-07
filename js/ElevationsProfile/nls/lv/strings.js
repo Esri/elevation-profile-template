@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Pacēluma profils",
       showMe: "parādiet man",
-      selectLine: "<b>Izvēlēties</b> elementu kartē.",
+      selectLine: "<b>Atlasiet</b> līnijas elementu kartē.",
       popupRequirement: "PIEZĪME: elementam jābūt slānī ar iespējotiem uznirstošajiem logiem.",
       digitizeDistanceMeasureTool: "Lietojiet <b>Mērīt</b> rīkus.",
       selectFeatureHelpUrl: "http://help.arcgis.com/en/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

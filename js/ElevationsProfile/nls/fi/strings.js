@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Korkeusprofiili",
       showMe: "näytä minut",
-      selectLine: "<b>Valitse</b> kartan kohde.",
+      selectLine: "<b>Valitse</b> kartasta viivakohde.",
       popupRequirement: "HUOM.: kohteen on oltava karttatasossa, jossa ponnahdusikkunat ovat käytössä.",
       digitizeDistanceMeasureTool: "Käytä <b>Mittaus</b>-työkaluja.",
       selectFeatureHelpUrl: "http://help.arcgis.com/en/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

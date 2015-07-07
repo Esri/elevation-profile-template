@@ -3,7 +3,7 @@
     display: {
       elevationProfileTitle: "Profil för höjdkurva",
       showMe: "visa mig",
-      selectLine: "<b>Markera</b> ett geoobjekt i kartan.",
+      selectLine: "<b>Välj</b> ett linjegeoobjekt på kartan.",
       popupRequirement: "Obs! Geoobjektet måste finnas i ett lager där popupfönster har aktiverats.",
       digitizeDistanceMeasureTool: "Använd <b>Mät</b>-verktygen.",
       selectFeatureHelpUrl: "http://help.arcgis.com/sv/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",

@@ -1,9 +1,9 @@
 ﻿define(
    ({
     display: {
-      elevationProfileTitle: "고도 프로파일",
+      elevationProfileTitle: "고도 프로파일(Elevation Profile)",
       showMe: "표시",
-      selectLine: "맵에서 피처를 <b>선택</b>하세요.",
+      selectLine: "맵에서 라인 피처를 <b>선택</b>합니다.",
       popupRequirement: "참고: 팝업을 활성화하려면 레이어에 피처가 있어야 합니다.",
       digitizeDistanceMeasureTool: "<b>측정</b> 도구를 사용하세요.",
       selectFeatureHelpUrl: "http://help.arcgis.com/ko/arcgisonline/help/010q/010q0000004s000000.htm#ESRI_SECTION1_DAA22E89DF67448E8F3682309F39BE5D",
@@ -15,7 +15,7 @@
       helpLabel: "도움말"
     },
     chart: {
-      title: "고도 프로파일",
+      title: "고도 프로파일(Elevation Profile)",
       demResolution: "DEM 해상도",
       elevationTitleTemplate: "언덕({0})",
       distanceTitleTemplate: "거리({0})",

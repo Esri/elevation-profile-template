@@ -4,8 +4,6 @@ html, body, #mainContainer {
     height: 100%;
     width: 100%;
     font-family: verdana, helvetica, sans-serif;
-    color: #eee;
-    background-color: #777;
 }
 
 :focus {
@@ -58,7 +56,6 @@ a {
     z-index: 20;
 }
 
-
 #profileChartPane {
     height: 275px;
     padding: 0;
@@ -69,17 +66,21 @@ a {
 }
 
 #topContainer {
-    border-bottom: solid 2px #575757;
+    border-bottom: solid 1px;
+/*#575757*/
 }
+
 .dijitSplitterH {
-    background-color: #575757 !important;
+    /*background-color: #575757 !important;*/
 }
+
 .dijitSplitterHHover {
-    background-image:none !important;
-    background-color:#575757;
+    background-image: none !important;
+    background-color: inherit;
 }
+
 .dijitSplitterHHover, .dijitSplitterHActive {
-    background-color: #575757 !important;
+    background-color: inherit;
 }
 
 .dijitSplitterHHover .dijitSplitterThumb {
@@ -89,8 +90,8 @@ a {
 /* Esri dijits */
 
 .esriPopup .titlePane, .dj_ie7 .esriPopup .titlePane .title {
-    color: #eee;
-    background-color: #777;
+   /* color: #eee;
+    background-color: #777;*/
     font-weight: bolder;
 }
 
@@ -146,6 +147,7 @@ a {
 
 .esriSignInDialog .dijitDialogPaneContentArea {
     background-color: #555 !important;
+    */
     border: none !important;
 }
 
