@@ -1,184 +1,629 @@
-html, body, #mainContainer {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    font-family: verdana, helvetica, sans-serif;
+html,
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden;
+}
+#mapDiv {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+.loading-indicator {
+  /* Loading status */
+  display: none;
+  height: 100%;
+  width: 100%;
+  z-index: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  background: #fff;
+}
+.app-loading .loading-indicator,
+.app-error .loading-indicator {
+  /* Show this class when loading or error */
+  display: block;
+}
+.app-loading .loading-indicator {
+  /* Loading image */
+  background-position: center center;
+  background-image: url(../images/ajax-loader.gif);
+  background-repeat: no-repeat;
+}
+.app-error .loading-message {
+  /* Error status */
+  background-position: top center;
+  background-image: url(../images/error.png);
+  background-repeat: no-repeat;
+  padding-top: 60px;
+  width: 100%;
+  position: absolute;
+  z-index: 2;
+  top: 40%;
+  left: 0;
+  text-align: center;
+}
+/* Color Themes */
+.fg{
+}
+.bg{
+  /*
+  opacity: 1;
+  -webkit-box-shadow: 2px 2px 2px 0px rgba(15, 15, 15, 0.75);
+  -moz-box-shadow:    2px 2px 2px 0px rgba(15, 15, 15, 0.75);
+  box-shadow:         2px 2px 2px 0px rgba(15, 15, 15, 0.75);*/
+}
+/*Icon Fonts*/
+@font-face {
+  font-family: 'elevfonts';
+  src:url('../fonts/icomoon.eot?-dk7kju');
+  src:url('../fonts/icomoon.eot?#iefix-dk7kju') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?-dk7kju') format('truetype'),
+    url('../fonts/icomoon.woff?-dk7kju') format('woff'),
+    url('../fonts/icomoon.svg?-dk7kju#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+[class^="icon-"], [class*=" icon-"] {
+  font-family: 'elevfonts';
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-close:before {
+  content: "\e600";
+}
+.icon-draw:before {
+  content: "\e61b";
+}
+.icon-map-pin:before {
+  content: "\e61d";
+}
+.icon-basemap:before {
+  content: "\e634";
+}
+.icon-legend:before {
+  content: "\e642";
+}
+.icon-layers:before {
+  content: "\e659";
+}
+.icon-profile:before {
+  content: "\e602";
+}
+.icon-twitter:before {
+  content: "\e802";
+}
+.icon-facebook-squared:before {
+  content: "\e803";
+}
+.icon-gplus:before {
+  content: "\e804";
+}
+.icon-mail-alt:before {
+  content: "\e805";
+}
+.icon-link:before {
+  content: "\e806";
+}
+.icon-share2:before {
+  content: "\e65c";
+}
+.icon-share:before {
+  content: "\e601";
+}
+/* Elevation Profile Panel Styles for the panel that contains the
+elevation profile widget */
+.panel{
+  width:100%;
+  position: absolute;
+  display: block;
+  height: auto;
+  z-index: 30;
+}
+@media screen and (min-width: 620px) {
+  .panel{
+    width:80%;
+  }
+}
+.top-center{
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  margin-left:20px; /*prevent zoom conflicts*/
+  -moz-transform: translateX(-50%) translateY(0%);
+  -webkit-transform: translateX(-50%) translateY(0%);
+  -o-transform: translateX(-50%) translateY(0%);
+  -ms-transform: translateX(-50%) translateY(0%);
+  transform: translateX(-50%) translateY(0%);
+  transform: translate(-50%, 0%); 
+}
+.bottom-center {
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  -moz-transform: translateX(-50%) translateY(0%);
+  -webkit-transform: translateX(-50%) translateY(0%);
+  -o-transform: translateX(-50%) translateY(0%);
+  -ms-transform: translateX(-50%) translateY(0%);
+  transform: translateX(-50%) translateY(0%);
+  transform: translate(-50%, 0%);
+}
+#panelContent{
+  height:0;
+  opacity: 0;
+  visibility: hidden;
+  vertical-align: middle;
+  text-align: center;
+  white-space: normal;
+}
+#panelTitle{
+  display: table;
+  width:100%;
+  height:30px;
+  line-height: 30px;
+  padding-bottom: 5px;
+}
+#elevProfileChart{
+  height:100%;
+  width:98%; 
+}
+.esriElevationProfile .esriElevationProfileSourceLabel{
+  display: none;
+}
+#desc{
+  display:none;
+  width:98%;
+  padding:5px 10px 5px 10px;/*t,r,b,l*/
+  font-size: 12pt;
+  overflow: hidden;
+}
+#elevTitle{
+  font-weight: bold;
+  padding:5px 5px 0px 10px;
+  font-size: 14pt;
+  display: table-cell;
 }
 
-:focus {
-    outline: none;
+/*Elevation Profile toolbar styles (draw, toggle-profile)*/
+#elevTools{
+  margin-left:auto;
+  margin-right: auto;
+  display: table-cell;
+  width:80px;
+  text-align: center;
+  white-space: normal;
+}
+.tools{
+  height:32px;
+  width:32px;
+  font-size: 16px;
+  line-height: 16px;
+  background: transparent;
+  border: none !important;
+  cursor:pointer;
+}
+.active{
+  background-color: rgba(59,60,64,0.4);
+  border-radius: 4px; 
+}
+.activeTool{
+  background-color: rgba(59,60,64,0.9) !important;
+}
+/*Styles for the modal dialog (splash screen)*/
+#modal {
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  margin: -100px 0 0 -20%;
+  opacity: 1;
+  visibility: visible;
+  width: 40%;
+  box-shadow: 0 3px 7px rgba(0,0,0,.25);
+  box-sizing: border-box;
+  transition: all .4s ease-in-out;
+  -moz-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out
+}
+#modalContent{
+  max-height: 300px;
+  overflow: auto;
+}
+#modal.hide{
+  top: -50%;
+  visibility: hidden;
+  opacity: 0;
+}
+#modal .modal-header{
+  border-bottom: 1px solid #ccc;
+  border-radius: 5px 5px 0 0
+}
+#modal h2 {
+  margin: 0;
+  padding-right:32px;
+}
+#modal .copy, #modal .modal-header {
+  padding: 10px;
+}
+.modal-content {
+  position: relative;
+  z-index: 20;
+}
+#modal .overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  /*background-color: #000;
+  background: rgba(0,0,0,.8);*/
+  z-index: 10;
 }
 
-a {
-    color: inherit;
+#closeOverlay{
+  display: inline-block;
+  position: absolute;
+  right:2px;
+  top:2px;
+  height:36px;
+  width:36px;
+  font-size:24px;
+  line-height: 24px;
+}
+/*Styles for the (share, legend, basemaps, search)
+that appear below the zoom slider */
+.tool-btn{
+  text-align: center;
+  margin:0;
+  background: transparent;
+  border: none !important;
+  cursor:pointer;
+  border-radius:4px;
+}
+.map-tools{
+  position: absolute;
+  top:134px;
+  left:20px;
+  width:30px;
+  height:120px;
+  text-align: center;
+}
+/*Esri zoom slider */
+.slider-false .map-tools{
+ top:65px;
+}
+.slider-false.nosearch .map-tools{
+  top:20px;
+}
+.nosearch .map-tools{
+  top:90px;
+}
+.map-btn{
+  border: 1px solid #999;
+  margin-bottom:5px;
+  display: none;
+  background: transparent;
+  cursor:pointer;
+  line-height: 26px;
+  font-size: 20px;
+}
+.hide{
+  display:none;
+}
+.container_hide{
+  display: none;
+}
+.arrow_box {
+  position: relative;
+  background: #222e36;
+}
+.arrow_box:after, .arrow_box:before {
+  right: 100%;
+  top: 25px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
 }
 
-/* UI container nodes */
-
-.claro .dijitSplitContainer-dijitContentPane, .claro .dijitBorderContainer-dijitContentPane {
-    background-color: inherit;
+.arrow_box:after {
+  border-right-color:inherit;
+  border-width: 12px;
+  margin-top: -12px;
+}
+.arrow_box:before {
+  border-width: 12px;
+  margin-top: -12px;
 }
 
-#topContainer {
-    height: 60px;
+.arrow_content{
+  overflow: hidden;
+  display: inline-block;
+}
+.closeBtn{
+  font-size: 14px;
+  position: absolute;
+  top:2px;
+  right:2px;
+  cursor:pointer;
+  padding:4px;
+  z-index: 30;
+}
+.closeBtn:hover{
+  color: #ccc;
+}
+.dialog-header{
+  width:100%;
+  height:20px;
 }
 
-#topContainer .dijitContentPane {
-    border: none !important;
-    overflow: hidden;
-    padding: 10px;
-    background-color: inherit;
+#legendContainer, #basemapContainer, #shareContainer{
+  border-radius: 2px;
+  visibility: hidden;
+  display:none;
+  z-index: 30;
+}
+.esriBasemapGallery{
+  padding:10px;
+}
+#legendDiv, #basemapDiv, #shareDiv{
+  overflow: auto;
+  height: auto;
+  width:255px;
+  max-height: 300px;
+  padding:1em;
+}
+.esriLayerList .esriTabMenu .esriTabMenuSelected{
+  color:#666;
+}
+.esriLayerList .esriTitleContainer{
+  border-top:none;
+}
+.esriLayerList .esriContainer{
+  background-color: inherit !important;
+  color: inherit !important;
+  border-top:none;
+  border-bottom:none;
+
+}
+.noscroll{
+  overflow: hidden;
+}
+/*Flat Dojo Basemap Gallery and Legend CSS*/
+.esriBasemapGallery {
+  background: transparent;
+}
+.esriBasemapGalleryNode {
+  float: left;
+  margin: 4px;
+  width: auto;
+}
+.esriBasemapGalleryNode a {
+  background: #fff;
+  border: 1px solid #d0d0d0;
+  display: inline-block;
+  padding: 2px;
+  text-decoration: none;
+  position: relative;
+  transition: background 0.2s ease;
+/* Hover */
+/* Active */
+}
+.esriBasemapGalleryNode a img {
+  vertical-align: middle;
+}
+.esriBasemapGalleryNode a:hover {
+  background: #f2f2f2;
+}
+.esriBasemapGalleryNode a:active {
+  background: #e6e6e6;
+}
+.esriBasemapGalleryLabelContainer {
+  font-size:10px;
+  background: transparent;
+  text-align: center;
+  width: 100%;
+  overflow: hidden;
+  display: block;
+}
+.esriBasemapGalleryThumbnail {
+  height: 67px;
+  width: 100px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+}
+/* Selected */
+.esriBasemapGallerySelectedNode .esriBasemapGalleryThumbnail {
+  border: 2px solid #007ac2;
+  margin: 0;
+}
+.esriBasemapGallerySelectedNode a:after {
+  font-family: 'elevfonts';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  text-decoration: inherit;
+  vertical-align: bottom;
+  height: 20px;
+  width: 30px;
+  background: #007ac2;
+  content: "\e605";
+  color: #fff;
+  text-align: center;
+  display: block;
+  position: absolute;
+  right: 2px;
+  bottom: 2px;
 }
 
-#titleNode {
-    font-size: x-large;
+
+#search{
+  position: absolute;
+  top:90px;
+  left:20px;
+  z-index: 10;
+}
+.slider-false #search{
+  top:20px;
+}
+.arcgisSearch .searchGroup .searchInput {
+  width: 200px;
+  padding: 6px 17px 6px 18px;
+  zoom: 1;
+ }
+ .arcgisSearch .searchIcon{
+  color:inherit;
+ }
+ .arcgisSearch .searchCollapsed .searchSubmit{
+  background-color:inherit;
+  color:inherit;
+  border-radius: 0;
+ }
+ .arcgisSearch .searchBtn{
+  padding:6px 5px;
+ }
+.arcgisSearch .searchExpandContainer .searchBtn{
+  padding:6px 12px;
+}
+.esriSimpleSlider{
+  border:none;
 }
 
-#infoContainer {
-    width: 275px;
-    background-color: inherit !important;
+.esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
+    border-bottom: 1px solid #999;
 }
-
-#descriptionPane {
-    height: auto;
-    max-height: 50%;
+.esriSimpleSliderVertical .esriSimpleSliderDecrementButton, .esriSimpleSliderVertical .esriSimpleSliderIncrementButton {
+    border-radius: 1px;
 }
-
-#mapPane {
-    padding: 0 !important;
+.esriSimpleSlider div{
+  font-size:22px;
+  font-family: 'lato', sans-serif;
+  line-height: 22px;
 }
-
-#search {
-    position: absolute;
-    top: 20px;
-    right: 10px;
-    z-index: 20;
+.esriSimpleSlider, .arcgisSearch .searchBtn {
+  font-size: 22px;
+  font-family: 'lato', sans-serif;
+  line-height: 22px;
+  border: 1px solid #999;
+  border-radius: 1px;
 }
-
-#profileChartPane {
-    height: 275px;
-    padding: 0;
-    background-color: inherit !important;
-    -moz-box-shadow: inset -1px -1px 4px #444;
-    -webkit-box-shadow: inset -1px -1px 4px #444;
-    box-shadow: inset -1px -1px 4px #444;
+/*Share Dialog*/
+.icon-container {
+  margin: 10px 0 10px;
+  display: none;
 }
-
-#topContainer {
-    border-bottom: solid 1px;
-/*#575757*/
+@media screen and (min-width: 620px) {
+  .icon-container {
+    display: block;
+  }
 }
-
-.dijitSplitterH {
-    /*background-color: #575757 !important;*/
+.map-size-label {
+  float: left;
+  font-size: 15px;
+  margin: 0 5px 0 0;
 }
-
-.dijitSplitterHHover {
-    background-image: none !important;
-    background-color: inherit;
+.esriRTL .map-size-label {
+  float: right;
+  margin: 0 0 0 5px;
 }
-
-.dijitSplitterHHover, .dijitSplitterHActive {
-    background-color: inherit;
+.share-dialog-icon {
+  font-size: 30px;
+  line-height: 30px;
+  float: left;
+  color: #fff;
+  cursor: pointer;
+  margin: 0 10px 0 0;
+  text-decoration: none;
+  display: block;
 }
-
-.dijitSplitterHHover .dijitSplitterThumb {
-    background-color: #eee !important;
+.esriRTL .share-dialog-icon {
+  float: right;
+  margin: 0 0 0 10px;
 }
-
-/* Esri dijits */
-
-.esriPopup .titlePane, .dj_ie7 .esriPopup .titlePane .title {
-   /* color: #eee;
-    background-color: #777;*/
-    font-weight: bolder;
+.share-dialog-icon:hover {
+  color: rgba(0,0,0,0.8);
 }
-
-.esriAttribution {
-    padding: 3px;
-    border-radius: 3px;
+.share-map-url {
+  width: 50%;
+  min-width: 80%;
+  max-width: 90%;
+  height: 25px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dcdcdc;
+  margin: 0 0 10px;
 }
-
-.esriLegendService {
-    font-size: small;
-    overflow: hidden;
+.map-size-container {
+  margin: 0;
+  padding: 0 0 20px;
 }
-
-.esriLegendServiceLabel {
-    margin-left: 10px;
+.embed-map-size-clear,
+.icon-clear {
+  clear: both;
 }
-
-.esriLegendLayerLabel {
-    margin-left: 15px;
-    font-style: italic;
-    display: none;
+.embed-map-size-dropdown {
+  float: left;
 }
-
-.esriLegendLayer {
-    margin-left: 25px;
+.esriRTL .embed-map-size-dropdown {
+  float: right;
 }
-
-/* Esri SignIn Dialog */
-
-.esriSignInDialog {
-    color: #eee !important;
-    border: solid 1px #666 !important;
-    border-radius: 6px;
+.share-dialog-subheader {
+  font-size: 17px;
+  display: none;
 }
-
-.esriSignInDialog .dijitDialogTitleBar {
-    border: none !important;
-    background: #555 none !important;
-    border: none !important;
-    border-radius: 4px 4px 0 0;
+@media screen and (min-width: 620px) {
+  .share-dialog-subheader {
+    display: block;
+  }
 }
-
-.esriSignInDialog .dijitDialogTitle {
-    color: #eee;
-    font-weight: bolder !important;
+.share-dialog-textarea {
+  width: auto;
+  max-width: 90%;
+  width: 80%;
+  height: 50px;
+  font-size: 14px;
+  color: #777;
+  border: 1px solid #dcdcdc;
+  margin: 0 0 10px;
 }
-
-.esriSignInDialog .dijitDialogPaneContent {
-    border: none !important;
-    background-color: #555 !important;
-    border-radius: 0 0 4px 4px;
+.share-dialog-checkbox {
+  display: inline-block;
+  cursor: pointer;
+  padding: 8px;
 }
-
-.esriSignInDialog .dijitDialogPaneContentArea {
-    background-color: #555 !important;
-    */
-    border: none !important;
+input[type=checkbox].share-dialog-checkbox {
+  display: none;
 }
-
-.esriSignInDialog .dijitDialogPaneActionBar {
-    background-color: #555 !important;
-    border: none !important;
-    border-radius: 0 0 4px 4px;
+.share-dialog-checkbox:before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  background-color: #d3d3d3;
+  color: #f3f3f3;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
 }
-
-.esriSignInDialog .dijitButtonNode {
-    background: #333 !important;
-    border-color: #555 !important;
+input[type=checkbox]:checked.share-dialog-checkbox + .share-dialog-checkbox:before {
+  content: "\2713";
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+  font-size: 15px;
 }
-
-.esriSignInDialog .dijitButtonNode:hover {
-    box-shadow: 0 0 5px #222;
-}
-
-.esriSignInDialog .dijitButtonText {
-    color: #ccc !important;
-}
-
-.esriSignInDialog .dijitButtonText:hover {
-    color: #eee !important;
-}
-
-.esriSignInDialog a {
-    color: #eee !important;
-}
-
-.elevationsProfileMeasurePane .dijitDialogCloseIcon {
-    z-index: 99;
-}
- 
