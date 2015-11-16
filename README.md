@@ -20,11 +20,11 @@ Elevation Profile is a configurable application template used to display the ele
 This template can be configured using the following options:
 
 - **Map:** Choose the web map(s) used in the application. 
-- **Bing Maps Key:** Enter a Bing Maps key to enable the application to use Bing Maps. 
-- **Scalebar Units:** Specify the scale bar units; choose Metric and English, Metric only, or English only. 
 - **Search:** Enable search (geocode) capability to the app. Optionally configure the search to search feature layers within the map. 
-- **Help Dialog**: By default the help dialog for this app displays on app load. Set to false to prevent the dialog from displaying on load. 
-- **Display Poups**: Set to false to hide popups. 
+- **Basemap Gallery:** Enable a basemap gallery. 
+- **LayerList:**  Add a layer list/legend widget to the app. 
+- **Splash Screen**: Enable a splash screen for the app and define the title and description.  
+
 
 
 ## Instructions
