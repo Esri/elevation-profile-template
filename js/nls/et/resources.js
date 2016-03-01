@@ -19,6 +19,9 @@ define(
     map: {
       error: "Kaarti ei saa luua"
     },
+    nav: {
+        "close": "Sule"
+    },
     elevation: {
         toggle: "Lülita kõrgusprofiili graafik sisse/välja.",
         drawTool: "Kõrgusprofiili loomiseks tõmmake kaardil joon.",

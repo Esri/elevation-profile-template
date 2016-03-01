@@ -19,6 +19,9 @@ define(
     map: {
       error: "맵을 생성할 수 없음"
     },
+    nav: {
+        "close": "닫기"
+    },
     elevation: {
         toggle: "고도 프로파일 차트를 전환합니다.",
         drawTool: "맵에 라인을 그려 고도 프로파일을 생성합니다.",

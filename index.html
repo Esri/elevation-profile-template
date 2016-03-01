@@ -13,13 +13,26 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <!-- End Responsive -->
   <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
-  <link rel="stylesheet" href="//js.arcgis.com/3.15/dijit/themes/claro/claro.css">
-  <link rel="stylesheet" href="//js.arcgis.com/3.15/esri/css/esri.css">
+  <link rel="stylesheet" href="//js.arcgis.com/3.16/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="//js.arcgis.com/3.16/esri/css/esri.css">
   <!-- Load any application specific styles -->
   <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body class="claro app-loading">
+    <!--Modal Splash Screen-->
+  <div id="modal" class="hide">
+    <div class="modal-content">
+      <div class="modal-header bg fg">
+        <h2 id="modalTitle"></h2>
+      </div>
+      <div class="copy bg fg">
+        <div id="modalContent"></div>
+        <center><input  id="closeOverlay" class="bg fg" type="button"/></center>
+      </div>
+    </div>
+    <div class="overlay"></div>
+  </div>
  <div id="basemapContainer" class="bg fg arrow_box">
     <div class="dialog-header">
       <div class="icon-close closeBtn" tabindex="0"></div>
@@ -49,19 +62,8 @@
     </div>
     <div id="desc"></div>
     <div id="panelContent">
-      <div id="elevProfileChart"></div> 
+      <div id="elevProfileChart"></div>
     </div>
-  </div>
-  <!--Modal Splash Screen-->
-  <div id="modal" class="hide">
-    <div class="modal-content  fg bg">
-      <div class="modal-header">
-        <h2 id="modalTitle"></h2>
-        <button id="closeOverlay" class="tool-btn icon-close fg" type="button"></button>
-      </div>
-      <div id="modalContent" class="copy"></div>
-    </div>
-    <div class="overlay"></div>
   </div>
   <div class="loading-indicator">
     <div class="loading-message" id="loading_message"></div>
@@ -94,7 +96,7 @@
     }
 
   </script>
-  <script type="text/javascript" src="//js.arcgis.com/3.15/"></script>
+  <script type="text/javascript" src="//js.arcgis.com/3.16/"></script>
   <script type="text/javascript">
     require([
             "config/templateConfig",

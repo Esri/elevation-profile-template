@@ -19,6 +19,9 @@ define(
     map: {
       error: "Nevar izveidot karti"
     },
+    nav: {
+        "close": "Aizvērt"
+    },
     elevation: {
         toggle: "Pārslēdziet pacēluma profila diagrammu.",
         drawTool: "Uzzīmējiet kartē līniju, lai ģenerētu pacēluma profilu.",

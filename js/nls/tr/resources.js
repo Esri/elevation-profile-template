@@ -19,6 +19,9 @@ define(
     map: {
       error: "Harita oluşturulamıyor"
     },
+    nav: {
+        "close": "Kapat"
+    },
     elevation: {
         toggle: "Yükselti Profili Grafiğini Açın/Kapatın.",
         drawTool: "Yükselti profili oluşturmak için haritada bir çizgi çizin.",

@@ -19,6 +19,9 @@ define(
     map: {
       error: "Det går inte att skapa kartan"
     },
+    nav: {
+        "close": "Stäng"
+    },
     elevation: {
         toggle: "Slå på/av diagrammet Profil för höjdkurva.",
         drawTool: "Rita en linje på kartan för att generera en profil för höjdkurva.",

@@ -19,6 +19,9 @@ define(
     map: {
       error: "Imposibil de creat harta"
     },
+    nav: {
+        "close": "Închidere"
+    },
     elevation: {
         toggle: "Comutaţi Diagramă profil de elevaţie.",
         drawTool: "Trasaţi o linie pe hartă pentru a genera un profil de elevaţie.",

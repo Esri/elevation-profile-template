@@ -19,6 +19,9 @@ define({
     map: {
       error: "Unable to create map"
     },
+    nav: {
+        "close": "Close"
+    },
     elevation: {
         toggle: "Toggle the Elevation Profile Chart.",
         drawTool: "Draw a line on the map to generate an elevation profile.",

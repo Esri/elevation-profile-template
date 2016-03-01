@@ -19,6 +19,9 @@ define(
     map: {
       error: "Karte kann nicht erstellt werden"
     },
+    nav: {
+        "close": "Schließen"
+    },
     elevation: {
         toggle: "Höhenprofildiagramm umschalten",
         drawTool: "Zeichnen Sie eine Linie auf die Karte, um ein Höhenprofil zu erstellen.",

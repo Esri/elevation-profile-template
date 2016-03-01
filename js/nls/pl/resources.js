@@ -19,6 +19,9 @@ define(
     map: {
       error: "Nie można utworzyć mapy"
     },
+    nav: {
+        "close": "Zamknij"
+    },
     elevation: {
         toggle: "Przełącz wykres profilu wysokościowego.",
         drawTool: "Narysuj linię na mapie, aby wygenerować profil wysokościowy.",

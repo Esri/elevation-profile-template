@@ -41,7 +41,6 @@ define([
           chartOptions: this.chartParams
       };
       this.profileWidget = new ElevationProfile(profileParams, this.elevProfileChartNode);
-
       this.profileWidget.startup();
 
       this.selGraphicsLayer = new GraphicsLayer();

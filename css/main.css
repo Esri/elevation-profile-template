@@ -148,7 +148,7 @@ elevation profile widget */
   -o-transform: translateX(-50%) translateY(0%);
   -ms-transform: translateX(-50%) translateY(0%);
   transform: translateX(-50%) translateY(0%);
-  transform: translate(-50%, 0%); 
+  transform: translate(-50%, 0%);
 }
 .bottom-center {
   position: absolute;
@@ -178,7 +178,7 @@ elevation profile widget */
 }
 #elevProfileChart{
   height:100%;
-  width:98%; 
+  width:98%;
 }
 .esriElevationProfile .esriElevationProfileSourceLabel{
   display: none;
@@ -217,7 +217,7 @@ elevation profile widget */
 }
 .active{
   background-color: rgba(59,60,64,0.4);
-  border-radius: 4px; 
+  border-radius: 4px;
 }
 .activeTool{
   background-color: rgba(59,60,64,0.9) !important;
@@ -225,7 +225,7 @@ elevation profile widget */
 /*Styles for the modal dialog (splash screen)*/
 #modal {
   position: absolute;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   margin: -100px 0 0 -20%;
   opacity: 1;
@@ -240,6 +240,7 @@ elevation profile widget */
 #modalContent{
   max-height: 300px;
   overflow: auto;
+  padding-bottom:1em;
 }
 #modal.hide{
   top: -50%;
@@ -248,7 +249,7 @@ elevation profile widget */
 }
 #modal .modal-header{
   border-bottom: 1px solid #ccc;
-  border-radius: 5px 5px 0 0
+  border-radius: 0;
 }
 #modal h2 {
   margin: 0;
@@ -260,6 +261,7 @@ elevation profile widget */
 .modal-content {
   position: relative;
   z-index: 20;
+  background-color: #fff;
 }
 #modal .overlay {
   position: fixed;
@@ -267,20 +269,21 @@ elevation profile widget */
   top: 0;
   height: 100%;
   width: 100%;
-  /*background-color: #000;
-  background: rgba(0,0,0,.8);*/
   z-index: 10;
 }
 
 #closeOverlay{
-  display: inline-block;
-  position: absolute;
-  right:2px;
-  top:2px;
-  height:36px;
-  width:36px;
-  font-size:24px;
-  line-height: 24px;
+  line-height: normal;
+  padding: .5em 1em;
+  outline: none;
+  font-size: 1em;
+  font-weight: 600;
+  border:solid 1px #ccc;
+  cursor:pointer;
+  height:auto;
+  width: auto;
+  position: relative;
+  margin:0 auto;
 }
 /*Styles for the (share, legend, basemaps, search)
 that appear below the zoom slider */

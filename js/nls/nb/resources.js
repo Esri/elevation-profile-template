@@ -19,6 +19,9 @@ define(
     map: {
       error: "Kan ikke opprette kart"
     },
+    nav: {
+        "close": "Ja"
+    },
     elevation: {
         toggle: "Aktiver/deaktiver høydeprofildiagrammet.",
         drawTool: "Tegn en linje på kartet for å generere en høydeprofil.",

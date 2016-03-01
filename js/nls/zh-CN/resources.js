@@ -19,6 +19,9 @@ define(
     map: {
       error: "无法创建地图"
     },
+    nav: {
+        "close": "关闭"
+    },
     elevation: {
         toggle: "切换 Elevation Profile Chart。",
         drawTool: "在地图上绘制一条线，以生成高程剖面。",

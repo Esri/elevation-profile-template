@@ -19,6 +19,9 @@ define(
     map: {
       error: "Impossibile creare la mappa"
     },
+    nav: {
+        "close": "Chiudi"
+    },
     elevation: {
         toggle: "Attivare/disattivare il grafico Profilo di elevazione.",
         drawTool: "Tracciare una linea sulla mappa per generare un profilo di elevazione.",

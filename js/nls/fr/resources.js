@@ -19,6 +19,9 @@ define(
     map: {
       error: "Impossible de créer la carte"
     },
+    nav: {
+        "close": "Fermer"
+    },
     elevation: {
         toggle: "Activez/Désactivez le diagramme du profil d\'altitude.",
         drawTool: "Tracez une ligne sur la carte pour générer un profil d\'altitude.",

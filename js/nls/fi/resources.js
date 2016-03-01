@@ -19,6 +19,9 @@ define(
     map: {
       error: "Karttaa ei voi luoda"
     },
+    nav: {
+        "close": "Sulje"
+    },
     elevation: {
         toggle: "Vaihda Korkeusprofiili-karttaa.",
         drawTool: "Luo korkeusprofiili piirtämällä viiva kartalle.",

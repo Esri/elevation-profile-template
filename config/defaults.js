@@ -44,6 +44,10 @@ define({
   "splashModal": false,
   "splashTitle": null,
   "splashContent": null,
+  "splashButtonText":null,
+  "markerSymbol": "./images/EsriBluePinCircle26.png",
+  "markerSymbolWidth": 26,
+  "markerSymbolHeight": 26,
   //If your applcation needs to edit feature layer fields set this value to true. When false the map will
   //be dreated with layers that are not set to editable which allows the FeatureLayer to load features optimally. 
   "editable": false,

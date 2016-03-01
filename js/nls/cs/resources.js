@@ -19,6 +19,9 @@ define(
     map: {
       error: "Nelze vytvořit mapu"
     },
+    nav: {
+        "close": "Zavřít"
+    },
     elevation: {
         toggle: "Přepnout graf výškového profilu.",
         drawTool: "Nakreslete na mapu linii pro vygenerování výškového profilu.",

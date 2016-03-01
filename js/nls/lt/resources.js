@@ -19,6 +19,9 @@ define(
     map: {
       error: "Žemėlapio sukurti nepavyko"
     },
+    nav: {
+        "close": "Uždaryti"
+    },
     elevation: {
         toggle: "Perjungti aukščio profilio diagramą.",
         drawTool: "Brėžkite liniją žemėlapyje, kad sugeneruotumėte aukščio profilį.",

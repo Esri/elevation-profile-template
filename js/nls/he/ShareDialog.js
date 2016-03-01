@@ -11,7 +11,7 @@
                 facebookTooltip: "פייסבוק",
                 twitterTooltip: "טוויטר",
                 gplusTooltip: "Google Plus",
-                emailTooltip: "דוא\\"ל"
+                emailTooltip: "דוא\"ל"
             }
         }
     })
