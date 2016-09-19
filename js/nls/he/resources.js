@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "לא ניתן ליצור מפה"
-    },
-    nav: {
-        "close": "סגור"
-    },
-    elevation: {
-        toggle: "שנה את התרשים של פרופיל הגבהים.",
-        drawTool: "שרטט קו על המפה כדי ליצור פרופיל גבהים.",
-        selectMessage: "לחץ על ישות קווית או השתמש בכלי השרטוט כדי לשרטט קו להצגת פרופיל הגבהים"
-    },
-    splash: {
-        title: "כותרת",
-        content: "הגדר כדי ליצור תוכן פתיחה מותאם"
-    },
-    legend: {
-        title: "מקרא",
-        tip: "הצג מקרא"
-    },
-    basemap: {
-        title: "מפת בסיס",
-        tip: "שנה מפת בסיס"
-    },
-    share: {
-        title: "שתף",
-        tip: "שתף מפה"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "לא ניתן ליצור מפה"
+  },
+  "nav": {
+    "close": "סגור"
+  },
+  "elevation": {
+    "toggle": "שנה את התרשים של פרופיל הגבהים.",
+    "drawTool": "שרטט קו על המפה כדי ליצור פרופיל גבהים.",
+    "selectMessage": "לחץ על ישות קווית או השתמש בכלי השרטוט כדי לשרטט קו להצגת פרופיל הגבהים",
+    "gainLossTemplate": "מינימום: {min}$   מקסימום: {max}$   התחלה: {start}$   סוף: {end}$   שינוי: {gainloss}$"
+  },
+  "splash": {
+    "title": "כותרת",
+    "content": "הגדר כדי ליצור תוכן פתיחה מותאם"
+  },
+  "legend": {
+    "title": "מקרא",
+    "tip": "הצג מקרא"
+  },
+  "basemap": {
+    "title": "מפת בסיס",
+    "tip": "שנה מפת בסיס"
+  },
+  "share": {
+    "title": "שתף",
+    "tip": "שתף מפה"
+  }
+});

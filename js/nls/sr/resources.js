@@ -16,31 +16,31 @@
  */
 define({
   "map": {
-    "error": "Kan ikke opprette kart"
+    "error": "Kreiranje mape nije moguće"
   },
   "nav": {
-    "close": "Ja"
+    "close": "Zatvori"
   },
   "elevation": {
-    "toggle": "Aktiver/deaktiver høydeprofildiagrammet.",
-    "drawTool": "Tegn en linje på kartet for å generere en høydeprofil.",
-    "selectMessage": "Klikk på et linjegeoobjekt, eller bruk tegneverktøyet for å tegne en linje for å vise høydeprofilen",
-    "gainLossTemplate": "Min: ${min}   Maks: ${max}   Start: ${start}   Slutt: ${end}   Endring: ${gainLoss}"
+    "toggle": "Uključite/isključite grafikon profila elevacije.",
+    "drawTool": "Nacrtajte liniju na mapi da generišete profil elevacije.",
+    "selectMessage": "Kliknite na linijski geoobjekat ili koristite alatku za crtanje da nacrtate liniju da prikažete profil elevacije",
+    "gainLossTemplate": "Min: ${min}   Maks: ${max}   Početak: ${start}   Kraj: ${end}   Promeni: ${gainLoss}"
   },
   "splash": {
-    "title": "Tittel",
-    "content": "Konfigurer for å opprette egendefinert innhold på velkomstskjermen"
+    "title": "Naslov",
+    "content": "Konfigurišite da kreirate prilagođeni uvodni sadržaj"
   },
   "legend": {
-    "title": "Tegnforklaring",
-    "tip": "Vis tegnforklaring"
+    "title": "Legenda",
+    "tip": "Prikaz legende"
   },
   "basemap": {
-    "title": "Bakgrunnskart",
-    "tip": "Endre bakgrunnskart"
+    "title": "Pozadinska mapa",
+    "tip": "Promenite pozadinsku mapu"
   },
   "share": {
-    "title": "Dele",
-    "tip": "Del kart"
+    "title": "Podeli",
+    "tip": "Podelite mapu"
   }
 });

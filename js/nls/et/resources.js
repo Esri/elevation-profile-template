@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Kaarti ei saa luua"
-    },
-    nav: {
-        "close": "Sule"
-    },
-    elevation: {
-        toggle: "Lülita kõrgusprofiili graafik sisse/välja.",
-        drawTool: "Kõrgusprofiili loomiseks tõmmake kaardil joon.",
-        selectMessage: "Kõrgusprofiili kuvamiseks klõpsake joonobjekti või tõmmake joonistamise tööriista abil joon."
-    },
-    splash: {
-        title: "Pealkiri",
-        content: "Konfigureerige, et luua kohandatud lisalehe sisu."
-    },
-    legend: {
-        title: "Legend",
-        tip: "Kuva legend"
-    },
-    basemap: {
-        title: "Aluskaart",
-        tip: "Muuda aluskaarti"
-    },
-    share: {
-        title: "Jaga",
-        tip: "Jaga kaarti"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Kaarti ei saa luua"
+  },
+  "nav": {
+    "close": "Sule"
+  },
+  "elevation": {
+    "toggle": "Lülita kõrgusprofiili graafik sisse/välja.",
+    "drawTool": "Kõrgusprofiili loomiseks tõmmake kaardil joon.",
+    "selectMessage": "Kõrgusprofiili kuvamiseks klõpsake joonobjekti või tõmmake joonistamise tööriista abil joon.",
+    "gainLossTemplate": "Min: {min}   Max: ${max}   Algus: ${start}   Lõpp: ${end}   Muutus: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Pealkiri",
+    "content": "Konfigureerige, et luua kohandatud lisalehe sisu."
+  },
+  "legend": {
+    "title": "Legendiga kaart",
+    "tip": "Kuva legend"
+  },
+  "basemap": {
+    "title": "Aluskaart",
+    "tip": "Muuda aluskaarti"
+  },
+  "share": {
+    "title": "Jaga",
+    "tip": "Jaga kaarti"
+  }
+});

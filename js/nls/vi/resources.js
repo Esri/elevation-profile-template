@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Không thể tạo bản đồ"
-    },
-    nav: {
-        "close": "Đóng"
-    },
-    elevation: {
-        toggle: "Chuyển đổi Biểu đồ Thông tin Độ cao.",
-        drawTool: "Vẽ một đường trên bản đồ để tạo thông tin độ cao.",
-        selectMessage: "Nhấp vào đối tượng dòng hoặc sử dụng công cụ vẽ để vẽ một đường để hiển thị thông tin độ cao"
-    },
-    splash: {
-        title: "Tiêu đề",
-        content: "Cấu hình để tạo nội dung khởi động tùy chỉnh"
-    },
-    legend: {
-        title: "Chú giải",
-        tip: "Hiển thị chú giải"
-    },
-    basemap: {
-        title: "Bản đồ nền",
-        tip: "Thay đổi bản đồ nền"
-    },
-    share: {
-        title: "Chia sẻ",
-        tip: "Chia sẻ bản đồ"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Không thể tạo bản đồ"
+  },
+  "nav": {
+    "close": "Đóng"
+  },
+  "elevation": {
+    "toggle": "Chuyển đổi Biểu đồ Thông tin Độ cao.",
+    "drawTool": "Vẽ một đường trên bản đồ để tạo thông tin độ cao.",
+    "selectMessage": "Nhấp vào đối tượng dòng hoặc sử dụng công cụ vẽ để vẽ một đường để hiển thị thông tin độ cao",
+    "gainLossTemplate": "Tối thiểu: ${min}   Tối đa: ${max}   Bắt đầu: ${start}   Kết thúc: ${end}   Thay đổi: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Tiêu đề",
+    "content": "Cấu hình để tạo nội dung khởi động tùy chỉnh"
+  },
+  "legend": {
+    "title": "Chú giải",
+    "tip": "Hiển thị chú giải"
+  },
+  "basemap": {
+    "title": "Bản đồ nền",
+    "tip": "Thay đổi bản đồ nền"
+  },
+  "share": {
+    "title": "Chia sẻ",
+    "tip": "Chia sẻ bản đồ"
+  }
+});

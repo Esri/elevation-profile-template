@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Nie można utworzyć mapy"
-    },
-    nav: {
-        "close": "Zamknij"
-    },
-    elevation: {
-        toggle: "Przełącz wykres profilu wysokościowego.",
-        drawTool: "Narysuj linię na mapie, aby wygenerować profil wysokościowy.",
-        selectMessage: "Kliknij funkcję linii lub użyj narzędzia do rysowania, aby narysować linię i wyświetlić profil wysokościowy"
-    },
-    splash: {
-        title: "Tytuł",
-        content: "Skonfiguruj, aby utworzyć niestandardową zawartość ekranu powitalnego"
-    },
-    legend: {
-        title: "Legenda",
-        tip: "Wyświetl legendę"
-    },
-    basemap: {
-        title: "Mapa bazowa",
-        tip: "Zmień mapę bazową"
-    },
-    share: {
-        title: "Udostępnij",
-        tip: "Udostępnij mapę"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Nie można utworzyć mapy"
+  },
+  "nav": {
+    "close": "Zamknij"
+  },
+  "elevation": {
+    "toggle": "Przełącz wykres profilu wysokościowego.",
+    "drawTool": "Narysuj linię na mapie, aby wygenerować profil wysokościowy.",
+    "selectMessage": "Kliknij funkcję linii lub użyj narzędzia do rysowania, aby narysować linię i wyświetlić profil wysokościowy",
+    "gainLossTemplate": "Min.: ${min}   Maks.: ${max}   Początek: ${start}   Koniec: ${end}   Zmiana: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Tytuł",
+    "content": "Skonfiguruj, aby utworzyć niestandardową zawartość ekranu powitalnego"
+  },
+  "legend": {
+    "title": "Legenda",
+    "tip": "Wyświetl legendę"
+  },
+  "basemap": {
+    "title": "Mapa bazowa",
+    "tip": "Zmień mapę bazową"
+  },
+  "share": {
+    "title": "Udostępnianie",
+    "tip": "Udostępnij mapę"
+  }
+});

@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Kan ikke oprette kort"
-    },
-    nav: {
-        "close": "Luk"
-    },
-    elevation: {
-        toggle: "Skift højdeprofildiagram.",
-        drawTool: "Tegn en linje på kortet for at generere en højdeprofil.",
-        selectMessage: "Klik på et linjeobjekt, eller brug tegneværktøjet til at tegne en linje for at vise højdeprofilen"
-    },
-    splash: {
-        title: "Titel",
-        content: "Konfigurér for at oprette brugerdefineret indhold til velkomstskærmen"
-    },
-    legend: {
-        title: "Signaturforklaring",
-        tip: "Vis signaturforklaring"
-    },
-    basemap: {
-        title: "Baggrundskort",
-        tip: "Skift baggrundskort"
-    },
-    share: {
-        title: "Del",
-        tip: "Del kort"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Kan ikke oprette kort"
+  },
+  "nav": {
+    "close": "Luk"
+  },
+  "elevation": {
+    "toggle": "Skift højdeprofildiagram.",
+    "drawTool": "Tegn en linje på kortet for at generere en højdeprofil.",
+    "selectMessage": "Klik på et linjeobjekt, eller brug tegneværktøjet til at tegne en linje for at vise højdeprofilen",
+    "gainLossTemplate": "Min.: ${min}   Maks.: ${max}   Start: ${start}   Slut: ${end}   Ændring: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Titel",
+    "content": "Konfigurér for at oprette brugerdefineret indhold til velkomstskærmen"
+  },
+  "legend": {
+    "title": "Signaturforklaring",
+    "tip": "Vis signaturforklaring"
+  },
+  "basemap": {
+    "title": "Baggrundskort",
+    "tip": "Skift baggrundskort"
+  },
+  "share": {
+    "title": "Opdatér",
+    "tip": "Del kort"
+  }
+});

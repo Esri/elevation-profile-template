@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Não foi possível criar mapa"
-    },
-    nav: {
-        "close": "Fechar"
-    },
-    elevation: {
-        toggle: "Alterne o Gráfico de Perfil de Elevação.",
-        drawTool: "Desenhe uma linha no mapa para gerar um perfil de elevação.",
-        selectMessage: "Clique num elemento de linha ou utilize a ferramenta de desenho para traçar uma linha para exibir o perfil de elevação."
-    },
-    splash: {
-        title: "Título",
-        content: "Configure para criar conteúdo de página inicial personalizado"
-    },
-    legend: {
-        title: "Legenda",
-        tip: "Exibir legenda"
-    },
-    basemap: {
-        title: "Mapa Base",
-        tip: "Alterar mapa base"
-    },
-    share: {
-        title: "Partilhar",
-        tip: "Partilhar mapa"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Não foi possível criar mapa"
+  },
+  "nav": {
+    "close": "Fechar"
+  },
+  "elevation": {
+    "toggle": "Alterne o Gráfico de Perfil de Elevação.",
+    "drawTool": "Desenhe uma linha no mapa para gerar um perfil de elevação.",
+    "selectMessage": "Clique num elemento de linha ou utilize a ferramenta de desenho para traçar uma linha para exibir o perfil de elevação.",
+    "gainLossTemplate": "Mín: ${min}   Máx: ${max}   Início: ${start}   Fim: ${end}   Alterar: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Título",
+    "content": "Configure para criar conteúdo de página inicial personalizado"
+  },
+  "legend": {
+    "title": "Legenda",
+    "tip": "Exibir legenda"
+  },
+  "basemap": {
+    "title": "Mapa Base",
+    "tip": "Alterar mapa base"
+  },
+  "share": {
+    "title": "Partilhar",
+    "tip": "Partilhar mapa"
+  }
+});

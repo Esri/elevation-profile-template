@@ -83,6 +83,9 @@
                "fieldName":"color",
                "tooltip":"Choose a text color",
                "label":"Text color"
+            },{
+              "type": "paragraph",
+              "value": "Use the Custom css option to paste css that overwrites rules in the app."
             },
             {
                "type":"string",
@@ -95,12 +98,6 @@
       {
          "category":"Options",
          "fields":[
-            {
-               "type":"boolean",
-               "fieldName":"basemaps",
-               "tooltip":"Enable basemap gallery",
-               "label":"Basemap Gallery"
-            },
             {
                "type":"boolean",
                "fieldName":"legend",
@@ -117,6 +114,63 @@
                "fieldName":"share",
                "label":"Share Dialog",
                "tooltip":"Display share dialog"
+            }, {
+                           "type":"boolean",
+                           "fieldName":"basemaps",
+                           "tooltip":"Enable basemap gallery",
+                           "label":"Basemap Gallery"
+            },{
+               "type":"boolean",
+               "fieldName":"basemapToggle",
+               "label":"Basemap Toggle"
+            },
+            {
+               "type":"string",
+               "fieldName":"alt_basemap",
+               "tooltip":"Select the alternate basemap",
+               "label":"Alternate Basmap",
+               "options":[
+                  {
+                     "label":"Dark Gray",
+                     "value":"dark-gray"
+                  },
+                  {
+                     "label":"Light Gray",
+                     "value":"gray"
+                  },
+                  {
+                     "label":"Imagery with Labels",
+                     "value":"hybrid"
+                  },
+                  {
+                     "label":"National Geographic",
+                     "value":"national-geographic"
+                  },
+                  {
+                     "label":"Oceans",
+                     "value":"oceans"
+                  },
+                  {
+                     "label":"Open Street Map",
+                     "value":"osm"
+                  },
+                  {
+                     "label":"Imagery",
+                     "value":"satellite"
+                  },
+                  {
+                     "label":"Streets",
+                     "value":"streets"
+                  },
+                  {
+                     "label":"Terrain with Labels",
+                     "value":"terrain"
+                  },
+                  {
+                     "label":"Topographic",
+                     "value":"topo"
+                  }
+               ]
             }
          ]
       },
@@ -276,6 +330,7 @@
       "legend":false,
       "includelayeropacity":false,
       "basemaps":false,
+      "basemapToggle": false,
       "share":false,
       "search":false,
       "units":"english",

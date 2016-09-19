@@ -16,31 +16,31 @@
  */
 define({
   "map": {
-    "error": "Kaart kan niet gemaakt worden"
+    "error": "Nije moguće stvoriti kartu"
   },
   "nav": {
-    "close": "Sluiten"
+    "close": "Zatvori"
   },
   "elevation": {
-    "toggle": "De hoogteprofielgrafiek wisselen.",
-    "drawTool": "Teken een lijn op de kaart om een hoogteprofiel te genereren.",
-    "selectMessage": "Klik op een lijnobject of gebruik het tekeninstrument om een lijn te tekenen om het hoogteprofiel weer te geven",
-    "gainLossTemplate": "Min: ${min}   Max: ${max}   Start: ${start}   Einde: ${end}   Wijziging: ${gainLoss}"
+    "toggle": "Preklopi grafikon profila nadmorske visine.",
+    "drawTool": "Povucite liniju na karti za izradu profila nadmorske visine.",
+    "selectMessage": "Kliknite na liniju geoobjekta ili upotrijebite alat za crtanje i nacrtajte liniju za prikaz profila nadmorske visine",
+    "gainLossTemplate": "Min.: ${min}   Maks.: ${max}   Početak: ${start}   Kraj: ${end}   Promjena: ${gainLoss}"
   },
   "splash": {
-    "title": "Titel",
-    "content": "Configureren om aangepaste splash content te creëren"
+    "title": "Naslov",
+    "content": "Konfigurirajte za izradu prilagođenog pozdravnog sadržaja"
   },
   "legend": {
     "title": "Legenda",
-    "tip": "Legenda weergeven"
+    "tip": "Prikaz legende"
   },
   "basemap": {
-    "title": "Basemap",
-    "tip": "Wijzig basiskaart"
+    "title": "Kartografska podloga",
+    "tip": "Promijeni kartografsku podlogu"
   },
   "share": {
-    "title": "Delen",
-    "tip": "Kaart delen"
+    "title": "Podijeli",
+    "tip": "Podijeli kartu"
   }
 });

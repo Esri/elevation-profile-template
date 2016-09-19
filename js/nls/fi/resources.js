@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Karttaa ei voi luoda"
-    },
-    nav: {
-        "close": "Sulje"
-    },
-    elevation: {
-        toggle: "Vaihda Korkeusprofiili-karttaa.",
-        drawTool: "Luo korkeusprofiili piirtämällä viiva kartalle.",
-        selectMessage: "Tuo korkeusprofiili näkyviin napsauttamalla viivakohdetta tai piirtämällä viiva piirtotyökalun avulla"
-    },
-    splash: {
-        title: "Otsikko",
-        content: "Luo mukautettua aloitusnäytön sisältöä määrittämällä"
-    },
-    legend: {
-        title: "Selite",
-        tip: "Näytä selite"
-    },
-    basemap: {
-        title: "Taustakartat",
-        tip: "Muuta taustakarttaa"
-    },
-    share: {
-        title: "Jaa",
-        tip: "Jaa kartta"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Karttaa ei voi luoda"
+  },
+  "nav": {
+    "close": "Sulje"
+  },
+  "elevation": {
+    "toggle": "Vaihda Korkeusprofiili-karttaa.",
+    "drawTool": "Luo korkeusprofiili piirtämällä viiva kartalle.",
+    "selectMessage": "Tuo korkeusprofiili näkyviin napsauttamalla viivakohdetta tai piirtämällä viiva piirtotyökalun avulla",
+    "gainLossTemplate": "Min.: ${min}   Maks.: ${max}   Alku: ${start}   Loppu: ${end}   Muutos: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Otsikko",
+    "content": "Luo mukautettua aloitusnäytön sisältöä määrittämällä"
+  },
+  "legend": {
+    "title": "Selite",
+    "tip": "Näytä selite"
+  },
+  "basemap": {
+    "title": "Taustakartta",
+    "tip": "Muuta taustakarttaa"
+  },
+  "share": {
+    "title": "Jaa",
+    "tip": "Jaa kartta"
+  }
+});

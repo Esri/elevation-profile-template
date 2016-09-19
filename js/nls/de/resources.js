@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Karte kann nicht erstellt werden"
-    },
-    nav: {
-        "close": "Schließen"
-    },
-    elevation: {
-        toggle: "Höhenprofildiagramm umschalten",
-        drawTool: "Zeichnen Sie eine Linie auf die Karte, um ein Höhenprofil zu erstellen.",
-        selectMessage: "Klicken Sie auf ein Linien-Feature, oder zeichnen Sie mit dem Zeichenwerkzeug eine Linie, um das Höhenprofil anzuzeigen."
-    },
-    splash: {
-        title: "Titel",
-        content: "Konfigurieren Sie dies, um benutzerdefinierten Begrüßungsinhalt zu erstellen."
-    },
-    legend: {
-        title: "Legende",
-        tip: "Legende anzeigen"
-    },
-    basemap: {
-        title: "Grundkarte",
-        tip: "Grundkarte ändern"
-    },
-    share: {
-        title: "Freigeben",
-        tip: "Karte freigeben"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Karte kann nicht erstellt werden"
+  },
+  "nav": {
+    "close": "Schließen"
+  },
+  "elevation": {
+    "toggle": "Höhenprofildiagramm umschalten",
+    "drawTool": "Zeichnen Sie eine Linie auf die Karte, um ein Höhenprofil zu erstellen.",
+    "selectMessage": "Klicken Sie auf ein Linien-Feature, oder zeichnen Sie mit dem Zeichenwerkzeug eine Linie, um das Höhenprofil anzuzeigen.",
+    "gainLossTemplate": "Min.: ${min}   Max.: ${max}   Start: ${start}   Ende: ${end}   Änderung: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Titel",
+    "content": "Konfigurieren Sie dies, um benutzerdefinierten Begrüßungsinhalt zu erstellen."
+  },
+  "legend": {
+    "title": "Legende",
+    "tip": "Legende anzeigen"
+  },
+  "basemap": {
+    "title": "Grundkarte",
+    "tip": "Grundkarte ändern"
+  },
+  "share": {
+    "title": "Freigeben",
+    "tip": "Karte freigeben"
+  }
+});

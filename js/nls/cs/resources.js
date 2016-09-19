@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Nelze vytvořit mapu"
-    },
-    nav: {
-        "close": "Zavřít"
-    },
-    elevation: {
-        toggle: "Přepnout graf výškového profilu.",
-        drawTool: "Nakreslete na mapu linii pro vygenerování výškového profilu.",
-        selectMessage: "Klikněte na liniový prvek nebo pomocí nástroje kreslení nakreslete linii, abyste zobrazili výškový profil."
-    },
-    splash: {
-        title: "Nadpis",
-        content: "Nakonfigurujte pro vytvoření vlastního úvodního obsahu"
-    },
-    legend: {
-        title: "Legenda",
-        tip: "Zobrazit legendu"
-    },
-    basemap: {
-        title: "Podkladová mapa",
-        tip: "Změnit podkladovou mapu"
-    },
-    share: {
-        title: "Sdílet",
-        tip: "Sdílet mapu"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Nelze vytvořit mapu"
+  },
+  "nav": {
+    "close": "Zavřít"
+  },
+  "elevation": {
+    "toggle": "Přepnout graf výškového profilu.",
+    "drawTool": "Nakreslete na mapu linii pro vygenerování výškového profilu.",
+    "selectMessage": "Klikněte na liniový prvek nebo pomocí nástroje kreslení nakreslete linii, abyste zobrazili výškový profil.",
+    "gainLossTemplate": "Min.: ${min}   Max.: ${max}   Začátek: ${start}   Konec: ${end}   Změna: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Název",
+    "content": "Nakonfigurujte pro vytvoření vlastního úvodního obsahu"
+  },
+  "legend": {
+    "title": "Legenda",
+    "tip": "Zobrazit legendu"
+  },
+  "basemap": {
+    "title": "Podkladová mapa",
+    "tip": "Změnit podkladovou mapu"
+  },
+  "share": {
+    "title": "Sdílet",
+    "tip": "Sdílet mapu"
+  }
+});

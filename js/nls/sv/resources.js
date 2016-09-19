@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Det går inte att skapa kartan"
-    },
-    nav: {
-        "close": "Stäng"
-    },
-    elevation: {
-        toggle: "Slå på/av diagrammet Profil för höjdkurva.",
-        drawTool: "Rita en linje på kartan för att generera en profil för höjdkurva.",
-        selectMessage: "Klicka på ett linjegeoobjekt eller använd ritverktyget för att rita en linje som visar höjdprofilen"
-    },
-    splash: {
-        title: "Titel",
-        content: "Konfigurera för att skapa anpassat innehåll på välkomstskärmen"
-    },
-    legend: {
-        title: "Teckenförklaring",
-        tip: "Visa teckenförklaring"
-    },
-    basemap: {
-        title: "Baskarta",
-        tip: "Ändra baskarta"
-    },
-    share: {
-        title: "Dela",
-        tip: "Dela karta"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Det går inte att skapa kartan"
+  },
+  "nav": {
+    "close": "Stäng"
+  },
+  "elevation": {
+    "toggle": "Slå på/av diagrammet Profil för höjdkurva.",
+    "drawTool": "Rita en linje på kartan för att generera en profil för höjdkurva.",
+    "selectMessage": "Klicka på ett linjegeoobjekt eller använd ritverktyget för att rita en linje som visar höjdprofilen",
+    "gainLossTemplate": "Min: ${min}   Max: ${max}   Start: ${start}   Slut: ${end}   Ändring: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Titel",
+    "content": "Konfigurera för att skapa anpassat innehåll på välkomstskärmen"
+  },
+  "legend": {
+    "title": "Teckenförklaring",
+    "tip": "Visa teckenförklaring"
+  },
+  "basemap": {
+    "title": "Baskarta",
+    "tip": "Ändra baskarta"
+  },
+  "share": {
+    "title": "Dela",
+    "tip": "Dela karta"
+  }
+});

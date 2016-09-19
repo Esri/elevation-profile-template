@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Impossibile creare la mappa"
-    },
-    nav: {
-        "close": "Chiudi"
-    },
-    elevation: {
-        toggle: "Attivare/disattivare il grafico Profilo di elevazione.",
-        drawTool: "Tracciare una linea sulla mappa per generare un profilo di elevazione.",
-        selectMessage: "Fare clic su una feature linea o utilizzare lo strumento di disegno per disegnare una linea e visualizzare il profilo di elevazione."
-    },
-    splash: {
-        title: "Titolo",
-        content: "Configurare per creare contenuto di avvio personalizzato"
-    },
-    legend: {
-        title: "Legenda",
-        tip: "Visualizza legenda"
-    },
-    basemap: {
-        title: "Mappa di base",
-        tip: "Cambia mappa di base"
-    },
-    share: {
-        title: "Condividi",
-        tip: "Condividi mappa"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Impossibile creare la mappa"
+  },
+  "nav": {
+    "close": "Chiudi"
+  },
+  "elevation": {
+    "toggle": "Attivare/disattivare il grafico Profilo di elevazione.",
+    "drawTool": "Tracciare una linea sulla mappa per generare un profilo di elevazione.",
+    "selectMessage": "Fare clic su una feature linea o utilizzare lo strumento di disegno per disegnare una linea e visualizzare il profilo di elevazione.",
+    "gainLossTemplate": "Min: ${min}   Max: ${max}   Inizio: ${start}   Fine: ${end}   Variazione: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Titolo",
+    "content": "Configurare per creare contenuto di avvio personalizzato"
+  },
+  "legend": {
+    "title": "Legenda",
+    "tip": "Visualizza legenda"
+  },
+  "basemap": {
+    "title": "Mappa di base",
+    "tip": "Cambia mappa di base"
+  },
+  "share": {
+    "title": "Condividi",
+    "tip": "Condividi mappa"
+  }
+});

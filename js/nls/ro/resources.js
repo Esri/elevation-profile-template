@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Imposibil de creat harta"
-    },
-    nav: {
-        "close": "Închidere"
-    },
-    elevation: {
-        toggle: "Comutaţi Diagramă profil de elevaţie.",
-        drawTool: "Trasaţi o linie pe hartă pentru a genera un profil de elevaţie.",
-        selectMessage: "Faceţi clic pe un obiect spaţial liniar sau utilizaţi instrumentul de trasare pentru a trasa o linie care va afişată în profilul de elevaţie."
-    },
-    splash: {
-        title: "Titlu",
-        content: "Configuraţi pentru a crea conţinut personalizat de întâmpinare"
-    },
-    legend: {
-        title: "Legendă",
-        tip: "Afişare legendă"
-    },
-    basemap: {
-        title: "Hartă fundal",
-        tip: "Schimbare hartă fundal"
-    },
-    share: {
-        title: "Partajare",
-        tip: "Partajare hartă"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Imposibil de creat harta"
+  },
+  "nav": {
+    "close": "Închidere"
+  },
+  "elevation": {
+    "toggle": "Comutaţi Diagramă profil de elevaţie.",
+    "drawTool": "Trasaţi o linie pe hartă pentru a genera un profil de elevaţie.",
+    "selectMessage": "Faceţi clic pe un obiect spaţial liniar sau utilizaţi instrumentul de trasare pentru a trasa o linie care va afişată în profilul de elevaţie.",
+    "gainLossTemplate": "Min: ${min}   Max: ${max}   Început: ${start}   Sfârşit: ${end}   Modificare: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Titlu",
+    "content": "Configuraţi pentru a crea conţinut personalizat de întâmpinare"
+  },
+  "legend": {
+    "title": "Legendă",
+    "tip": "Afişare legendă"
+  },
+  "basemap": {
+    "title": "Hartă fundal",
+    "tip": "Schimbare hartă fundal"
+  },
+  "share": {
+    "title": "Partajare",
+    "tip": "Partajare hartă"
+  }
+});

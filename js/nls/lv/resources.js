@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Nevar izveidot karti"
-    },
-    nav: {
-        "close": "Aizvērt"
-    },
-    elevation: {
-        toggle: "Pārslēdziet pacēluma profila diagrammu.",
-        drawTool: "Uzzīmējiet kartē līniju, lai ģenerētu pacēluma profilu.",
-        selectMessage: "Noklikšķiniet uz līnijas elementa vai izmantojiet zīmēšanas rīku, lai uzzīmētu līniju un parādītu pacēluma profilu"
-    },
-    splash: {
-        title: "Nosaukums",
-        content: "Konfigurējiet, lai izveidotu pielāgotu uzplaiksnījuma saturu"
-    },
-    legend: {
-        title: "Apzīmējumi",
-        tip: "Parādīt leģendu"
-    },
-    basemap: {
-        title: "Pamatkarte",
-        tip: "Mainīt pamatkarti"
-    },
-    share: {
-        title: "Koplietošana",
-        tip: "Kopīgot karti"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Nevar izveidot karti"
+  },
+  "nav": {
+    "close": "Aizvērt"
+  },
+  "elevation": {
+    "toggle": "Pārslēdziet pacēluma profila diagrammu.",
+    "drawTool": "Uzzīmējiet kartē līniju, lai ģenerētu pacēluma profilu.",
+    "selectMessage": "Noklikšķiniet uz līnijas elementa vai izmantojiet zīmēšanas rīku, lai uzzīmētu līniju un parādītu pacēluma profilu",
+    "gainLossTemplate": "Minim.: ${min}   Maks.: ${max}   Sākums: ${start}   Beigas: ${end}   Izmaiņas: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Virsraksts",
+    "content": "Konfigurējiet, lai izveidotu pielāgotu uzplaiksnījuma saturu"
+  },
+  "legend": {
+    "title": "Apzīmējumi",
+    "tip": "Parādīt leģendu"
+  },
+  "basemap": {
+    "title": "Pamatkarte",
+    "tip": "Mainīt pamatkarti"
+  },
+  "share": {
+    "title": "Koplietot",
+    "tip": "Koplietot karti"
+  }
+});

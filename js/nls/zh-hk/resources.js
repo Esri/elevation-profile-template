@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "無法建立地圖"
-    },
-    nav: {
-        "close": "關閉"
-    },
-    elevation: {
-        toggle: "切換高程剖面圖圖表。",
-        drawTool: "在地圖上畫一條線來產生一個高程剖面。",
-        selectMessage: "按一下線條圖徵，或使用繪製工具畫一條線來顯示高程剖面"
-    },
-    splash: {
-        title: "標題",
-        content: "設定以建立自訂啟動內容"
-    },
-    legend: {
-        title: "圖例",
-        tip: "顯示圖例"
-    },
-    basemap: {
-        title: "底圖",
-        tip: "變更底圖"
-    },
-    share: {
-        title: "分享",
-        tip: "共用地圖"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "無法建立地圖"
+  },
+  "nav": {
+    "close": "關閉"
+  },
+  "elevation": {
+    "toggle": "切換高程剖面圖圖表。",
+    "drawTool": "在地圖上畫一條線來產生一個高程剖面。",
+    "selectMessage": "按一下線條圖徵，或使用繪製工具畫一條線來顯示高程剖面",
+    "gainLossTemplate": "最小值: ${min}   最大值: ${max}   起始值: ${start}   終止值: ${end}   變化值: ${gainLoss}"
+  },
+  "splash": {
+    "title": "標題",
+    "content": "設定以建立自訂啟動內容"
+  },
+  "legend": {
+    "title": "圖例",
+    "tip": "顯示圖例"
+  },
+  "basemap": {
+    "title": "底圖",
+    "tip": "變更底圖"
+  },
+  "share": {
+    "title": "分享",
+    "tip": "共用地圖"
+  }
+});

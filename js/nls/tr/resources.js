@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Harita oluşturulamıyor"
-    },
-    nav: {
-        "close": "Kapat"
-    },
-    elevation: {
-        toggle: "Yükselti Profili Grafiğini Açın/Kapatın.",
-        drawTool: "Yükselti profili oluşturmak için haritada bir çizgi çizin.",
-        selectMessage: "Yükselti profilini görüntülemek için çizgi detayına tıklayın veya çizim aracını kullanarak bir çizgi çizin"
-    },
-    splash: {
-        title: "Başlık",
-        content: "Özel açılış içeriği oluşturmak için yapılandır"
-    },
-    legend: {
-        title: "Açıklama",
-        tip: "Göstergeyi göster"
-    },
-    basemap: {
-        title: "Altlık Harita",
-        tip: "Altlık haritasını değiştir"
-    },
-    share: {
-        title: "Paylaş",
-        tip: "Haritayı paylaş"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Harita oluşturulamıyor"
+  },
+  "nav": {
+    "close": "Kapat"
+  },
+  "elevation": {
+    "toggle": "Yükselti Profili Grafiğini Açın/Kapatın.",
+    "drawTool": "Yükselti profili oluşturmak için haritada bir çizgi çizin.",
+    "selectMessage": "Yükselti profilini görüntülemek için çizgi detayına tıklayın veya çizim aracını kullanarak bir çizgi çizin",
+    "gainLossTemplate": "Min: ${min}   Maks: ${max}   Başlangıç: ${start}   Bitiş: ${end}   Değişim: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Başlık",
+    "content": "Özel açılış içeriği oluşturmak için yapılandır"
+  },
+  "legend": {
+    "title": "Gösterim",
+    "tip": "Göstergeyi göster"
+  },
+  "basemap": {
+    "title": "Altlık Harita",
+    "tip": "Altlık haritasını değiştir"
+  },
+  "share": {
+    "title": "Paylaş",
+    "tip": "Haritayı paylaş"
+  }
+});

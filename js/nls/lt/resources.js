@@ -1,4 +1,4 @@
-﻿/*global define */
+/*global define */
 /*
  | Copyright 2014 Esri
  |
@@ -14,34 +14,33 @@
  | See the License for the specific language governing permissions and
  | limitations under the License.
  */
-define(
-   ({
-    map: {
-      error: "Žemėlapio sukurti nepavyko"
-    },
-    nav: {
-        "close": "Uždaryti"
-    },
-    elevation: {
-        toggle: "Perjungti aukščio profilio diagramą.",
-        drawTool: "Brėžkite liniją žemėlapyje, kad sugeneruotumėte aukščio profilį.",
-        selectMessage: "Spustelėkite linijos objektą arba brėžimo įrankiu nubrėžkite liniją, rodančią aukščio profilį"
-    },
-    splash: {
-        title: "Antraštė",
-        content: "Konfigūruokite, jeigu norite sukurti pasirinktinį pradžios ekraną"
-    },
-    legend: {
-        title: "Legenda",
-        tip: "Rodyti legendą"
-    },
-    basemap: {
-        title: "Pagrindo žemėlapis",
-        tip: "Pakeisti pagrindo žemėlapį"
-    },
-    share: {
-        title: "Bendrinti",
-        tip: "Bendrinkite žemėlapį"
-    }
-  })
-);
+define({
+  "map": {
+    "error": "Žemėlapio sukurti nepavyko"
+  },
+  "nav": {
+    "close": "Uždaryti"
+  },
+  "elevation": {
+    "toggle": "Perjungti aukščio profilio diagramą.",
+    "drawTool": "Brėžkite liniją žemėlapyje, kad sugeneruotumėte aukščio profilį.",
+    "selectMessage": "Spustelėkite linijos objektą arba brėžimo įrankiu nubrėžkite liniją, rodančią aukščio profilį",
+    "gainLossTemplate": "Min.: ${min}   Maks.: ${max}   Pradžia: ${start}   Pabaiga: ${end}   Keitimas: ${gainLoss}"
+  },
+  "splash": {
+    "title": "Pavadinimas",
+    "content": "Konfigūruokite, jeigu norite sukurti pasirinktinį pradžios ekraną"
+  },
+  "legend": {
+    "title": "Legenda",
+    "tip": "Rodyti legendą"
+  },
+  "basemap": {
+    "title": "Pagrindo žemėlapis",
+    "tip": "Pakeisti pagrindo žemėlapį"
+  },
+  "share": {
+    "title": "Bendrinti",
+    "tip": "Bendrinkite žemėlapį"
+  }
+});

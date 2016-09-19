@@ -20,57 +20,60 @@ define({
       error: "Unable to create map"
     },
     nav: {
-        "close": "Close"
+      "close": "Close"
     },
     elevation: {
-        toggle: "Toggle the Elevation Profile Chart.",
-        drawTool: "Draw a line on the map to generate an elevation profile.",
-        selectMessage: "Click a line feature or use the draw tool to draw a line to display the elevation profile"
+      toggle: "Toggle the Elevation Profile Chart.",
+      drawTool: "Draw a line on the map to generate an elevation profile.",
+      selectMessage: "Click a line feature or use the draw tool to draw a line to display the elevation profile",
+      gainLossTemplate: "Min: ${min}   Max: ${max}   Start: ${start}   End: ${end}   Change: ${gainLoss}"
     },
     splash: {
-        title: "Title",
-        content: "Configure to create custom splash content"
+      title: "Title",
+      content: "Configure to create custom splash content"
     },
     legend: {
-        title: "Legend",
-        tip: "Display legend"
+      title: "Legend",
+      tip: "Display legend"
     },
     basemap: {
-        title: "Basemap",
-        tip: "Change basemap"
+      title: "Basemap",
+      tip: "Change basemap"
     },
     share: {
-        title: "Share",
-        tip: "Share map"
+      title: "Share",
+      tip: "Share map"
     }
   }),
-    "ar": 1,
-    "cs": 1,
-    "da": 1,
-    "de": 1,
-    "el": 1,
-    "es": 1,
-    "et": 1,
-    "fi": 1,
-    "fr": 1,
-    "he": 1,
-    "it": 1,
-    "ja": 1,
-    "ko": 1,
-    "lt": 1,
-    "lv": 1,
-    "nl": 1,
-    "nb": 1,
-    "pl": 1,
-    "pt-br": 1,
-    "pt-pt": 1,
-    "ro": 1,
-    "ru": 1,
-    "sv": 1,
-    "tr": 1,
-    "th": 1,
-    "vi": 1,
-    "zh-cn": 1,
-    "zh-hk": 1,
-    "zh-tw": 1
+  "ar": 1,
+  "cs": 1,
+  "da": 1,
+  "de": 1,
+  "es": 1,
+  "et": 1,
+  "fi": 1,
+  "fr": 1,
+  "he": 1,
+  "hr": 1,
+  "it": 1,
+  "ja": 1,
+  "ko": 1,
+  "lt": 1,
+  "lv": 1,
+  "nl": 1,
+  "nb": 1,
+  "pl": 1,
+  "pt-br": 1,
+  "pt-pt": 1,
+  "ro": 1,
+  "ru": 1,
+  "su": 1,
+  "sr": 1,
+  "sv": 1,
+  "tr": 1,
+  "th": 1,
+  "vi": 1,
+  "zh-cn": 1,
+  "zh-hk": 1,
+  "zh-tw": 1
 });
