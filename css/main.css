@@ -206,34 +206,6 @@ elevation profile widget */
   height: auto;
   z-index: 30;
 }
-@media screen and (min-width: 620px) {
-  .panel{
-    width:80%;
-  }
-}
-.top-center{
-  position: absolute;
-  left: 50%;
-  top: 20px;
-  margin-left:20px; /*prevent zoom conflicts*/
-  -moz-transform: translateX(-50%) translateY(0%);
-  -webkit-transform: translateX(-50%) translateY(0%);
-  -o-transform: translateX(-50%) translateY(0%);
-  -ms-transform: translateX(-50%) translateY(0%);
-  transform: translateX(-50%) translateY(0%);
-  transform: translate(-50%, 0%);
-}
-.bottom-center {
-  position: absolute;
-  left: 50%;
-  bottom: 50px;
-  -moz-transform: translateX(-50%) translateY(0%);
-  -webkit-transform: translateX(-50%) translateY(0%);
-  -o-transform: translateX(-50%) translateY(0%);
-  -ms-transform: translateX(-50%) translateY(0%);
-  transform: translateX(-50%) translateY(0%);
-  transform: translate(-50%, 0%);
-}
 #panelContent{
   height:0;
   opacity: 0;
@@ -262,8 +234,6 @@ elevation profile widget */
 .esriElevationProfile .esriElevationProfileDirectionButton{
     margin:0 !important;
     position: absolute !important;
-    bottom:-2px !important;
-    right: 5px;
     width:35px !important;
 }
 .esriElevationProfile .esriElevationProfileDirectionButton:before{
@@ -333,7 +303,8 @@ elevation profile widget */
   box-sizing: border-box;
   transition: all .4s ease-in-out;
   -moz-transition: all .4s ease-in-out;
-  -webkit-transition: all .4s ease-in-out
+  -webkit-transition: all .4s ease-in-out;
+  z-index: 99;
 }
 #modalContent{
   max-height: 300px;

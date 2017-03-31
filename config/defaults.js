@@ -114,5 +114,7 @@ define({
   // This is an option added so that developers working with the
   // hosted version of the application can apply custom styles
   // not used in the download version.
-  "customstyle": null
+  "customstyle": null,
+  "customLayout": "default" // default, fullprofile
+
 });

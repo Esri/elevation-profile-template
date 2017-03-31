@@ -1,0 +1,42 @@
+.top-center{
+  position: absolute;
+  top:0;
+  left:0;
+  right:0;
+}
+.bottom-center {
+  position: absolute;
+  bottom:0;
+  left:0;
+  right:0;
+}
+@media screen and (min-width: 620px) {
+  .panel{
+    width:100%;
+  }
+}
+#elevTitle{
+  text-align: center;
+  padding-bottom: 10px;
+}
+.esriElevationProfile .esriElevationProfileDirectionButton{
+    bottom:34px !important;
+    right: 5px;
+}
+.bottom-center #elevTools{
+  position: absolute;
+  left:0;
+}
+.top-center .esriSimpleSlider{
+  left:0;
+  top:90px;
+}
+.top-center .map-tools{
+  left:0;
+}
+.nosearch .map-tools{
+  top:180px;
+}
+.esriAttribution{
+  opacity: 0.4;
+}

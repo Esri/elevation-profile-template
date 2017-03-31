@@ -77,6 +77,13 @@ define([
           this.config.color = sharedTheme.theme.text.color;
           this.config.background = sharedTheme.theme.body.bg;
         }
+
+        var customTheme = document.createElement("link");
+        customTheme.setAttribute("rel", "stylesheet");
+        customTheme.setAttribute("type", "text/css");
+        customTheme.setAttribute("href", "css/theme/" + this.config.customLayout + ".css");
+        document.head.appendChild(customTheme);
+
         // Create and add custom style sheet
         if (this.config.customstyle) {
           var style = document.createElement("style");
@@ -550,6 +557,7 @@ define([
     _setupProfile: function() {
       // Set the panel location
       domClass.add(dom.byId("panelContainer"), this.config.panelLocation);
+      domClass.add(document.body, this.config.panelLocation);
       var units = this.config.units;
       if (units === "english" || units === "metric") {
         units = (units === "english") ? Units.MILES : Units.KILOMETERS;

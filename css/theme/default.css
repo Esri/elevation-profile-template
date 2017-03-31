@@ -1,0 +1,32 @@
+.panel.top-center{
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  margin-left:20px; /*prevent zoom conflicts*/
+  -moz-transform: translateX(-50%) translateY(0%);
+  -webkit-transform: translateX(-50%) translateY(0%);
+  -o-transform: translateX(-50%) translateY(0%);
+  -ms-transform: translateX(-50%) translateY(0%);
+  transform: translateX(-50%) translateY(0%);
+  transform: translate(-50%, 0%);
+}
+.panel.bottom-center {
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  -moz-transform: translateX(-50%) translateY(0%);
+  -webkit-transform: translateX(-50%) translateY(0%);
+  -o-transform: translateX(-50%) translateY(0%);
+  -ms-transform: translateX(-50%) translateY(0%);
+  transform: translateX(-50%) translateY(0%);
+  transform: translate(-50%, 0%);
+}
+@media screen and (min-width: 620px) {
+  .panel{
+    width:80%;
+  }
+}
+.esriElevationProfile .esriElevationProfileDirectionButton{
+    bottom:-2px !important;
+    right: 5px;
+}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title></title>
   <meta charset="utf-8">
@@ -13,14 +14,14 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <!-- End Responsive -->
   <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
-  <link rel="stylesheet" href="//js.arcgis.com/3.18/dijit/themes/claro/claro.css">
-  <link rel="stylesheet" href="//js.arcgis.com/3.18/esri/css/esri.css">
+  <link rel="stylesheet" href="//js.arcgis.com/3.20/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="//js.arcgis.com/3.20/esri/css/esri.css">
   <!-- Load any application specific styles -->
   <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body class="claro app-loading">
-    <!--Modal Splash Screen-->
+  <!--Modal Splash Screen-->
   <div id="modal" class="hide">
     <div class="modal-content">
       <div class="modal-header bg fg">
@@ -28,12 +29,12 @@
       </div>
       <div class="copy bg fg">
         <div id="modalContent"></div>
-        <center><input  id="closeOverlay" class="bg fg" type="button"/></center>
+        <center><input id="closeOverlay" class="bg fg" type="button" /></center>
       </div>
     </div>
     <div class="overlay"></div>
   </div>
- <div id="basemapContainer" class="bg fg arrow_box">
+  <div id="basemapContainer" class="bg fg arrow_box">
     <div class="dialog-header">
       <div class="icon-close closeBtn" tabindex="0"></div>
     </div>
@@ -64,7 +65,7 @@
     <div id="panelContent">
       <div id="elevProfileChart"></div>
     </div>
-      <div id="elevInfo"></div>
+    <div id="elevInfo"></div>
   </div>
   <div class="loading-indicator">
     <div class="loading-message" id="loading_message"></div>
@@ -84,42 +85,43 @@
       packages: [{
         name: "application",
         location: package_path + '/js'
-            }, {
+      }, {
         name: "config",
         location: package_path + '/config'
-            }, {
+      }, {
         name: "arcgis_templates",
         location: package_path + '/..'
-            }]
+      }]
     };
     // Have to handle a locale parameter before dojo is loaded
     if (location.search.match(/locale=([\w\-]+)/)) {
-        dojoConfig.locale = RegExp.$1;
+      dojoConfig.locale = RegExp.$1;
     }
-
   </script>
-  <script type="text/javascript" src="//js.arcgis.com/3.18/"></script>
+  <script type="text/javascript" src="//js.arcgis.com/3.20/"></script>
   <script type="text/javascript">
     require([
-            "config/templateConfig",
-            "application/template",
-            "application/main"
-        ], function (
+      "config/templateConfig",
+      "application/template",
+      "application/main"
+    ], function (
       templateConfig,
       Template,
       Main
     ) {
-      // create the template. This will take care of all the logic required for template applications
-      var myTemplate = new Template(templateConfig);
-      var myApp = new Main();
-      // start template
-      myTemplate.startup().then(function (config) {
-        myApp.startup(config);
-      }, function (error) {
-        // something went wrong. Let's report it.
-        myApp.reportError(error);
+        // create the template. This will take care of all the logic required for template applications
+        var myTemplate = new Template(templateConfig);
+        var myApp = new Main();
+        // start template
+        myTemplate.startup().then(function (config) {
+          myApp.startup(config);
+        }, function (error) {
+          // something went wrong. Let's report it.
+          myApp.reportError(error);
+        });
       });
-    });
+
   </script>
 </body>
+
 </html>
