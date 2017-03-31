@@ -3,9 +3,9 @@ elevation-profile-template
 
 Elevation Profile is a configurable application template used to display the elevation profile for a selected feature or a measured line along with a web map.
 
-![Screen Shot](https://dl.dropboxusercontent.com/u/24627279/screenshots/profile.png)
 
 [View it live](http://www.arcgis.com/apps/Profile/index.html?webmap=8dd583ea3de64e40b92ea5a261d0c6c8)
+
 #November 2015 Release Updates
 - **User interface and code updated:** The UI for this template was rewritten to have a cleaner and more modern look. 
 - **Toggle Tools:**  Support has been added to display a basemap gallery, 
