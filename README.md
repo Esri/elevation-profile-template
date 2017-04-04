@@ -1,20 +1,19 @@
-# application-boilerplate-js
+# elevation-profile-template
 
-The Application Boilerplate is a starter application for building custom templates with the ArcGIS API for JavaScript.
+Elevation Profile is a configurable app template used to display the elevation profile for a selected feature or a measured line along with a web map. This template uses the Profile geoprocessing service to generate the elevation values along the profile. View the Profile service developer documentation for additional details.
 
 ## Features
-This bare-bones app includes all the code you need to build an ArcGIS Online template. It will save you time when:
+Use the Elevation Profile to present content from a web map and configure it using the following options. 
 
-*	Making an ArcGIS Online compatible template.
-*	Using your ArcGIS Online webmap to power the template.
-*	Localizing your application in different languages.
+*	Choose the title, description, and color theme.
+*	Configure a splash screen with customized text that displays when the app is first opened.
+*	Fully customize the color of the profile widget.
 *	Capturing URL parameters and using them in your application.
-*	Using settings from your ArcGIS Online organization or configured application.
-*	Enabling your application to sign-in to ArcGIS Online using [OAuth 2.0](http://oauth.net/2/).
+*	Specify a custom profile service via URL. By default, this application uses the Elevation Analysis Profile Task to generate elevation values along the profile.
+*	Enable a basemap gallery, legend, opacity slider, and share dialog.
 
-[View it live](http://esri.github.io/application-boilerplate-js/application_boilerplate/)
+[View it live](https://www.arcgis.com/apps/Profile/index.html)
 
-![App](https://raw.github.com/Esri/application-boilerplate-js/master/application_boilerplate/images/thumb.png)
 
 ## Getting Started
 
