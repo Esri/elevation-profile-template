@@ -46,7 +46,7 @@ define([
   "application/ElevationProfileSetup",
 
   "dojo/domReady!"
-], function(
+], function (
   declare, array, lang, kernel, Color,
   on, mouse, query,
   Deferred,
@@ -63,7 +63,7 @@ define([
   return declare(null, {
     config: {},
     containers: [],
-    startup: function(config) {
+    startup: function (config) {
       // Set lang attribute to current locale
       document.documentElement.lang = kernel.locale;
       var promise;
@@ -107,9 +107,9 @@ define([
           geometryService: this.config.helperServices.geometry.url
         });
 
-        mapParams.processUrlParams().then(lang.hitch(this, function(urlParams) {
+        mapParams.processUrlParams().then(lang.hitch(this, function (urlParams) {
           promise = this._createWebMap(itemInfo, urlParams);
-        }), lang.hitch(this, function(error) {
+        }), lang.hitch(this, function (error) {
           this.reportError(error);
         }));
 
@@ -124,7 +124,7 @@ define([
       }
       return promise;
     },
-    reportError: function(error) {
+    reportError: function (error) {
       // remove loading class from body
       domClass.remove(document.body, "app-loading");
       domClass.add(document.body, "app-error");
@@ -145,7 +145,7 @@ define([
     },
 
     // create a map based on the input web map id
-    _createWebMap: function(itemInfo, params) {
+    _createWebMap: function (itemInfo, params) {
       // set extent from config/url
 
       //enable/disable the slider
@@ -159,7 +159,7 @@ define([
         layerMixins: this.config.layerMixins || [],
         editable: this.config.editable,
         bingMapsKey: this.config.orgInfo.bingKey || ""
-      }).then(lang.hitch(this, function(response) {
+      }).then(lang.hitch(this, function (response) {
         this.map = response.map;
         dom.byId("elevTitle").innerHTML = this.config.title || response.itemInfo.item.title;
         document.title = this.config.title || response.itemInfo.item.title;
@@ -174,14 +174,14 @@ define([
 
         // remove loading class from body
         domClass.remove(document.body, "app-loading");
-        on(window, "resize", function() {
+        on(window, "resize", function () {
           registry.byId("elevProfileChart").resize();
         });
 
         if (params.markerGraphic) {
           // Add a marker graphic with an optional info window if
           // one was specified via the marker url parameter
-          require(["esri/layers/GraphicsLayer"], lang.hitch(this, function(GraphicsLayer) {
+          require(["esri/layers/GraphicsLayer"], lang.hitch(this, function (GraphicsLayer) {
             var markerLayer = new GraphicsLayer();
 
             this.map.addLayer(markerLayer);
@@ -199,7 +199,7 @@ define([
         // Hide or show profile when button is clicked.
         var profileToggle = dom.byId("toggleProfile");
         profileToggle.title = this.config.i18n.elevation.toggle;
-        on(profileToggle, "click", lang.hitch(this, function() {
+        on(profileToggle, "click", lang.hitch(this, function () {
           this._togglePanel("panelContent");
         }));
         this._setupAppTools();
@@ -211,7 +211,7 @@ define([
         return response;
       }), this.reportError);
     },
-    _drawLine: function(Draw) {
+    _drawLine: function (Draw) {
       // Add active class
       domClass.toggle("drawTool", "active");
       if (domClass.contains("drawTool", "active")) {
@@ -223,17 +223,17 @@ define([
         this.drawTool.deactivate();
         return;
       }
-      on(this.drawTool, "draw-complete", lang.hitch(this, function(result) {
+      on(this.drawTool, "draw-complete", lang.hitch(this, function (result) {
         this.elevationWidget.generateProfile(result.geometry);
-        on.once(this.map, "click", lang.hitch(this, function() {
+        on.once(this.map, "click", lang.hitch(this, function () {
           this.elevationWidget.clearProfileChart();
         }));
       }));
     },
-    _setupAppTools: function() {
+    _setupAppTools: function () {
       // setup the draw tool
       if (this.config.elevationDraw) {
-        require(["esri/toolbars/draw"], lang.hitch(this, function(Draw) {
+        require(["esri/toolbars/draw"], lang.hitch(this, function (Draw) {
 
           var drawToolButton = dom.byId("drawTool");
 
@@ -244,15 +244,15 @@ define([
           if (this.map.infoWindow.lineSymbol) {
             this.drawTool.setLineSymbol(this.map.infoWindow.lineSymbol);
           }
-          on(drawToolButton, "click", lang.hitch(this, function() {
+          on(drawToolButton, "click", lang.hitch(this, function () {
             this._drawLine(Draw);
           }));
 
         }));
 
       }
-      query(".closeBtn").on("click", lang.hitch(this, function() {
-        array.forEach(this.containers, lang.hitch(this, function(container) {
+      query(".closeBtn").on("click", lang.hitch(this, function () {
+        array.forEach(this.containers, lang.hitch(this, function (container) {
           domClass.remove(container.btn, "activeTool");
           domStyle.set(container.container, {
             visibility: "hidden"
@@ -261,14 +261,15 @@ define([
         }));
       }));
       // setup the basemap tool
-      if (this.config.basemaps) {
-        require(["esri/dijit/BasemapGallery"], lang.hitch(this, function(BasemapGallery) {
+      if (this.config.basemaps && !this.config.basemapToggle) {
+        require(["esri/dijit/BasemapGallery"], lang.hitch(this, function (BasemapGallery) {
           var basemapGallery = new BasemapGallery({
             map: this.map,
             portalUrl: this.config.sharinghost,
             bingMapsKey: this.config.orgInfo.bingKey || "",
-            basemapsGroup: this._getBasmapGroup
+            basemapsGroup: this._getBasemapGroup()
           }, "basemapDiv");
+
           basemapGallery.startup();
           var basemapButton = dom.byId("basemapBtn");
           domStyle.set(basemapButton, "display", "inline-block");
@@ -277,13 +278,13 @@ define([
             btn: "basemapBtn",
             container: "basemapContainer"
           });
-          on(basemapButton, "click", lang.hitch(this, function() {
+          on(basemapButton, "click", lang.hitch(this, function () {
             this._toggleButtonContainer(basemapButton, "basemapContainer");
           }));
         }));
       }
       if (this.config.basemapToggle) {
-        require(["esri/dijit/BasemapToggle", "esri/basemaps"], lang.hitch(this, function(BasemapToggle, basemaps) {
+        require(["esri/dijit/BasemapToggle", "esri/basemaps"], lang.hitch(this, function (BasemapToggle, basemaps) {
 
           /* Start temporary until after JSAPI 4.0 is released */
           var bmLayers = [],
@@ -298,7 +299,7 @@ define([
               }
             }
           }
-          on.once(this.map, "basemap-change", lang.hitch(this, function() {
+          on.once(this.map, "basemap-change", lang.hitch(this, function () {
             if (bmLayers && bmLayers.length) {
               for (var i = 0; i < bmLayers.length; i++) {
                 bmLayers[i].setVisibility(false);
@@ -345,7 +346,7 @@ define([
       }
       // setup the legend tool
       if (this.config.legend) {
-        require(["esri/dijit/LayerList"], lang.hitch(this, function(LayerList) {
+        require(["esri/dijit/LayerList"], lang.hitch(this, function (LayerList) {
           var legendButton = dom.byId("legendBtn");
           domStyle.set(legendButton, "display", "inline-block");
           legendButton.title = this.config.i18n.legend.tip;
@@ -355,7 +356,7 @@ define([
           });
 
           var layerList = null;
-          on(legendButton, "click", lang.hitch(this, function() {
+          on(legendButton, "click", lang.hitch(this, function () {
             this._toggleButtonContainer(legendButton, "legendContainer");
 
             if (!layerList) {
@@ -379,7 +380,7 @@ define([
       }
       // setup the share dialog
       if (this.config.share) {
-        require(["application/ShareDialog"], lang.hitch(this, function(ShareDialog) {
+        require(["application/ShareDialog"], lang.hitch(this, function (ShareDialog) {
 
           var shareButton = dom.byId("shareBtn");
           domStyle.set(shareButton, "display", "inline-block");
@@ -397,15 +398,15 @@ define([
             summary: this.config.response.itemInfo.item.snippet || ""
           }, "shareDiv");
           shareDialog.startup();
-          on(shareButton, "click", lang.hitch(this, function() {
+          on(shareButton, "click", lang.hitch(this, function () {
             this._toggleButtonContainer(shareButton, "shareContainer");
           }));
         }));
       }
 
       //Feature Search or find (if no search widget)
-      if ( (this.config.find || (this.config.customUrlLayer.id !== null && this.config.customUrlLayer.fields.length > 0 && this.config.customUrlParam !== null)) ) {
-        require(["esri/dijit/Search", "esri/urlUtils", "esri/lang"], lang.hitch(this, function(Search, urlUtils, esriLang) {
+      if ((this.config.find || (this.config.customUrlLayer.id !== null && this.config.customUrlLayer.fields.length > 0 && this.config.customUrlParam !== null))) {
+        require(["esri/dijit/Search", "esri/urlUtils", "esri/lang"], lang.hitch(this, function (Search, urlUtils, esriLang) {
 
           //Support find or custom url param
           if (this.config.find) {
@@ -448,9 +449,9 @@ define([
           if (source) {
             urlSearch.set("sources", [source]);
           }
-          urlSearch.on("load", lang.hitch(this, function() {
-            urlSearch.search(value).then(lang.hitch(this, function() {
-              on.once(this.map.infoWindow, "hide", lang.hitch(this, function() {
+          urlSearch.on("load", lang.hitch(this, function () {
+            urlSearch.search(value).then(lang.hitch(this, function () {
+              on.once(this.map.infoWindow, "hide", lang.hitch(this, function () {
                 urlSearch.clear();
                 urlSearch.destroy();
                 if (this.editor) {
@@ -467,7 +468,7 @@ define([
 
 
       if (this.config.search) {
-        require(["esri/dijit/Search", "esri/tasks/locator", "application/SearchSources"], lang.hitch(this, function(Search, Locator, SearchSources) {
+        require(["esri/dijit/Search", "esri/tasks/locator", "application/SearchSources"], lang.hitch(this, function (Search, Locator, SearchSources) {
           if (!Search || !Locator) {
             return;
           }
@@ -507,7 +508,7 @@ define([
         domClass.add(document.body, "nosearch");
       }
     },
-    _getBasemapGroup: function() {
+    _getBasemapGroup: function () {
       //Get the id or owner and title for an organizations custom basemap group.
       var basemapGroup = null;
       if (this.config.basemapgroup && this.config.basemapgroup.title && this.config.basemapgroup.owner) {
@@ -522,7 +523,7 @@ define([
       }
       return basemapGroup;
     },
-    _toggleButtonContainer: function(button, container) {
+    _toggleButtonContainer: function (button, container) {
       var position = domGeometry.position(button);
       domClass.toggle(button, "activeTool");
       if (domClass.contains(button, "activeTool")) {
@@ -543,7 +544,7 @@ define([
       }
 
       // close any other open tool containers
-      array.forEach(this.containers, lang.hitch(this, function(container) {
+      array.forEach(this.containers, lang.hitch(this, function (container) {
         if (container.btn !== button.id && domClass.contains(dom.byId(container.btn), "activeTool")) {
           domClass.toggle(container.btn, "activeTool");
           domStyle.set(container.container, {
@@ -554,7 +555,7 @@ define([
       }));
     },
 
-    _setupProfile: function() {
+    _setupProfile: function () {
       // Set the panel location
       domClass.add(dom.byId("panelContainer"), this.config.panelLocation);
       domClass.add(document.body, this.config.panelLocation);
@@ -604,30 +605,30 @@ define([
       this.elevationWidget = new ElevationProfileSetup(params);
       this.elevationWidget.setupProfile();
       if (this.elevationWidget.profileWidget && this.elevationWidget.profileWidget._directionButton) {
-        on(this.elevationWidget.profileWidget._directionButton, "click", lang.hitch(this, function() {
-          on.once(this.elevationWidget.profileWidget._profileChart, "chart-update", lang.hitch(this, function() {
+        on(this.elevationWidget.profileWidget._directionButton, "click", lang.hitch(this, function () {
+          on.once(this.elevationWidget.profileWidget._profileChart, "chart-update", lang.hitch(this, function () {
             var content = esriLang.substitute(this.elevationWidget.generateElevationInfo(), this.config.i18n.elevation.gainLossTemplate);
             dom.byId("elevInfo").innerHTML = content;
           }));
         }));
       }
-      on(this.elevationWidget, "profile-generated", lang.hitch(this, function() {
+      on(this.elevationWidget, "profile-generated", lang.hitch(this, function () {
         //open profile chart if closed
         var height = domStyle.get(dom.byId("panelContent"), "height");
         if (height <= 0) {
           this._togglePanel("panelContent");
         }
-        on.once(this.elevationWidget.profileWidget._profileChart, "chart-clear", function() {
+        on.once(this.elevationWidget.profileWidget._profileChart, "chart-clear", function () {
           dom.byId("elevInfo").innerHTML = "";
         });
-        on.once(this.elevationWidget.profileWidget._profileChart, "chart-update", lang.hitch(this, function() {
+        on.once(this.elevationWidget.profileWidget._profileChart, "chart-update", lang.hitch(this, function () {
           var content = esriLang.substitute(this.elevationWidget.generateElevationInfo(), this.config.i18n.elevation.gainLossTemplate);
           dom.byId("elevInfo").innerHTML = content;
         }));
       }));
 
     },
-    _updateTheme: function() {
+    _updateTheme: function () {
       var bgColor = this.config.background;
       var bgOpacity = Number(this.config.backgroundOpacity);
       var textColor = this.config.color;
@@ -671,7 +672,7 @@ define([
 
     },
 
-    _togglePanel: function(chartNode) {
+    _togglePanel: function (chartNode) {
       var element = dom.byId(chartNode),
         height = domStyle.get(element, "height"),
         opacity = parseInt(domStyle.get(element, "opacity")),
@@ -685,20 +686,20 @@ define([
         properties: {
           height: height === 0 ? 210 : 0
         },
-        onBegin: function() {
+        onBegin: function () {
           // hide the panel if showing when animation starts
           if (opacity === 1) {
             domStyle.set(element, "opacity", "0");
           }
         },
-        onEnd: function() {
+        onEnd: function () {
           // when height animation ends show/hide panel
           domStyle.set(element, "opacity", opacity === 0 ? 1 : 0);
           domStyle.set(element, "visibility", visibility === "hidden" ? "visible" : "hidden");
         }
       }).play();
     },
-    _setupSplashModal: function() {
+    _setupSplashModal: function () {
       // Setup the modal overlay if enabled
       if (this.config.splashModal) {
         domClass.remove("modal", "hide");
@@ -709,44 +710,41 @@ define([
         dom.byId("closeOverlay").value = this.config.splashButtonText || this.config.i18n.nav.close;
 
         // Close button handler for the overlay
-        on(dom.byId("closeOverlay"), "click", lang.hitch(this, function() {
+        on(dom.byId("closeOverlay"), "click", lang.hitch(this, function () {
           domClass.add("modal", "hide");
         }));
       }
     },
-    _getBasemapName: function(name) {
-      var current = null;
-      switch (name) {
-        case "dark-gray":
-          current = "Dark Gray Canvas";
-          break;
-        case "gray":
-          current = "Light Gray Canvas";
-          break;
-        case "hybrid":
-          current = "Imagery with Labels";
-          break;
-        case "national-geographic":
-          current = "National Geographic";
-          break;
-        case "oceans":
-          current = "Oceans";
-          break;
-        case "osm":
-          current = "OpenStreetMap";
-          break;
-        case "satellite":
-          current = "Imagery";
-          break;
-        case "streets":
-          current = "Streets";
-          break;
-        case "terrain":
-          current = "Terrain with Labels";
-          break;
-        case "topo":
-          current = "Topographic";
-          break;
+    _getBasemapName: function (name) {
+      // We have to do this because of localized strings we need 
+      // a better solution 
+      var current = "Streets";
+      if (name === "dark-gray" || name === "dark-gray-vector") {
+        current = "Dark Gray Canvas";
+      } else if (name === "gray" || name === "gray-vector") {
+        current = "Light Gray Canvas";
+      } else if (name === "hybrid") {
+        current = "Imagery with Labels";
+      } else if (name === "national-geographic") {
+        current = "National Geographic";
+      } else if (name === "oceans") {
+        current = "Oceans";
+      } else if (name === "osm") {
+        current = "OpenStreetMap";
+      } else if (name === "satellite") {
+        current = "Imagery";
+      } else if (name === "streets" || name === "streets-vector") {
+        current = "Streets";
+      } else if (name === "streets-navigation-vector") {
+        current = "World Navigation Map";
+      } else if (name === "streets-night-vector") {
+        current = "World Street Map (Night)";
+      } else if (name === "streets-relief-vector") {
+        current = "World Street Map (with Relief)";
+      } else if (name === "terrain") {
+        current = "Terrain with Labels";
+      } else if (name === "topo" || name === "topo-vector") {
+        current = "Topographic";
       }
       return current;
     }
