@@ -11,7 +11,7 @@ define([
   "esri/graphic",
   "esri/layers/GraphicsLayer",
   "esri/dijit/ElevationProfile"
-], function(
+], function (
   declare,
   array,
   lang,
@@ -24,7 +24,7 @@ define([
   ElevationProfile
 ) {
   return declare("application.ElevationProfileSetup", [Evented], {
-    constructor: function(parameters) {
+    constructor: function (parameters) {
       var defaults = {
         elevProfileChartNode: "elevProfileChart",
         map: null,
@@ -35,15 +35,17 @@ define([
     },
 
     /* Public Methods */
-    setupProfile: function() {
+    setupProfile: function () {
       var profileParams = {
         map: this.map,
         profileTaskUrl: this.profileTaskUrl,
         scalebarUnits: this.scalebarUnits,
         chartOptions: this.chartParams
       };
+
       this.profileWidget = new ElevationProfile(profileParams, this.elevProfileChartNode);
       this.profileWidget.startup();
+
 
       this.selGraphicsLayer = new GraphicsLayer();
       this.map.addLayer(this.selGraphicsLayer);
@@ -51,10 +53,10 @@ define([
 
       // Setup click handlers for all polyline layers
       var layerIds = this.map.graphicsLayerIds;
-      array.forEach(layerIds, lang.hitch(this, function(id) {
+      array.forEach(layerIds, lang.hitch(this, function (id) {
         var l = this.map.getLayer(id);
         if (l && l.geometryType && l.geometryType === "esriGeometryPolyline") {
-          l.on("click", lang.hitch(this, function(e) {
+          l.on("click", lang.hitch(this, function (e) {
             if (e && e.graphic && e.graphic.geometry) {
               this.generateProfile(e.graphic.geometry);
             }
@@ -63,7 +65,7 @@ define([
       }));
 
       // also show elev profile when popup for polyline layers is clicked
-      on(this.map.infoWindow, "selection-change", lang.hitch(this, function() {
+      on(this.map.infoWindow, "selection-change", lang.hitch(this, function () {
         var sel = this.map.infoWindow.getSelectedFeature();
         if (sel && sel.geometry && sel.geometry.type === "polyline") {
           this.generateProfile(sel.geometry);
@@ -73,20 +75,26 @@ define([
       }));
     },
 
-    generateProfile: function(geometry) {
+    generateProfile: function (geometry) {
       var profileLine = geometry;
       if (profileLine) {
-        this.profileWidget.set("profileGeometry", profileLine);
+        try {
+          this.profileWidget.set("profileGeometry", profileLine);
+        } catch (error) {
+          var message = "Unable to generate elevation profile. Service may be invalid or down.";
+          alert(message);
+        }
+
         // Add selected graphic to the map so we get a highlight symbol
         this.selGraphicsLayer.add(new Graphic(geometry, this.map.infoWindow.lineSymbol));
-
         this.emit("profile-generated");
-      //this.generateElevationInfo();
+      } else {
+        console.log("Unable to generate profile");
       }
 
     },
 
-    generateElevationInfo: function() {
+    generateElevationInfo: function () {
       // generate elevation info
       var gainLossDetails = null;
       if (this.profileWidget && this.profileWidget._profileChart && this.profileWidget._profileChart._profileResults && this.profileWidget._profileChart._profileResults.elevations) {
@@ -111,7 +119,7 @@ define([
       }
     },
     /* Private Methods */
-    clearProfileChart: function() {
+    clearProfileChart: function () {
       //remove sel graphic from map
       this.profileWidget.clearProfile();
       // Clear any selected graphics

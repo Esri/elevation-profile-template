@@ -716,8 +716,8 @@ define([
       }
     },
     _getBasemapName: function (name) {
-      // We have to do this because of localized strings we need 
-      // a better solution 
+      // We have to do this because of localized strings we need
+      // a better solution
       var current = "Streets";
       if (name === "dark-gray" || name === "dark-gray-vector") {
         current = "Dark Gray Canvas";

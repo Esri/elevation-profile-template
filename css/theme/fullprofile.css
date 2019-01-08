@@ -34,9 +34,11 @@
 .top-center .map-tools{
   left:0;
 }
-.nosearch .map-tools{
-  top:180px;
-}
+
 .esriAttribution{
   opacity: 0.4;
+}
+
+.top-center .map-tools{
+  top:160px;
 }

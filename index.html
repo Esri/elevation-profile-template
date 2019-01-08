@@ -4,7 +4,6 @@
 <head>
   <title></title>
   <meta charset="utf-8">
-  <meta name="fragment" content="!">
   <!-- Responsive -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="mobile-web-app-capable" content="yes">
@@ -12,8 +11,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <!-- End Responsive -->
   <!-- Use protocol relative urls that way if the browser is viewing the page via HTTPS the js/css file will be requested using the HTTPS protocol -->
-  <link rel="stylesheet" href="https://js.arcgis.com/3.22/dijit/themes/claro/claro.css">
-  <link rel="stylesheet" href="https://js.arcgis.com/3.22/esri/css/esri.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.27/dijit/themes/claro/claro.css">
+  <link rel="stylesheet" href="https://js.arcgis.com/3.27/esri/css/esri.css">
   <!-- Load any application specific styles -->
   <link rel="stylesheet" href="css/main.css">
 </head>
@@ -27,7 +26,9 @@
       </div>
       <div class="copy bg fg">
         <div id="modalContent"></div>
-        <center><input id="closeOverlay" class="bg fg" type="button" /></center>
+        <center>
+          <input id="closeOverlay" class="bg fg" type="button" />
+        </center>
       </div>
     </div>
     <div class="overlay"></div>
@@ -76,8 +77,12 @@
   </div>
   <div id="toggle" class="toggle"></div>
   <script type="text/javascript">
+    var webgl = location.search.match(/webgl=([\w-]+)/) ? (RegExp.$1).toLowerCase() === "false" ? 0 : 1 : 1;
     var package_path = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/'));
     var dojoConfig = {
+      has: {
+        "esri-featurelayer-webgl": webgl
+      },
       async: true,
       parseOnLoad: true,
       packages: [{
@@ -95,8 +100,9 @@
     if (location.search.match(/locale=([\w\-]+)/)) {
       dojoConfig.locale = RegExp.$1;
     }
+
   </script>
-  <script type="text/javascript" src="https://js.arcgis.com/3.22/"></script>
+  <script type="text/javascript" src="https://js.arcgis.com/3.27/"></script>
   <script type="text/javascript">
     require([
       "config/templateConfig",
@@ -118,6 +124,7 @@
         myApp.reportError(error);
       });
     });
+
   </script>
 </body>
 
