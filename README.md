@@ -1,4 +1,7 @@
-# elevation-profile-template
+
+ArcGIS Configurable Apps will be retired in 2025. The ArcGIS Configurable Apps source code repro is deprecated and will not receive further updates. In addition, this repository will be removed in October 2025, along with the October 2025 ArcGIS Online update.
+
+# Deprecated: elevation-profile-template
 
 Elevation Profile is a configurable app template used to display the elevation profile for a selected feature or a measured line along with a web map. This template uses the Profile geoprocessing service to generate the elevation values along the profile. View the Profile service developer documentation for additional details.
 
